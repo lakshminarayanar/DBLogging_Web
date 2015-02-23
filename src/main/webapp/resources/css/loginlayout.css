@@ -1,0 +1,214 @@
+html {
+	height: 100%;
+}
+
+body, div, td, .ui-commandlink.ui-widget, .ui-messages-error, .ui-message-error{
+    font-family: 'PT Sans', sans-serif;
+    font-size: 14px;
+    word-wrap: break-word;
+}
+
+body {
+    background-color: #fefdfa;
+    height: 100%;
+    margin: 0;
+    text-align: center;
+}
+
+h1 {
+    background-color: #315d72;
+    border-radius: 14px;
+    border:2px solid #f06409;
+}
+
+img {
+    background: white;
+    margin-top: 2em;
+    /* box-shadow: 4px 4px 8px rgba(0,0,0,.25); */
+}
+
+#wrapper {
+    min-height: 100%;
+    position: relative;
+    width: 100%;
+}
+
+/* #container {
+    padding-bottom: 20px;
+} */
+
+
+#footer {
+   background: #396c84;
+   bottom: 0;
+   color: #fff;
+   height: 20px;
+   left: 0;
+   position: fixed;
+   bottom: 0;
+   z-index: 999999;
+   text-align: center;
+   width: 100%; 
+}
+
+#loginHeader {
+    font-size: 16px;
+    color: #fff;
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#loginContainer {
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 20px;
+    width: 640px;
+}
+
+#loginForm {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#registerHeader {
+    font-size: 16px;
+    color: #fff;
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#registerContainer {
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 20px;
+    width: 800px;
+}
+
+#registerForm {
+    margin-left: auto;
+    margin-right: auto;
+   	width: 800px
+}
+
+#panel {
+    background-color: #f06409;
+    border-radius: 15px;
+    margin-left: auto;
+    margin-right: auto; 
+}
+
+.ui-panelgrid tr, .ui-panelgrid td {
+    border:0 !important;
+}
+
+.ui-widget-content td  {
+	text-align: right;
+}
+
+.ui-widget-header {
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+    background-color: transparent;
+}
+
+/* .ui-growl {
+    position: fixed;
+    top: 45%;
+    left: 63%;
+} */
+
+.ui-growl-item-container {
+    background-image: none;
+    background-color: #e27129;  
+}
+
+
+/* Setting for input fields */
+.ui-widget input, .ui-inputfield {
+    border: 1px solid gray !important;
+    border-radius: 5px;
+    font-family: 'PT Sans', sans-serif;
+    width: 296px;
+    padding: 1px 0.5em;
+    margin: auto 3px;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.18) !important;
+}
+
+#loginForm > .ui-widget input {
+	 width: 139px;
+}
+
+/* Setting for selectonemenu field in form */
+.ui-selectonemenu {
+    border: 1px solid gray !important;
+    font-family: 'PT Sans', sans-serif;
+    text-align: left;
+    text-transform: capitalize;
+    width: 311px !important;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.18) !important;
+}
+
+/* Setting for selectonemenu trigger */
+.ui-selectonemenu-trigger.ui-corner-right {
+    background: #fff ;
+    border-left: hidden !important;
+}
+
+/* Setting to capitalize list item for selectonemenu */
+.ui-selectonemenu-list-item {
+    font-family: 'PT Sans', sans-serif;
+    text-transform: capitalize;
+}
+
+/* Setting for highlight state for selectonemenu */
+.ui-selectonemenu-list-item.ui-state-highlight {
+   background: #396c84 !important;
+   font-family: 'PT Sans', sans-serif;
+}
+
+
+/* Setting for button */
+.ui-button-text, input#loginButton {
+    /* background-color: #b3b3b3; */
+    font-family: 'PT Sans', sans-serif;
+    font-size: 14px;
+    /* color: #fff; */
+    font-weight: bold;
+    /* text-shadow: none; */
+    width: auto !important;
+}
+
+input#loginButton {
+    padding: .3em 1em;
+    line-height: 1.4;
+    text-align: centre; 
+    background-color: #fafafa;
+}
+
+.ui-state-error {
+	border-color: black !important;
+	color: black !important;
+}
+
+.ui-messages-error, .ui-message-error {
+	text-align: left !important;
+}
+
+.req:before {
+	content: "* ";
+	color: orangered;
+}
+
+a:link { 
+	color: #f88d00;
+	text-decoration: none; 
+    font-weight: bold;
+}
+ 
+a:hover { 
+    color: #396c84; 
+    text-decoration: underline;
+}

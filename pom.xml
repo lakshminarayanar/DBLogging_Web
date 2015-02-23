@@ -1,0 +1,296 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.hlb.dblogging</groupId>
+	<artifactId>DBLogging_Web</artifactId>
+	<version>0.1.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+	<name>Web Application for DBLogging</name>
+	<url>http://maven.apache.org</url>
+	<properties>
+		<spring.version>4.1.4.RELEASE</spring.version>
+		<spring.data.jpa.version>1.7.2.RELEASE</spring.data.jpa.version>
+		<spring.security.version>3.2.0.RELEASE</spring.security.version>
+		<hibernate.version>4.2.7.SP1</hibernate.version>
+		<project.groupid>com.hlb.dblogging</project.groupid>
+		<hostname>localhost</hostname>  <!-- Where to deploy. -->
+		<was.home>C:\Program Files (x86)\IBM\WebSphere\AppServer</was.home>
+		<was.node>WIN-TJUDR80CLU8Node02</was.node>
+		<was.cell>WIN-TJUDR80CLU8Node02Cell</was.cell>
+		<was.contextroot>DBLogging_Web</was.contextroot>
+		<was.virtualhost>default_host</was.virtualhost>
+		<was.server>server1</was.server>
+		<was.user>admin</was.user>
+		<was.password>admin@123</was.password>
+		<was.soap.port>8881</was.soap.port>
+
+	</properties>
+	<dependencies>
+
+		<dependency>
+			<groupId>com.hlb.dblogging</groupId>
+			<artifactId>DBLogging_JPA</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${spring.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+			<version>${spring.security.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${spring.security.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>${spring.security.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-jpa</artifactId>
+			<version>${spring.data.jpa.version}</version>
+		</dependency>
+
+		<!-- JSF dependencies -->
+		<dependency>
+			<groupId>com.sun.faces</groupId>
+			<artifactId>jsf-api</artifactId>
+			<version>2.1.5</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.sun.faces</groupId>
+			<artifactId>jsf-impl</artifactId>
+			<version>2.1.5</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+		<!-- Primefaces dependency -->
+		<dependency>
+			<groupId>org.primefaces</groupId>
+			<artifactId>primefaces</artifactId>
+			<version>4.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.primefaces.extensions</groupId>
+			<artifactId>primefaces-extensions</artifactId>
+			<version>1.2.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.primefaces.themes</groupId>
+			<artifactId>all-themes</artifactId>
+			<version>1.0.10</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- MySQL Java Connector dependency -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.17</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javassist</groupId>
+			<artifactId>javassist</artifactId>
+			<version>3.12.1.GA</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.7.6</version>
+		</dependency>
+
+
+
+		<!-- Common Collection Jar -->
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+			<version>3.2.1</version>
+		</dependency>
+
+		<!-- Commons Fileupload Jar -->
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.2.1</version>
+		</dependency>
+
+		<!-- Commons IO Jar -->
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>1.4</version>
+		</dependency>
+
+
+		<!-- Quartz Jar -->
+		<dependency>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz</artifactId>
+			<version>1.8.6</version>
+		</dependency>
+
+		<!-- QuartzJobBean in spring-context-support -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>3.1.2.RELEASE</version>
+		</dependency>
+
+		<!-- Spring + Quartz need transaction -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>3.1.2.RELEASE</version>
+		</dependency>
+	</dependencies>
+	<repositories>
+		<repository>
+			<id>prime-repo</id>
+			<name>Prime Repo</name>
+			<url>http://repository.primefaces.org</url>
+		</repository>
+	</repositories>
+
+	<build>
+		<finalName>DBLogging_Web</finalName>
+		<plugins>
+			<plugin>
+				<groupId>com.orctom.mojo</groupId>
+				<artifactId>was-maven-plugin</artifactId>
+				<version>1.0.8</version>
+				<executions>
+					<execution>
+						<id>deploy</id>
+						<phase>install</phase>
+						<goals>
+							<goal>deploy</goal>
+						</goals>
+						<configuration>
+							<wasHome>${was.home}</wasHome>
+							<applicationName>${project.build.finalName}</applicationName>
+							<host>${hostname}</host>
+							<cell>${was.cell}</cell>
+							<server>${was.server}</server>
+							<node>${was.node}</node>
+							<virtualHost>${was.virtualhost}</virtualHost>
+							<verbose>true</verbose>
+							<contextRoot>${was.contextroot}</contextRoot>
+							<user>${was.user}</user>
+							<password>${was.password}</password>
+							<port>${was.soap.port}</port>
+							<preSteps>
+								<target name="pre 1">
+									<echo message="====== pre 1 ===== ${applicationName}" />
+								</target>
+								<target name="pre 2">
+									<echo message="====== pre 2 =====" />
+								</target>
+							</preSteps>
+							<postSteps>
+								<target name="post 1">
+									<echo message="====== post 1 =====" />
+								</target>
+								<target name="post 2">
+									<echo message="====== post 2 =====" />
+									<sleep seconds="10" />
+								</target>
+							</postSteps>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-scm-plugin</artifactId>
+				<version>1.9</version>
+				<configuration>
+					<connectionType>developerConnection</connectionType>
+				</configuration>
+			</plugin>
+
+		</plugins>
+	</build>
+	<distributionManagement>
+		<repository>
+			<id>beans-releases</id>
+			<name>Internal Releases</name>
+			<url>http://beans-my.dyndns.biz:8081/nexus/content/repositories/beans_releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>beans-releases</id>
+			<name>Internal Releases</name>
+			<url>http://beans-my.dyndns.biz:8081/nexus/content/repositories/beans_snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
+</project>
