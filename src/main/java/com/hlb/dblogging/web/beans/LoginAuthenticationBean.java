@@ -1,4 +1,4 @@
-package com.hlb.dblogging.jsf.beans;
+package com.hlb.dblogging.web.beans;
 
 import java.io.Serializable;
 
@@ -31,7 +31,13 @@ public class LoginAuthenticationBean implements Serializable {
 	public String doLogin(){
 		ApplLogger.getLogger().info("Authenticate here...!!!");
 		ApplLogger.getLogger().info("Given username : "+userName+" and password : "+password);
-		return null;
+		return "/pages/index.xhtml";
+	}
+	
+	public String doLogout(){
+		//TODO Write logic to log out 
+		ApplLogger.getLogger().info("Logged out successsfuly...!");
+		return "login.xhtml";
 	}
 	
 }
