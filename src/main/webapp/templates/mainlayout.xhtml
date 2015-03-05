@@ -32,8 +32,17 @@
 						<ui:insert name="header">
 							<ui:include src="header.xhtml" />
 						</ui:insert>
-				 </p:layoutUnit>
-
+						<ui:insert name="menu">
+				<h:form>
+		<p:growl id="messages" />
+		<p:menubar>
+			<p:menuitem value="Add User" url="/pages/adduser.jsf" />
+			<p:menuitem value="Logout" action="${loginAuthenticationBean.doLogout}">
+			</p:menuitem>
+		</p:menubar>
+	</h:form>
+				</ui:insert>
+					 </p:layoutUnit>
 				  <p:layoutUnit position="center">
 					<ui:insert name="content" />
 				  </p:layoutUnit>					

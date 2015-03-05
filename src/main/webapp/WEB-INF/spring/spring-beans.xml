@@ -12,5 +12,9 @@
 	<bean id="auditMaster" class="com.hlb.dblogging.jpa.model.AuditMaster"></bean>
 	<bean id="auditMasterService" class="com.hlb.dblogging.jpa.service.AuditMasterServiceImpl"></bean>
 	
+	<bean id="users" class="com.hlb.dblogging.jpa.model.Users"></bean>
+	<bean id="usersService" class="com.hlb.dblogging.security.users.service.UsersServiceImpl"></bean>
+	
+	
 	<bean id="applicationContextProvider" class="com.hlb.dblogging.app.context.ApplicationContextProvider"></bean>
 </beans>
