@@ -1,0 +1,114 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+<h:head>
+</h:head>                        
+
+<h:body>
+<ui:composition template="/templates/mainlayout.xhtml">
+<ui:define name="title">DBLogging Web</ui:define>
+<ui:define name="content">
+
+	<h:form id="searchForm">
+    	<p:growl id="msgs" showDetail="true" />
+		 <p:panel id="toggleable" header="Search" toggleable="true" closable="true" toggleSpeed="500" closeSpeed="500" widgetVar="panel" style="margin-bottom:3px;margin-top:0px;">
+ 
+        <!-- <p:ajax event="close" listener="#{panelView.onClose}" update="msgs" />
+        <p:ajax event="toggle" listener="#{panelView.onToggle}" update="msgs" /> -->
+ 
+         <h:panelGrid columns="2" cellpadding="0" >
+         	<h:outputText value="LogInterface :"/>
+            <h:inputText id="logInterfaceId" value="#{auditMasterManagedBean.searchBean.logInterface}"></h:inputText>
+            <h:outputText value="ApplicationName :"/>
+            <h:inputText id="ApplicationNameId" value="#{auditMasterManagedBean.searchBean.applicationName}"></h:inputText>
+        	<h:outputText value="StatusCode :"/>
+            <h:inputText id="StatusCodeId" value="#{auditMasterManagedBean.searchBean.statusCode}"></h:inputText>
+        	<h:outputText value="TransactionType :"/>
+            <h:inputText id="TransactionTypeId" value="#{auditMasterManagedBean.searchBean.transactionType}"></h:inputText>
+        	<h:outputText value="TransactionDateTime :"/>
+            <p:calendar pattern="dd/MM/yyyy" mode="popup" id="TransactionDateTimeId" value="#{auditMasterManagedBean.searchTransactionDate}"></p:calendar>
+             
+            <p:commandButton value="Clear"   update="toggleable" immediate="true" process="@this" actionListener="#{auditMasterManagedBean.reset}"  style="margin-right:20px;color:darkblue;" />
+        	<p:commandButton value="Search"  actionListener="#{auditMasterManagedBean.doSearch}" update="auditMasterTable" style="color:darkblue;"></p:commandButton>
+        </h:panelGrid>
+ 
+        <f:facet name="options">
+            <p:menu>
+                <p:submenu label="Settings">
+                    <p:menuitem value="Toggle" url="#" icon="ui-icon-newwin" onclick="PF('panel').toggle()" />
+                    <p:menuitem value="Remove" url="#" icon="ui-icon-close" onclick="PF('panel').close()" />
+                </p:submenu>
+            </p:menu>
+        </f:facet>
+    </p:panel>
+   
+		 <p:dataTable id="auditMasterTable" widgetVar="auditMaster" var="auditMasterVar" value="#{auditMasterManagedBean.auditMasterDataModel}" rowKey="#{auditMasterVar.id}" style="margin-bottom:0px;margin-top:0px;"
+		 		selection="#{auditMasterManagedBean.selectedMessage}"  selectionMode="single"  emptyMessage="No records found !!!"
+		 		rows="5" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+				<p:ajax event="rowSelect" listener="#{auditMasterManagedBean.onRowSelect}" update=":messageDialogForm" oncomplete="PF('messageDialog').show()" />
+	          <p:column id="logInterfaceHeader"><f:facet name="header">Log Interface</f:facet><h:outputText value="#{auditMasterVar.logInterface}" /></p:column>
+	          <p:column id="applicationNameHeader"><f:facet name="header"> Application Name </f:facet><h:outputText value="#{auditMasterVar.applName}" /> </p:column>
+	          <p:column id="statusCodeHeader"><f:facet name="header">Status Code</f:facet><h:outputText value="#{auditMasterVar.statusCode}" /> </p:column>
+	          <p:column id="transTypeHeader"><f:facet name="header">Transaction Type</f:facet><h:outputText value="#{auditMasterVar.transType}" /></p:column>
+	          <p:column id="transTimeHeader"><f:facet name="header">Transaction DateTime</f:facet><h:outputText value="#{auditMasterVar.transDateTime}" /></p:column>
+	    </p:dataTable>
+	  </h:form>
+</ui:define>
+<ui:define name="dialog">
+			<p:dialog header="Message Content" styleClass="dlgCSS"  widgetVar="messageDialog" resizable="false" closeOnEscape="true"  id="messageDlg" modal="true" height="400px" width="700px" >
+			<h:form id="messageDialogForm">
+                <table border="1" id="display" cellspacing="0" style=" border: 1px solid gainsboro;">
+					<tr>
+						<td><h:outputText value="Log Interface " ></h:outputText></td>
+						<td><h:outputText value="#{auditMasterManagedBean.selectedMessage.logInterface}"  label="Log Interface"></h:outputText></td>
+					</tr>
+					<tr>
+						<td><h:outputText value="Application Name "></h:outputText></td>
+						<td><h:outputText value="#{auditMasterManagedBean.selectedMessage.applName}"  label="Application Name"></h:outputText></td>
+					</tr>
+					<tr>
+						<td><h:outputText value="Transaction DateTime "></h:outputText></td>
+						<td><h:outputText value="#{auditMasterManagedBean.selectedMessage.transDateTime}"  label="Transaction DateTime"></h:outputText></td>
+					</tr>
+					<tr>
+						<td><h:outputText value="Request DateTime "></h:outputText></td>
+						<td><h:outputText value="#{auditMasterManagedBean.selectedMessage.requestDateTime}"  label="Transaction Type"></h:outputText></td>
+					</tr>
+					<tr>
+						<td><h:outputText value="Transaction Type "></h:outputText></td>
+						<td><h:outputText value="#{auditMasterManagedBean.selectedMessage.transType}"  label="Transaction Type"></h:outputText></td>
+					</tr>
+					<tr>
+						<td><h:outputText value="Message ID "></h:outputText></td>
+						<td><h:outputText value="#{auditMasterManagedBean.selectedMessage.messageID}"  label="Message ID"></h:outputText></td>
+					</tr>
+					<tr>
+						<td><h:outputText value="Service ID "></h:outputText></td>
+						<td><h:outputText value="#{auditMasterManagedBean.selectedMessage.serviceID}"  label="Service ID"></h:outputText></td>
+					</tr>
+					<tr>
+						<td><h:outputText value="Updated DateTime "></h:outputText></td>
+						<td><h:outputText value="#{auditMasterManagedBean.selectedMessage.updatedDateTime}"  label="Updated DateTime"></h:outputText></td>
+					</tr>
+					<tr>
+						<td> <h:outputText value="Content"></h:outputText></td>
+						<td><div style="width: 500px;height: 150px;margin: 0;padding: 0;overflow: auto;"><h:outputText value="#{auditMasterManagedBean.messageContent}"></h:outputText></div></td>
+					</tr>
+                    <tr>
+						<td><h:outputText value="Download "></h:outputText></td>
+						<td><p:commandButton value="Download Content" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s">
+							<p:fileDownload value="#{auditMasterManagedBean.file}" />
+							</p:commandButton> </td>
+					</tr>	
+				</table>
+	      </h:form>
+	      </p:dialog>
+</ui:define>
+</ui:composition>
+</h:body>
+</html>

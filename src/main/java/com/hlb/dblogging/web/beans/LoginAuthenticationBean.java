@@ -2,12 +2,14 @@ package com.hlb.dblogging.web.beans;
 
 import java.io.Serializable;
 
-import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
 
 import com.hlb.dblogging.log.utility.ApplLogger;
 
-@ManagedBean
+@Component
 @SessionScoped
 public class LoginAuthenticationBean implements Serializable {
 
@@ -31,13 +33,18 @@ public class LoginAuthenticationBean implements Serializable {
 	public String doLogin(){
 		ApplLogger.getLogger().info("Authenticate here...!!!");
 		ApplLogger.getLogger().info("Given username : "+userName+" and password : "+password);
-		return "/pages/index.xhtml";
+		if(userName.equalsIgnoreCase("admin")){
+			ApplLogger.getLogger().info("Redirecting to /pages/adminhomepage.xhtml");
+			return "/pages/adminhomepage.xhtml";
+		}
+		else
+			return "/pages/homePage.xhtml";
 	}
 	
 	public String doLogout(){
 		//TODO Write logic to log out 
+		SecurityContextHolder.clearContext();
 		ApplLogger.getLogger().info("Logged out successsfuly...!");
-		return "login.xhtml";
+		return "/login.jsf?faces-redirect=true";
 	}
-	
 }

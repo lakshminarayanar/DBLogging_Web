@@ -225,51 +225,10 @@
 		<finalName>DBLogging_Web</finalName>
 		<plugins>
 			<plugin>
-				<groupId>com.orctom.mojo</groupId>
-				<artifactId>was-maven-plugin</artifactId>
-				<version>1.0.8</version>
-				<executions>
-					<execution>
-						<id>deploy</id>
-						<phase>install</phase>
-						<goals>
-							<goal>deploy</goal>
-						</goals>
-						<configuration>
-							<wasHome>${was.home}</wasHome>
-							<applicationName>${project.build.finalName}</applicationName>
-							<host>${hostname}</host>
-							<cell>${was.cell}</cell>
-							<server>${was.server}</server>
-							<node>${was.node}</node>
-							<virtualHost>${was.virtualhost}</virtualHost>
-							<verbose>true</verbose>
-							<contextRoot>${was.contextroot}</contextRoot>
-							<user>${was.user}</user>
-							<password>${was.password}</password>
-							<port>${was.soap.port}</port>
-							<preSteps>
-								<target name="pre 1">
-									<echo message="====== pre 1 ===== ${applicationName}" />
-								</target>
-								<target name="pre 2">
-									<echo message="====== pre 2 =====" />
-								</target>
-							</preSteps>
-							<postSteps>
-								<target name="post 1">
-									<echo message="====== post 1 =====" />
-								</target>
-								<target name="post 2">
-									<echo message="====== post 2 =====" />
-									<sleep seconds="10" />
-								</target>
-							</postSteps>
-						</configuration>
-					</execution>
-				</executions>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>2.2</version>
 			</plugin>
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-scm-plugin</artifactId>
