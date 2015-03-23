@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:c="http://java.sun.com/jsp/jstl/core">
+ <h:head>
+	    <meta charset="utf-8"></meta>
+	    <title>Add User to System</title>
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+	    <meta name="description" content=""></meta>
+	    <meta name="author" content=""></meta>
+
+		<h:outputStylesheet name="bootstrap/css/bootstrap.min.css" />
+	    <h:outputStylesheet name="css/font-awesome.min.css" />
+	    <h:outputStylesheet name="css/ionicons.min.css" />
+	    <h:outputStylesheet name="css/simplify.min.css" />
+	    <h:outputStylesheet name="css/loginlayout.css" />
+		<h:outputStylesheet name="css/morris.css" />
+		<h:outputStylesheet name="css/datepicker.css" />
+		<h:outputStylesheet name="css/animate.min.css" />
+		<h:outputStylesheet name="css/owl.carousel.min.css" />
+		<h:outputStylesheet name="css/owl.theme.default.min.css" />
+		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"/>
+		
+		<h:outputScript library="js" name="jquery-1.11.1.min.js" />
+	    <h:outputScript library="bootstrap/js" name="bootstrap.min.js" />
+		<h:outputScript library="js" name="jquery.slimscroll.min.js" />
+		<h:outputScript library="js" name="rapheal.min.js" />
+		<h:outputScript library="js" name="morris.min.js" />	
+		<h:outputScript library="js/uncompressed" name="datepicker.js" />
+		<h:outputScript library="js" name="sparkline.min.js" />
+		<h:outputScript library="js/uncompressed" name="skycons.js" />
+		<h:outputScript library="js" name="jquery.popupoverlay.min.js" />
+		<h:outputScript library="js/uncompressed" name="jquery.sortable.js" />
+		<h:outputScript library="js" name="owl.carousel.min.js" />
+		<h:outputScript library="js" name="modernizr.min.js" />
+		<h:outputScript library="js/simplify" name="simplify.js" />
+
+<style type="text/css">
+div[id="noHeaderTable"] thead {
+	display: none;
+}
+</style>
+
+
+
+</h:head>
+  	<ui:include src="/pages/logoheader.xhtml" ></ui:include>
+  	<body class="overflow-hidden">
+  		<ui:include src="/pages/admin/adminheader.xhtml" ></ui:include>
+		<div class="wrapper preload" style="padding-top: 0px;">
+		 <ui:include src="/pages/admin/adminmenu.xhtml" ></ui:include>
+			
+			<div class="main-container">
+				<div class="padding-md">
+					<div class="row" style="height: 70px;">
+						<div class="col-sm-6">
+							<div class="page-title">
+								Add User
+							</div>
+							<div class="page-sub-header">
+								Welcome Back, Admin User , <i class="fa fa-map-marker text-danger"></i> Malaysia
+							</div>
+						</div>
+					</div>
+					
+					<div class="row" style="width: 1000px;">
+						<div class="col-lg-6">
+							<div class="smart-widget widget-dark-blue">
+								<div class="smart-widget-header">
+									Add User to System
+									<span class="smart-widget-option">
+										<span class="refresh-icon-animated">
+											<i class="fa fa-circle-o-notch fa-spin"></i>
+										</span>
+			                            <a href="#" class="widget-toggle-hidden-option">
+			                                <i class="fa fa-cog"></i>
+			                            </a>
+			                            <a href="#" class="widget-collapse-option" data-toggle="collapse">
+			                                <i class="fa fa-chevron-up"></i>
+			                            </a>
+			                            
+			                        </span>
+								</div>
+								<div class="smart-widget-inner">
+									<div class="smart-widget-hidden-section">
+										<ul class="widget-color-list clearfix">
+											<li style="background-color:#20232b;" data-color="widget-dark"></li>
+											<li style="background-color:#4c5f70;" data-color="widget-dark-blue"></li>
+											<li style="background-color:#23b7e5;" data-color="widget-blue"></li>
+											<li style="background-color:#2baab1;" data-color="widget-green"></li>
+											<li style="background-color:#edbc6c;" data-color="widget-yellow"></li>
+											<li style="background-color:#fbc852;" data-color="widget-orange"></li>
+											<li style="background-color:#e36159;" data-color="widget-red"></li>
+											<li style="background-color:#7266ba;" data-color="widget-purple"></li>
+											<li style="background-color:#f5f5f5;" data-color="widget-light-grey"></li>
+											<li style="background-color:#fff;" data-color="reset"></li>
+										</ul>
+									</div>
+									<div class="smart-widget-body no-padding">
+									<div style="height: 200px;">
+									<h:form>
+									<table style="width: 80%;padding: 10px;border-spacing: 20px;border-collapse: separate;margin: 45px;">
+										<tr>
+											<td>
+												<p:outputLabel value="Username :" for="acUsername" />
+											</td>
+											<td>
+												<p:autoComplete id="acUsername"
+													value="#{usersManagedBean.txt1}"
+													completeMethod="#{usersManagedBean.getUserList}"  style="width:200px;"/>
+											</td>
+										</tr><tr><td colspan="2">
+										<p:commandButton id="saveUsersBtn" value="Submit"
+											action="#{usersManagedBean.createUser}" />
+										</td></tr></table>
+									</h:form>
+									</div>
+								</div>
+							</div><!-- ./smart-widget-inner -->
+							</div><!-- ./smart-widget -->
+						</div><!-- ./col -->
+						<div class="col-lg-4">
+						 <div class="smart-widget widget-dark-blue">
+								<div class="smart-widget-header">
+									Users List
+									<span class="smart-widget-option">
+										<span class="refresh-icon-animated">
+											<i class="fa fa-circle-o-notch fa-spin"></i>
+										</span>
+			                            <a href="#" class="widget-toggle-hidden-option">
+			                                <i class="fa fa-cog"></i>
+			                            </a>
+			                            <a href="#" class="widget-collapse-option" data-toggle="collapse">
+			                                <i class="fa fa-chevron-up"></i>
+			                            </a>
+			                        </span>
+								</div>
+								<div class="smart-widget-inner">
+									<div class="smart-widget-hidden-section">
+										<ul class="widget-color-list clearfix">
+											<li style="background-color:#20232b;" data-color="widget-dark"></li>
+											<li style="background-color:#4c5f70;" data-color="widget-dark-blue"></li>
+											<li style="background-color:#23b7e5;" data-color="widget-blue"></li>
+											<li style="background-color:#2baab1;" data-color="widget-green"></li>
+											<li style="background-color:#edbc6c;" data-color="widget-yellow"></li>
+											<li style="background-color:#fbc852;" data-color="widget-orange"></li>
+											<li style="background-color:#e36159;" data-color="widget-red"></li>
+											<li style="background-color:#7266ba;" data-color="widget-purple"></li>
+											<li style="background-color:#f5f5f5;" data-color="widget-light-grey"></li>
+											<li style="background-color:#fff;" data-color="reset"></li>
+										</ul>
+									</div>
+									<div class="smart-widget-body no-padding" id="noHeaderTable">
+										<h:form name="userListForm">
+										<p:dataTable id="userListTable" widgetVar="userList" var="userListVar" selectionMode="single" value="#{usersManagedBean.userdatamodel}" rowKey="#{userListVar.id}" style="height:244px;">
+											<p:column id="UsernameHeader">
+											<f:facet name="usernameHead" >Existing Users</f:facet>
+												<h:outputText value="#{userListVar.username}" />
+											</p:column>
+										</p:dataTable>
+										</h:form>
+									</div>
+								</div>
+						</div>
+						</div>
+					</div>
+					
+					</div><!-- ./padding-md -->
+			</div><!-- /main-container -->
+			<ui:include src="/pages/footer.xhtml" ></ui:include>
+		</div><!-- /wrapper -->
+
+		<a href="#" class="scroll-to-top hidden-print"><i class="fa fa-chevron-up fa-lg"></i></a>
+  	</body>
+</html>

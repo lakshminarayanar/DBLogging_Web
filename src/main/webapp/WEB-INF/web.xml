@@ -16,10 +16,10 @@
 		<param-name>javax.faces.PROJECT_STAGE</param-name>
 		<param-value>Development</param-value>
 	</context-param>
-	<context-param>
+	<!-- <context-param>
 		<param-name>primefaces.THEME</param-name>
-		<param-value>blitzer</param-value>
-	</context-param>
+		<param-value>smoothness</param-value>
+	</context-param> -->
 	<context-param>
 		<param-name>primefaces.PUBLIC_CAPTCHA_KEY</param-name>
 		<param-value>6Lc0QfESAAAAAFVLw2zTwB5zWN72uauQEXeW0vsm</param-value>
@@ -49,6 +49,17 @@
 		<servlet-name>Faces Servlet</servlet-name>
 		<url-pattern>*.jsf</url-pattern>
 	</servlet-mapping>
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+	</filter-mapping>
+
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
@@ -59,7 +70,7 @@
 	<session-config>
 		<session-timeout>15</session-timeout>
 	</session-config>
-	<error-page>
+ 	<error-page>
 		<error-code>500</error-code>
 		<location>/relogin.jsf</location>
 	</error-page>
@@ -70,8 +81,8 @@
 	<error-page>
 		<error-code>404</error-code>
 		<location>/relogin.jsf</location>
-	</error-page>
+	</error-page> 
 	<welcome-file-list>
 		<welcome-file>login.jsf</welcome-file>
-	</welcome-file-list>
+	</welcome-file-list> 
 </web-app>

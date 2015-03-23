@@ -5,43 +5,66 @@
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:p="http://primefaces.org/ui"
     xmlns:c="http://java.sun.com/jsp/jstl/core">
-    
-<h:head>
-    <title>Beans Group HRM</title>
-    <h:outputStylesheet name="css/loginlayout.css" />
-    <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'/>
-</h:head>
+  	<h:head>
+	    <meta charset="utf-8"></meta>
+	    <title>DBLogging Web</title>
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+	    <meta name="description" content=""></meta>
+	    <meta name="author" content=""></meta>
+	    
+	    <h:outputStylesheet name="bootstrap/css/bootstrap.min.css" />
+	    <h:outputStylesheet name="css/font-awesome.min.css" />
+	    <h:outputStylesheet name="css/ionicons.min.css" />
+	    <h:outputStylesheet name="css/simplify.min.css" />
+	    <h:outputStylesheet name="css/loginlayout.css" />
+	
+  	</h:head>
+	<ui:include src="/pages/logoheader.xhtml" ></ui:include>
+  	<body class="overflow-hidden light-background">
+		<div class="wrapper no-navigation preload">
+			<div class="sign-in-wrapper">
+				<div class="sign-in-inner">
+					<div class="login-brand text-center">
+					DBLogging-Web <strong class="text-skin">Login</strong>
+					</div>
 
-<h:body>
-<div id="wrapper">
+					<h:form id="loginForm" prependId="false">
+            			<p:growl id="growl" sticky="true" display="text" />
+						<div class="form-group m-bottom-md">
+							<p:focus for="username"><p:inputText id="username" value="#{loginAuthenticationBean.username}" required="true" requiredMessage="Username is required" styleClass="form-control" /></p:focus>
+       						<p:watermark for="username" value="Username" id="usernameWM" />
+						</div>
+						<div class="form-group">
+							<p:inputText id="password" type="password" value="#{loginAuthenticationBean.password}" required="true" requiredMessage="Password is required" styleClass="form-control" />
+       						<p:watermark for="password" value="Password" id="passwordWM" />
+						</div>
 
-    <div id="loginHeader">
-       <p:graphicImage name="bank_hongleong.png"  height="90px" width="300px" library="images"/>
-    </div>
-            
-    <div id="loginContainer">
-        <h:form id="loginForm" prependId="false">
-            <p:growl id="growl" showDetail="true" sticky="true" display="text" />  
-            <p:panelGrid id="panel" columns="2"> 
-                <f:facet name="header">
-                    Login
-                </f:facet> 
-                
-                <h:outputLabel for="j_username" value="Username"/>  
-                <p:focus for="j_username"> <h:inputText id="j_username" value="#{loginAuthenticationBean.userName}" required="true" requiredMessage="Username Required"/> </p:focus>
-                               
-                <h:outputLabel for="j_password" value="Password"/>  
-                <h:inputSecret id="j_password" value="#{loginAuthenticationBean.password}" required="true" requiredMessage="Password Required" />
-          
-                <f:facet name="footer">
-                    <h:commandButton id="loginButton" value="Login" action="#{loginAuthenticationBean.doLogin}" />
-                </f:facet>              
-            </p:panelGrid>
-          </h:form>   
-    </div>
-    <div id="footer">
-    © 2014 Beans Group All Rights Reserved 
-    </div>
-    </div>
-</h:body>
+						<div class="form-group">
+							<div class="custom-checkbox">
+								<input type="checkbox" id="chkRemember"/>
+								<label for="chkRemember"></label>
+							</div>
+							Remember me
+						</div>
+
+						<div class="m-top-md p-top-sm">
+							<h:commandButton id="loginButton" style="width:100%" class="btn btn-success block" value="Sign in" action="#{loginAuthenticationBean.doLogin}" />
+						</div>
+					
+					</h:form>
+				</div><!-- ./sign-in-inner -->
+			</div><!-- ./sign-in-wrapper -->
+		</div><!-- /wrapper -->
+
+		<a href="" id="scroll-to-top" class="hidden-print"><i class="icon-chevron-up"></i></a>
+
+		<h:outputScript target="body" name="loadingScript">
+			<script src="js/jquery-1.11.1.min.js"></script>
+			<script src="bootstrap/js/bootstrap.min.js"></script>
+			<script src='js/jquery.slimscroll.min.js'></script>
+			<script src='js/jquery.popupoverlay.min.js'></script>
+			<script src='js/modernizr.min.js'></script>
+			<script src="js/simplify/simplify.js"></script>
+		</h:outputScript>
+  	</body>
 </html>

@@ -15,6 +15,14 @@
 	<bean id="users" class="com.hlb.dblogging.jpa.model.Users"></bean>
 	<bean id="usersService" class="com.hlb.dblogging.security.users.service.UsersServiceImpl"></bean>
 	
+	<bean id="systemAuditTrail" class="com.hlb.dblogging.jpa.model.SystemAuditTrail"/>
+	
+	<bean id="systemAuditTrailService" class="com.hlb.dblogging.user.audit.logging.SystemAuditTrailRecordServiceImpl"></bean>
+	<bean id="auditTrail" class="com.hlb.dblogging.user.audit.logging.AuditTrail">
+		<property name="systemAuditTrailRecordService" >
+			<ref bean="systemAuditTrailService"/>
+		</property>
+	</bean>
 	
 	<bean id="applicationContextProvider" class="com.hlb.dblogging.app.context.ApplicationContextProvider"></bean>
 </beans>

@@ -1,0 +1,258 @@
+2015-03-17 10:04:58 INFO  Version:37 - HCANN000001: Hibernate Commons Annotations {4.0.2.Final}
+2015-03-17 10:04:58 INFO  Version:41 - HHH000412: Hibernate Core {4.2.7.SP1}
+2015-03-17 10:04:58 INFO  Environment:238 - HHH000206: hibernate.properties not found
+2015-03-17 10:04:58 INFO  Environment:345 - HHH000021: Bytecode provider name : javassist
+2015-03-17 10:04:59 INFO  Ejb3Configuration:529 - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2015-03-17 10:04:59 INFO  ConnectionProviderInitiator:188 - HHH000130: Instantiating explicit connection provider: org.hibernate.ejb.connection.InjectedDataSourceConnectionProvider
+2015-03-17 10:05:00 INFO  Dialect:130 - HHH000400: Using dialect: org.hibernate.dialect.OracleDialect
+2015-03-17 10:05:00 WARN  Oracle9Dialect:62 - HHH000063: The Oracle9Dialect dialect has been deprecated; use either Oracle9iDialect or Oracle10gDialect instead
+2015-03-17 10:05:00 WARN  OracleDialect:48 - HHH000064: The OracleDialect dialect has been deprecated; use Oracle8iDialect instead
+2015-03-17 10:05:00 INFO  TransactionFactoryInitiator:73 - HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory
+2015-03-17 10:05:00 INFO  ASTQueryTranslatorFactory:48 - HHH000397: Using ASTQueryTranslatorFactory
+2015-03-17 10:05:00 INFO  SchemaUpdate:182 - HHH000228: Running hbm2ddl schema update
+2015-03-17 10:05:00 INFO  SchemaUpdate:193 - HHH000102: Fetching database metadata
+2015-03-17 10:05:00 INFO  SchemaUpdate:205 - HHH000396: Updating schema
+2015-03-17 10:05:00 INFO  TableMetadata:65 - HHH000261: Table found: BEANS.AUDITDETAIL
+2015-03-17 10:05:00 INFO  TableMetadata:66 - HHH000037: Columns: [content, uniqueprocessid, id, updateddatetime, createddatetime, messagetype, messageid]
+2015-03-17 10:05:00 INFO  TableMetadata:68 - HHH000108: Foreign keys: []
+2015-03-17 10:05:00 INFO  TableMetadata:69 - HHH000126: Indexes: [sys_c007098]
+2015-03-17 10:05:00 INFO  TableMetadata:65 - HHH000261: Table found: BEANS.AUDITMASTER
+2015-03-17 10:05:00 INFO  TableMetadata:66 - HHH000037: Columns: [loglevel, messageformat, appid, customstring1, serviceid, uniqueprocessid, id, updateddatetime, customstring2, customstring3, customint3, customint2, customdate2, customdate1, messageid, reasoncode, customint1, applname, transtype, host, errormessage, transdatetime, loginterface, createdby, journalseq, createddatetime, requestdatetime, updatedby, errorcode, statuscode]
+2015-03-17 10:05:00 INFO  TableMetadata:68 - HHH000108: Foreign keys: []
+2015-03-17 10:05:00 INFO  TableMetadata:69 - HHH000126: Indexes: [uniqueprocessid, sys_c007093]
+2015-03-17 10:05:00 INFO  TableMetadata:65 - HHH000261: Table found: BEANS.CONFIGURATIONPROPERTIES
+2015-03-17 10:05:00 INFO  TableMetadata:66 - HHH000037: Columns: [id, loglevel, retrypath]
+2015-03-17 10:05:00 INFO  TableMetadata:68 - HHH000108: Foreign keys: []
+2015-03-17 10:05:00 INFO  TableMetadata:69 - HHH000126: Indexes: []
+2015-03-17 10:05:00 INFO  TableMetadata:65 - HHH000261: Table found: BEANS.USERS
+2015-03-17 10:05:00 INFO  TableMetadata:66 - HHH000037: Columns: [creationtime, id, username, lastmodifiedtime, lastmodifiedby, createdby, password]
+2015-03-17 10:05:00 INFO  TableMetadata:68 - HHH000108: Foreign keys: []
+2015-03-17 10:05:00 INFO  TableMetadata:69 - HHH000126: Indexes: [sys_c007138]
+2015-03-17 10:05:00 INFO  SchemaUpdate:242 - HHH000232: Schema update complete
+2015-03-17 10:05:02 WARN  HqlSqlWalker:930 - [DEPRECATION] Encountered positional parameter near line 1, column 79.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
+2015-03-17 10:05:02 WARN  HqlSqlWalker:930 - [DEPRECATION] Encountered positional parameter near line 1, column 66.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
+2015-03-17 10:05:02 WARN  HqlSqlWalker:930 - [DEPRECATION] Encountered positional parameter near line 1, column 78.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
+2015-03-17 10:08:41 INFO  Version:37 - HCANN000001: Hibernate Commons Annotations {4.0.2.Final}
+2015-03-17 10:08:41 INFO  Version:41 - HHH000412: Hibernate Core {4.2.7.SP1}
+2015-03-17 10:08:41 INFO  Environment:238 - HHH000206: hibernate.properties not found
+2015-03-17 10:08:41 INFO  Environment:345 - HHH000021: Bytecode provider name : javassist
+2015-03-17 10:08:41 INFO  Ejb3Configuration:529 - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2015-03-17 10:08:42 INFO  ConnectionProviderInitiator:188 - HHH000130: Instantiating explicit connection provider: org.hibernate.ejb.connection.InjectedDataSourceConnectionProvider
+2015-03-17 10:08:42 INFO  Dialect:130 - HHH000400: Using dialect: org.hibernate.dialect.OracleDialect
+2015-03-17 10:08:42 WARN  Oracle9Dialect:62 - HHH000063: The Oracle9Dialect dialect has been deprecated; use either Oracle9iDialect or Oracle10gDialect instead
+2015-03-17 10:08:42 WARN  OracleDialect:48 - HHH000064: The OracleDialect dialect has been deprecated; use Oracle8iDialect instead
+2015-03-17 10:08:42 INFO  TransactionFactoryInitiator:73 - HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory
+2015-03-17 10:08:42 INFO  ASTQueryTranslatorFactory:48 - HHH000397: Using ASTQueryTranslatorFactory
+2015-03-17 10:08:43 INFO  SchemaUpdate:182 - HHH000228: Running hbm2ddl schema update
+2015-03-17 10:08:43 INFO  SchemaUpdate:193 - HHH000102: Fetching database metadata
+2015-03-17 10:08:43 INFO  SchemaUpdate:205 - HHH000396: Updating schema
+2015-03-17 10:08:43 INFO  TableMetadata:65 - HHH000261: Table found: BEANS.AUDITDETAIL
+2015-03-17 10:08:43 INFO  TableMetadata:66 - HHH000037: Columns: [content, uniqueprocessid, id, updateddatetime, createddatetime, messagetype, messageid]
+2015-03-17 10:08:43 INFO  TableMetadata:68 - HHH000108: Foreign keys: []
+2015-03-17 10:08:43 INFO  TableMetadata:69 - HHH000126: Indexes: [sys_c007098]
+2015-03-17 10:08:43 INFO  TableMetadata:65 - HHH000261: Table found: BEANS.AUDITMASTER
+2015-03-17 10:08:43 INFO  TableMetadata:66 - HHH000037: Columns: [loglevel, messageformat, appid, customstring1, serviceid, uniqueprocessid, id, updateddatetime, customstring2, customstring3, customint3, customint2, customdate2, customdate1, messageid, reasoncode, customint1, applname, transtype, host, errormessage, transdatetime, loginterface, createdby, journalseq, createddatetime, requestdatetime, updatedby, errorcode, statuscode]
+2015-03-17 10:08:43 INFO  TableMetadata:68 - HHH000108: Foreign keys: []
+2015-03-17 10:08:43 INFO  TableMetadata:69 - HHH000126: Indexes: [uniqueprocessid, sys_c007093]
+2015-03-17 10:08:43 INFO  TableMetadata:65 - HHH000261: Table found: BEANS.CONFIGURATIONPROPERTIES
+2015-03-17 10:08:43 INFO  TableMetadata:66 - HHH000037: Columns: [id, loglevel, retrypath]
+2015-03-17 10:08:43 INFO  TableMetadata:68 - HHH000108: Foreign keys: []
+2015-03-17 10:08:43 INFO  TableMetadata:69 - HHH000126: Indexes: []
+2015-03-17 10:08:43 INFO  TableMetadata:65 - HHH000261: Table found: BEANS.USERS
+2015-03-17 10:08:43 INFO  TableMetadata:66 - HHH000037: Columns: [creationtime, id, username, lastmodifiedtime, lastmodifiedby, createdby, password]
+2015-03-17 10:08:43 INFO  TableMetadata:68 - HHH000108: Foreign keys: []
+2015-03-17 10:08:43 INFO  TableMetadata:69 - HHH000126: Indexes: [sys_c007138]
+2015-03-17 10:08:43 INFO  SchemaUpdate:242 - HHH000232: Schema update complete
+2015-03-17 10:08:44 WARN  HqlSqlWalker:930 - [DEPRECATION] Encountered positional parameter near line 1, column 66.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
+2015-03-17 10:08:44 WARN  HqlSqlWalker:930 - [DEPRECATION] Encountered positional parameter near line 1, column 78.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
+2015-03-17 10:08:44 WARN  HqlSqlWalker:930 - [DEPRECATION] Encountered positional parameter near line 1, column 79.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
+2015-03-17 10:11:04 INFO  Version:37 - HCANN000001: Hibernate Commons Annotations {4.0.2.Final}
+2015-03-17 10:11:04 INFO  Version:41 - HHH000412: Hibernate Core {4.2.7.SP1}
+2015-03-17 10:11:04 INFO  Environment:238 - HHH000206: hibernate.properties not found
+2015-03-17 10:11:04 INFO  Environment:345 - HHH000021: Bytecode provider name : javassist
+2015-03-17 10:11:04 INFO  Ejb3Configuration:529 - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2015-03-17 10:11:04 INFO  ConnectionProviderInitiator:188 - HHH000130: Instantiating explicit connection provider: org.hibernate.ejb.connection.InjectedDataSourceConnectionProvider
+2015-03-17 10:11:05 INFO  Dialect:130 - HHH000400: Using dialect: org.hibernate.dialect.OracleDialect
+2015-03-17 10:11:05 WARN  Oracle9Dialect:62 - HHH000063: The Oracle9Dialect dialect has been deprecated; use either Oracle9iDialect or Oracle10gDialect instead
+2015-03-17 10:11:05 WARN  OracleDialect:48 - HHH000064: The OracleDialect dialect has been deprecated; use Oracle8iDialect instead
+2015-03-17 10:11:05 INFO  TransactionFactoryInitiator:73 - HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory
+2015-03-17 10:11:05 INFO  ASTQueryTranslatorFactory:48 - HHH000397: Using ASTQueryTranslatorFactory
+2015-03-17 10:11:05 INFO  SchemaUpdate:182 - HHH000228: Running hbm2ddl schema update
+2015-03-17 10:11:05 INFO  SchemaUpdate:193 - HHH000102: Fetching database metadata
+2015-03-17 10:11:05 INFO  SchemaUpdate:205 - HHH000396: Updating schema
+2015-03-17 10:11:05 INFO  TableMetadata:65 - HHH000261: Table found: BEANS.AUDITDETAIL
+2015-03-17 10:11:05 INFO  TableMetadata:66 - HHH000037: Columns: [content, uniqueprocessid, id, updateddatetime, createddatetime, messagetype, messageid]
+2015-03-17 10:11:05 INFO  TableMetadata:68 - HHH000108: Foreign keys: []
+2015-03-17 10:11:05 INFO  TableMetadata:69 - HHH000126: Indexes: [sys_c007098]
+2015-03-17 10:11:05 INFO  TableMetadata:65 - HHH000261: Table found: BEANS.AUDITMASTER
+2015-03-17 10:11:05 INFO  TableMetadata:66 - HHH000037: Columns: [loglevel, messageformat, appid, customstring1, serviceid, uniqueprocessid, id, updateddatetime, customstring2, customstring3, customint3, customint2, customdate2, customdate1, messageid, reasoncode, customint1, applname, transtype, host, errormessage, transdatetime, loginterface, createdby, journalseq, createddatetime, requestdatetime, updatedby, errorcode, statuscode]
+2015-03-17 10:11:05 INFO  TableMetadata:68 - HHH000108: Foreign keys: []
+2015-03-17 10:11:05 INFO  TableMetadata:69 - HHH000126: Indexes: [uniqueprocessid, sys_c007093]
+2015-03-17 10:11:05 INFO  TableMetadata:65 - HHH000261: Table found: BEANS.CONFIGURATIONPROPERTIES
+2015-03-17 10:11:05 INFO  TableMetadata:66 - HHH000037: Columns: [id, loglevel, retrypath]
+2015-03-17 10:11:05 INFO  TableMetadata:68 - HHH000108: Foreign keys: []
+2015-03-17 10:11:05 INFO  TableMetadata:69 - HHH000126: Indexes: []
+2015-03-17 10:11:05 INFO  TableMetadata:65 - HHH000261: Table found: BEANS.USERS
+2015-03-17 10:11:05 INFO  TableMetadata:66 - HHH000037: Columns: [creationtime, id, username, lastmodifiedtime, lastmodifiedby, createdby, password]
+2015-03-17 10:11:05 INFO  TableMetadata:68 - HHH000108: Foreign keys: []
+2015-03-17 10:11:05 INFO  TableMetadata:69 - HHH000126: Indexes: [sys_c007138]
+2015-03-17 10:11:05 INFO  SchemaUpdate:242 - HHH000232: Schema update complete
+2015-03-17 10:11:07 WARN  HqlSqlWalker:930 - [DEPRECATION] Encountered positional parameter near line 1, column 79.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
+2015-03-17 10:11:07 WARN  HqlSqlWalker:930 - [DEPRECATION] Encountered positional parameter near line 1, column 66.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
+2015-03-17 10:11:07 WARN  HqlSqlWalker:930 - [DEPRECATION] Encountered positional parameter near line 1, column 78.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
+2015-03-18 12:38:53 INFO  Version:37 - HCANN000001: Hibernate Commons Annotations {4.0.2.Final}
+2015-03-18 12:38:53 INFO  Version:41 - HHH000412: Hibernate Core {4.2.7.SP1}
+2015-03-18 12:38:53 INFO  Environment:238 - HHH000206: hibernate.properties not found
+2015-03-18 12:38:53 INFO  Environment:345 - HHH000021: Bytecode provider name : javassist
+2015-03-18 12:38:53 INFO  Ejb3Configuration:529 - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2015-03-18 12:38:53 INFO  ConnectionProviderInitiator:188 - HHH000130: Instantiating explicit connection provider: org.hibernate.ejb.connection.InjectedDataSourceConnectionProvider
+2015-03-18 12:38:54 INFO  Dialect:130 - HHH000400: Using dialect: org.hibernate.dialect.OracleDialect
+2015-03-18 12:38:54 WARN  Oracle9Dialect:62 - HHH000063: The Oracle9Dialect dialect has been deprecated; use either Oracle9iDialect or Oracle10gDialect instead
+2015-03-18 12:38:54 WARN  OracleDialect:48 - HHH000064: The OracleDialect dialect has been deprecated; use Oracle8iDialect instead
+2015-03-18 12:38:54 INFO  TransactionFactoryInitiator:73 - HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory
+2015-03-18 12:38:54 INFO  ASTQueryTranslatorFactory:48 - HHH000397: Using ASTQueryTranslatorFactory
+2015-03-18 12:38:55 INFO  SchemaUpdate:182 - HHH000228: Running hbm2ddl schema update
+2015-03-18 12:38:55 INFO  SchemaUpdate:193 - HHH000102: Fetching database metadata
+2015-03-18 12:38:55 INFO  SchemaUpdate:205 - HHH000396: Updating schema
+2015-03-18 12:38:55 INFO  TableMetadata:65 - HHH000261: Table found: BEANS.ACCESSRIGHTS
+2015-03-18 12:38:55 INFO  TableMetadata:66 - HHH000037: Columns: [creationtime, id, lastmodifiedtime, description, isdeleted, lastmodifiedby, createdby, accessrights]
+2015-03-18 12:38:55 INFO  TableMetadata:68 - HHH000108: Foreign keys: []
+2015-03-18 12:38:55 INFO  TableMetadata:69 - HHH000126: Indexes: [sys_c007339]
+2015-03-18 12:38:55 INFO  TableMetadata:65 - HHH000261: Table found: BEANS.AUDITDETAIL
+2015-03-18 12:38:55 INFO  TableMetadata:66 - HHH000037: Columns: [uniqueprocessid, content, id, updateddatetime, createddatetime, messagetype, messageid]
+2015-03-18 12:38:55 INFO  TableMetadata:68 - HHH000108: Foreign keys: []
+2015-03-18 12:38:55 INFO  TableMetadata:69 - HHH000126: Indexes: [sys_c007347]
+2015-03-18 12:38:55 INFO  TableMetadata:65 - HHH000261: Table found: BEANS.AUDITMASTER
+2015-03-18 12:38:55 INFO  TableMetadata:66 - HHH000037: Columns: [loglevel, messageformat, appid, customstring1, serviceid, uniqueprocessid, id, updateddatetime, customstring2, customstring3, customint3, customint2, customdate2, customdate1, messageid, reasoncode, customint1, applname, transtype, errormessage, host, transdatetime, loginterface, createdby, journalseq, createddatetime, updatedby, requestdatetime, errorcode, statuscode]
+2015-03-18 12:38:55 INFO  TableMetadata:68 - HHH000108: Foreign keys: []
+2015-03-18 12:38:55 INFO  TableMetadata:69 - HHH000126: Indexes: [sys_c007378]
+2015-03-18 12:38:55 INFO  TableMetadata:65 - HHH000261: Table found: BEANS.CONFIGURATIONPROPERTIES
+2015-03-18 12:38:55 INFO  TableMetadata:66 - HHH000037: Columns: [id, loglevel, retrypath]
+2015-03-18 12:38:55 INFO  TableMetadata:68 - HHH000108: Foreign keys: []
+2015-03-18 12:38:55 INFO  TableMetadata:69 - HHH000126: Indexes: [sys_c007382]
+2015-03-18 12:38:55 INFO  TableMetadata:65 - HHH000261: Table found: BEANS.ROLE
+2015-03-18 12:38:55 INFO  TableMetadata:66 - HHH000037: Columns: [creationtime, id, lastmodifiedtime, description, isdeleted, role, lastmodifiedby, createdby]
+2015-03-18 12:38:55 INFO  TableMetadata:68 - HHH000108: Foreign keys: []
+2015-03-18 12:38:55 INFO  TableMetadata:69 - HHH000126: Indexes: [sys_c007397]
+2015-03-18 12:38:55 INFO  TableMetadata:65 - HHH000261: Table found: BEANS.ROLETOACCESSRIGHTS
+2015-03-18 12:38:55 INFO  TableMetadata:66 - HHH000037: Columns: [accessrightsid, roleid]
+2015-03-18 12:38:55 INFO  TableMetadata:68 - HHH000108: Foreign keys: [fk_fr58250noqv9d0hgytxfnae2d, fk_89ni96vv66x1n7kh8boypi4g7]
+2015-03-18 12:38:55 INFO  TableMetadata:69 - HHH000126: Indexes: [sys_c007385]
+2015-03-18 12:38:55 INFO  TableMetadata:65 - HHH000261: Table found: BEANS.SYSTEMAUDITTRAIL
+2015-03-18 12:38:55 INFO  TableMetadata:66 - HHH000037: Columns: [id, loglevel, actorusername, description, isdeleted, actiondate, actoruserid, activity]
+2015-03-18 12:38:55 INFO  TableMetadata:68 - HHH000108: Foreign keys: []
+2015-03-18 12:38:55 INFO  TableMetadata:69 - HHH000126: Indexes: [sys_c007411]
+2015-03-18 12:38:55 INFO  TableMetadata:65 - HHH000261: Table found: BEANS.USERTOACCESSRIGHTS
+2015-03-18 12:38:55 INFO  TableMetadata:66 - HHH000037: Columns: [id, accessrightsid, enabled, isdeleted, userid]
+2015-03-18 12:38:55 INFO  TableMetadata:68 - HHH000108: Foreign keys: [fk_97aemlh7vbytxij8qy10s6yld, fk_ro4tytnprsarmjplfnsiinwkb]
+2015-03-18 12:38:55 INFO  TableMetadata:69 - HHH000126: Indexes: [sys_c007399]
+2015-03-18 12:38:55 INFO  TableMetadata:65 - HHH000261: Table found: BEANS.USERTOROLE
+2015-03-18 12:38:55 INFO  TableMetadata:66 - HHH000037: Columns: [userid, userroleid]
+2015-03-18 12:38:55 INFO  TableMetadata:68 - HHH000108: Foreign keys: [fk_okx5q69p4g3vi0f60w01a76u0, fk_27lru5yyfpeo0o944h5xin7sf]
+2015-03-18 12:38:55 INFO  TableMetadata:69 - HHH000126: Indexes: [sys_c007388]
+2015-03-18 12:38:55 INFO  TableMetadata:65 - HHH000261: Table found: BEANS.USERS
+2015-03-18 12:38:55 INFO  TableMetadata:66 - HHH000037: Columns: [creationtime, id, enabled, username, lastmodifiedtime, lastmodifiedby, createdby, password]
+2015-03-18 12:38:55 INFO  TableMetadata:68 - HHH000108: Foreign keys: []
+2015-03-18 12:38:55 INFO  TableMetadata:69 - HHH000126: Indexes: [sys_c007394, sys_c007392]
+2015-03-18 12:38:55 INFO  SchemaUpdate:242 - HHH000232: Schema update complete
+2015-03-18 12:38:56 WARN  HqlSqlWalker:930 - [DEPRECATION] Encountered positional parameter near line 1, column 96.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
+2015-03-18 12:38:56 WARN  HqlSqlWalker:930 - [DEPRECATION] Encountered positional parameter near line 1, column 121.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
+2015-03-18 12:38:56 WARN  HqlSqlWalker:930 - [DEPRECATION] Encountered positional parameter near line 1, column 128.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
+2015-03-18 12:38:56 WARN  HqlSqlWalker:930 - [DEPRECATION] Encountered positional parameter near line 1, column 80.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
+2015-03-18 12:38:56 WARN  HqlSqlWalker:930 - [DEPRECATION] Encountered positional parameter near line 1, column 71.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
+2015-03-18 12:38:56 WARN  HqlSqlWalker:930 - [DEPRECATION] Encountered positional parameter near line 1, column 66.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
+2015-03-18 12:38:56 WARN  HqlSqlWalker:930 - [DEPRECATION] Encountered positional parameter near line 1, column 78.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
+2015-03-18 12:38:56 WARN  HqlSqlWalker:930 - [DEPRECATION] Encountered positional parameter near line 1, column 66.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
+2015-03-18 12:38:56 WARN  HqlSqlWalker:930 - [DEPRECATION] Encountered positional parameter near line 1, column 68.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
+2015-03-18 12:38:56 WARN  HqlSqlWalker:930 - [DEPRECATION] Encountered positional parameter near line 1, column 61.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
+2015-03-18 12:38:56 WARN  HqlSqlWalker:930 - [DEPRECATION] Encountered positional parameter near line 1, column 86.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
+2015-03-18 12:38:56 WARN  HqlSqlWalker:930 - [DEPRECATION] Encountered positional parameter near line 1, column 83.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
+2015-03-18 12:38:56 WARN  HqlSqlWalker:930 - [DEPRECATION] Encountered positional parameter near line 1, column 106.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
+2015-03-18 12:38:57 WARN  HqlSqlWalker:930 - [DEPRECATION] Encountered positional parameter near line 1, column 79.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
+2015-03-18 12:38:57 WARN  HqlSqlWalker:930 - [DEPRECATION] Encountered positional parameter near line 1, column 84.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
+2015-03-18 12:38:57 WARN  HqlSqlWalker:930 - [DEPRECATION] Encountered positional parameter near line 1, column 78.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
+2015-03-18 12:38:57 INFO  ApplLogger:28 - =========Instance of UserToAccessRightsServiceImpl is created by Context...=======
+2015-03-18 12:38:57 INFO  ApplLogger:28 - =========Instance of UserToAccessRightsServiceImpl is created by Context...=======
+2015-03-18 12:44:09 INFO  Version:37 - HCANN000001: Hibernate Commons Annotations {4.0.2.Final}
+2015-03-18 12:44:09 INFO  Version:41 - HHH000412: Hibernate Core {4.2.7.SP1}
+2015-03-18 12:44:09 INFO  Environment:238 - HHH000206: hibernate.properties not found
+2015-03-18 12:44:09 INFO  Environment:345 - HHH000021: Bytecode provider name : javassist
+2015-03-18 12:44:09 INFO  Ejb3Configuration:529 - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2015-03-18 12:44:09 INFO  ConnectionProviderInitiator:188 - HHH000130: Instantiating explicit connection provider: org.hibernate.ejb.connection.InjectedDataSourceConnectionProvider
+2015-03-18 12:44:09 INFO  Dialect:130 - HHH000400: Using dialect: org.hibernate.dialect.OracleDialect
+2015-03-18 12:44:09 WARN  Oracle9Dialect:62 - HHH000063: The Oracle9Dialect dialect has been deprecated; use either Oracle9iDialect or Oracle10gDialect instead
+2015-03-18 12:44:09 WARN  OracleDialect:48 - HHH000064: The OracleDialect dialect has been deprecated; use Oracle8iDialect instead
+2015-03-18 12:44:10 INFO  TransactionFactoryInitiator:73 - HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory
+2015-03-18 12:44:10 INFO  ASTQueryTranslatorFactory:48 - HHH000397: Using ASTQueryTranslatorFactory
+2015-03-18 12:44:10 INFO  SchemaUpdate:182 - HHH000228: Running hbm2ddl schema update
+2015-03-18 12:44:10 INFO  SchemaUpdate:193 - HHH000102: Fetching database metadata
+2015-03-18 12:44:10 INFO  SchemaUpdate:205 - HHH000396: Updating schema
+2015-03-18 12:44:10 INFO  TableMetadata:65 - HHH000261: Table found: BEANS.ACCESSRIGHTS
+2015-03-18 12:44:10 INFO  TableMetadata:66 - HHH000037: Columns: [creationtime, id, lastmodifiedtime, description, isdeleted, lastmodifiedby, createdby, accessrights]
+2015-03-18 12:44:10 INFO  TableMetadata:68 - HHH000108: Foreign keys: []
+2015-03-18 12:44:10 INFO  TableMetadata:69 - HHH000126: Indexes: [sys_c007339]
+2015-03-18 12:44:10 INFO  TableMetadata:65 - HHH000261: Table found: BEANS.AUDITDETAIL
+2015-03-18 12:44:10 INFO  TableMetadata:66 - HHH000037: Columns: [uniqueprocessid, content, id, updateddatetime, createddatetime, messagetype, messageid]
+2015-03-18 12:44:10 INFO  TableMetadata:68 - HHH000108: Foreign keys: []
+2015-03-18 12:44:10 INFO  TableMetadata:69 - HHH000126: Indexes: [sys_c007347]
+2015-03-18 12:44:10 INFO  TableMetadata:65 - HHH000261: Table found: BEANS.AUDITMASTER
+2015-03-18 12:44:10 INFO  TableMetadata:66 - HHH000037: Columns: [loglevel, messageformat, appid, customstring1, serviceid, uniqueprocessid, id, updateddatetime, customstring2, customstring3, customint3, customint2, customdate2, customdate1, messageid, reasoncode, customint1, applname, transtype, errormessage, host, transdatetime, loginterface, createdby, journalseq, createddatetime, updatedby, requestdatetime, errorcode, statuscode]
+2015-03-18 12:44:10 INFO  TableMetadata:68 - HHH000108: Foreign keys: []
+2015-03-18 12:44:10 INFO  TableMetadata:69 - HHH000126: Indexes: [sys_c007378]
+2015-03-18 12:44:10 INFO  TableMetadata:65 - HHH000261: Table found: BEANS.CONFIGURATIONPROPERTIES
+2015-03-18 12:44:10 INFO  TableMetadata:66 - HHH000037: Columns: [id, loglevel, retrypath]
+2015-03-18 12:44:10 INFO  TableMetadata:68 - HHH000108: Foreign keys: []
+2015-03-18 12:44:10 INFO  TableMetadata:69 - HHH000126: Indexes: [sys_c007382]
+2015-03-18 12:44:10 INFO  TableMetadata:65 - HHH000261: Table found: BEANS.ROLE
+2015-03-18 12:44:10 INFO  TableMetadata:66 - HHH000037: Columns: [creationtime, id, lastmodifiedtime, description, isdeleted, role, lastmodifiedby, createdby]
+2015-03-18 12:44:10 INFO  TableMetadata:68 - HHH000108: Foreign keys: []
+2015-03-18 12:44:10 INFO  TableMetadata:69 - HHH000126: Indexes: [sys_c007397]
+2015-03-18 12:44:10 INFO  TableMetadata:65 - HHH000261: Table found: BEANS.ROLETOACCESSRIGHTS
+2015-03-18 12:44:10 INFO  TableMetadata:66 - HHH000037: Columns: [accessrightsid, roleid]
+2015-03-18 12:44:10 INFO  TableMetadata:68 - HHH000108: Foreign keys: [fk_fr58250noqv9d0hgytxfnae2d, fk_89ni96vv66x1n7kh8boypi4g7]
+2015-03-18 12:44:10 INFO  TableMetadata:69 - HHH000126: Indexes: [sys_c007385]
+2015-03-18 12:44:10 INFO  TableMetadata:65 - HHH000261: Table found: BEANS.SYSTEMAUDITTRAIL
+2015-03-18 12:44:10 INFO  TableMetadata:66 - HHH000037: Columns: [id, loglevel, actorusername, description, isdeleted, actiondate, actoruserid, activity]
+2015-03-18 12:44:10 INFO  TableMetadata:68 - HHH000108: Foreign keys: []
+2015-03-18 12:44:10 INFO  TableMetadata:69 - HHH000126: Indexes: [sys_c007411]
+2015-03-18 12:44:10 INFO  TableMetadata:65 - HHH000261: Table found: BEANS.USERTOACCESSRIGHTS
+2015-03-18 12:44:10 INFO  TableMetadata:66 - HHH000037: Columns: [id, accessrightsid, enabled, isdeleted, userid]
+2015-03-18 12:44:10 INFO  TableMetadata:68 - HHH000108: Foreign keys: [fk_97aemlh7vbytxij8qy10s6yld, fk_ro4tytnprsarmjplfnsiinwkb]
+2015-03-18 12:44:10 INFO  TableMetadata:69 - HHH000126: Indexes: [sys_c007399]
+2015-03-18 12:44:10 INFO  TableMetadata:65 - HHH000261: Table found: BEANS.USERTOROLE
+2015-03-18 12:44:10 INFO  TableMetadata:66 - HHH000037: Columns: [userid, userroleid]
+2015-03-18 12:44:10 INFO  TableMetadata:68 - HHH000108: Foreign keys: [fk_okx5q69p4g3vi0f60w01a76u0, fk_27lru5yyfpeo0o944h5xin7sf]
+2015-03-18 12:44:10 INFO  TableMetadata:69 - HHH000126: Indexes: [sys_c007388]
+2015-03-18 12:44:10 INFO  TableMetadata:65 - HHH000261: Table found: BEANS.USERS
+2015-03-18 12:44:10 INFO  TableMetadata:66 - HHH000037: Columns: [creationtime, id, enabled, username, lastmodifiedtime, lastmodifiedby, createdby, password]
+2015-03-18 12:44:10 INFO  TableMetadata:68 - HHH000108: Foreign keys: []
+2015-03-18 12:44:10 INFO  TableMetadata:69 - HHH000126: Indexes: [sys_c007394, sys_c007392]
+2015-03-18 12:44:10 INFO  SchemaUpdate:242 - HHH000232: Schema update complete
+2015-03-18 12:44:11 WARN  HqlSqlWalker:930 - [DEPRECATION] Encountered positional parameter near line 1, column 96.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
+2015-03-18 12:44:11 WARN  HqlSqlWalker:930 - [DEPRECATION] Encountered positional parameter near line 1, column 121.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
+2015-03-18 12:44:11 WARN  HqlSqlWalker:930 - [DEPRECATION] Encountered positional parameter near line 1, column 128.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
+2015-03-18 12:44:11 WARN  HqlSqlWalker:930 - [DEPRECATION] Encountered positional parameter near line 1, column 80.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
+2015-03-18 12:44:11 WARN  HqlSqlWalker:930 - [DEPRECATION] Encountered positional parameter near line 1, column 71.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
+2015-03-18 12:44:11 WARN  HqlSqlWalker:930 - [DEPRECATION] Encountered positional parameter near line 1, column 66.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
+2015-03-18 12:44:11 WARN  HqlSqlWalker:930 - [DEPRECATION] Encountered positional parameter near line 1, column 78.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
+2015-03-18 12:44:11 WARN  HqlSqlWalker:930 - [DEPRECATION] Encountered positional parameter near line 1, column 66.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
+2015-03-18 12:44:11 WARN  HqlSqlWalker:930 - [DEPRECATION] Encountered positional parameter near line 1, column 68.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
+2015-03-18 12:44:11 WARN  HqlSqlWalker:930 - [DEPRECATION] Encountered positional parameter near line 1, column 61.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
+2015-03-18 12:44:12 WARN  HqlSqlWalker:930 - [DEPRECATION] Encountered positional parameter near line 1, column 79.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
+2015-03-18 12:44:12 WARN  HqlSqlWalker:930 - [DEPRECATION] Encountered positional parameter near line 1, column 84.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
+2015-03-18 12:44:12 WARN  HqlSqlWalker:930 - [DEPRECATION] Encountered positional parameter near line 1, column 78.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
+2015-03-18 12:44:12 WARN  HqlSqlWalker:930 - [DEPRECATION] Encountered positional parameter near line 1, column 86.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
+2015-03-18 12:44:12 WARN  HqlSqlWalker:930 - [DEPRECATION] Encountered positional parameter near line 1, column 83.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
+2015-03-18 12:44:12 WARN  HqlSqlWalker:930 - [DEPRECATION] Encountered positional parameter near line 1, column 106.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
+2015-03-18 12:44:12 INFO  ApplLogger:28 - =========Instance of UserToAccessRightsServiceImpl is created by Context...=======
+2015-03-18 12:44:12 INFO  ApplLogger:28 - =========Instance of UserToAccessRightsServiceImpl is created by Context...=======
