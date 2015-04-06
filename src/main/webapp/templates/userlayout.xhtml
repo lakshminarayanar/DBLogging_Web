@@ -41,13 +41,27 @@
 		<style type="text/css">
 			div[id="noHeaderTable"] thead {
 					display: none;
+					}
+			.dateTimeField input {
+				   width: 230px;
+				   margin-bottom: 15px;
+				   height: 32px;
+				   box-shadow:	inset 0 0px 0px #8f8f8f;
+				   margin-top: 10px;
+					}
+			.ui-datatable * {
+     				border : 0px !important;
+     				font-family: Raleway,sans-serif !important;
 				}
+			.table-padding-td th,td{
+			padding: 5px;
+			}
 		</style>
 </h:head>
 
 <h:body>
 		<div id="wrapper">
-			<ui:include src="/template/sessionTimeOutChecker.xhtml" />
+			<ui:include src="/templates/sessionTimeOutChecker.xhtml" />
 			<div id="header logo">
 				<ui:insert name="logo">
 					<ui:include src="/templates/logoheader.xhtml" />
@@ -55,12 +69,7 @@
 			</div>
 			<div id="header row">
 				<ui:insert name="header">
-					<ui:include src="/templates/adminheader.xhtml" />
-				</ui:insert>
-			</div>
-			<div id="menubar row">
-				<ui:insert name="menu">
-					<ui:include src="/templates/adminmenu.xhtml" />
+					<ui:include src="/templates/userheader.xhtml" />
 				</ui:insert>
 			</div>
 			<div id="container">
