@@ -15,6 +15,9 @@
 	<bean id="users" class="com.hlb.dblogging.jpa.model.Users"></bean>
 	<bean id="usersService" class="com.hlb.dblogging.security.users.service.UsersServiceImpl"></bean>
 	
+	<bean id="configurationBean" class="com.hlb.dblogging.jpa.model.ConfigurationProperties"></bean>
+	<bean id="configurationPropertiesService" class="com.hlb.dblogging.jpa.service.ConfigurationPropertiesServiceImpl"></bean>
+	
 	<bean id="systemAuditTrail" class="com.hlb.dblogging.jpa.model.SystemAuditTrail"/>
 	
 	<bean id="systemAuditTrailService" class="com.hlb.dblogging.user.audit.logging.SystemAuditTrailRecordServiceImpl"></bean>

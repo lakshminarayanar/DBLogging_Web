@@ -1,4 +1,4 @@
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -7,62 +7,95 @@
 	xmlns:pe="http://primefaces.org/ui/extensions">
 
 <h:head>
-</h:head>                        
-
-<h:body>
-<ui:composition template="/templates/mainlayout.xhtml">
+	<title>DBLogging Web Home Page</title>
+</h:head>
+<ui:composition template="/templates/userlayout.xhtml">
 <ui:define name="title">DBLogging Web</ui:define>
 <ui:define name="content">
 
-	<h:form id="searchForm">
-    	<p:growl id="msgs" showDetail="true" />
-		 <p:panel id="toggleable" header="Search" toggleable="true" closable="true" toggleSpeed="500" closeSpeed="500" widgetVar="panel" style="margin-bottom:3px;margin-top:0px;">
- 
-        <!-- <p:ajax event="close" listener="#{panelView.onClose}" update="msgs" />
-        <p:ajax event="toggle" listener="#{panelView.onToggle}" update="msgs" /> -->
- 
-         <h:panelGrid columns="2" cellpadding="0" >
-         	<h:outputText value="LogInterface :"/>
-            <h:inputText id="logInterfaceId" value="#{auditMasterManagedBean.searchBean.logInterface}"></h:inputText>
-            <h:outputText value="ApplicationName :"/>
-            <h:inputText id="ApplicationNameId" value="#{auditMasterManagedBean.searchBean.applicationName}"></h:inputText>
-        	<h:outputText value="StatusCode :"/>
-            <h:inputText id="StatusCodeId" value="#{auditMasterManagedBean.searchBean.statusCode}"></h:inputText>
-        	<h:outputText value="TransactionType :"/>
-            <h:inputText id="TransactionTypeId" value="#{auditMasterManagedBean.searchBean.transactionType}"></h:inputText>
-        	<h:outputText value="TransactionDateTime :"/>
-            <p:calendar pattern="dd/MM/yyyy" mode="popup" id="TransactionDateTimeId" value="#{auditMasterManagedBean.searchTransactionDate}"></p:calendar>
-             
-            <p:commandButton value="Clear"   update="toggleable" immediate="true" process="@this" actionListener="#{auditMasterManagedBean.reset}"  style="margin-right:20px;color:darkblue;" />
-        	<p:commandButton value="Search"  actionListener="#{auditMasterManagedBean.doSearch}" update="auditMasterTable" style="color:darkblue;"></p:commandButton>
-        </h:panelGrid>
- 
-        <f:facet name="options">
-            <p:menu>
-                <p:submenu label="Settings">
-                    <p:menuitem value="Toggle" url="#" icon="ui-icon-newwin" onclick="PF('panel').toggle()" />
-                    <p:menuitem value="Remove" url="#" icon="ui-icon-close" onclick="PF('panel').close()" />
-                </p:submenu>
-            </p:menu>
-        </f:facet>
-    </p:panel>
-   
-		 <p:dataTable id="auditMasterTable" widgetVar="auditMaster" var="auditMasterVar" value="#{auditMasterManagedBean.auditMasterDataModel}" rowKey="#{auditMasterVar.id}" style="margin-bottom:0px;margin-top:0px;"
+    <div class="smart-widget">
+						<div class="smart-widget-header" style="background-color: #f5f5f5;">
+							<b>Search Form</b>
+							<span class="smart-widget-option">
+								<span class="refresh-icon-animated">
+									<i class="fa fa-circle-o-notch fa-spin"></i>
+								</span>
+	                            <a href="#" class="widget-collapse-option" data-toggle="collapse">
+	                                <i class="fa fa-chevron-up"></i>
+	                            </a>
+	                            <a href="#" class="widget-refresh-option">
+	                                <i class="fa fa-refresh"></i>
+	                            </a>
+	                            <a href="#" class="widget-remove-option">
+	                                <i class="fa fa-times"></i>
+	                            </a>
+	                        </span>
+						</div>
+						<div class="smart-widget-inner">
+							<div class="smart-widget-body">
+								<h:form class="form-inline no-margin" id="searchForm">
+									<div class="row">
+										<table style="margin-left: 150px;width: 57%;">
+											<tr><td style="padding-right: 50px;">
+												    <div class="form-group">
+														<p:inputText id="logInterfaceId" type="text" value="#{auditMasterManagedBean.searchBean.logInterface}" styleClass="form-control" style="width:230px;"/>
+							       						<p:watermark for="logInterfaceId" value="Log Interface" id="logInterfaceIdWM" />
+													</div>
+												 </td><td style="padding-right: 50px;">
+													<div class="form-group">
+														<p:inputText id="ApplicationNameId" type="text" value="#{auditMasterManagedBean.searchBean.applicationName}" styleClass="form-control" style="width:230px;"/>
+							       						<p:watermark for="ApplicationNameId" value="Application Name" id="ApplicationNameIdWM" />
+													</div>
+												 </td><td>
+														<div class="form-group">
+															<p:inputText id="StatusCodeId" type="text" value="#{auditMasterManagedBean.searchBean.statusCode}" styleClass="form-control" style="width:230px;"/>
+								       						<p:watermark for="StatusCodeId" value="Status Code" id="StatusCodeIdWM" />
+														</div>
+												 </td></tr>
+											<tr><td style="padding-right: 50px;">
+													<div class="form-group">
+														<p:inputText id="TransactionTypeId" type="text" value="#{auditMasterManagedBean.searchBean.transactionType}" styleClass="form-control" style="width:230px;"/>
+							       						<p:watermark for="TransactionTypeId" value="Transaction Type" id="TransactionTypeIdWM" />
+													</div>
+												</td><td colspan="2">
+														 <p:calendar pattern="dd/MM/yyyy" mode="popup" id="TransactionDateTimeId" value="#{auditMasterManagedBean.searchTransactionDate}" styleClass="dateTimeField" ></p:calendar>
+							       						<p:watermark for="TransactionDateTimeId" value="Transaction Date" id="TransactionDateTimeIdWM" />
+												</td></tr>
+												<tr><td colspan="3">
+												        <p:commandButton value="Clear"   update="searchForm" immediate="true" process="@this" actionListener="#{auditMasterManagedBean.reset}"  styleClass="btn btn-success block" tabindex="-1" style="width: 200px;margin-right: 10px;" />
+       												 	<p:commandButton value="Search"  actionListener="#{auditMasterManagedBean.doSearch}" update=":searchResultForm:auditMasterTable" styleClass="btn btn-success block" tabindex="-1" style="width: 200px;"></p:commandButton>
+       
+									        	</td></tr>
+								 		</table>
+									</div><!-- /.row -->
+								</h:form>
+							</div>
+						</div><!-- ./smart-widget-inner -->
+					</div><!-- ./smart-widget -->
+    
+    
+    
+    
+    <ul class="breadcrumb" style="margin-bottom: 4px;margin-top: -18px;background-color:#f5f5f5; ">
+						<li><span class="primary-font"><i class="icon-home"></i></span><b>Search Results</b></li>
+	</ul>
+   <h:form id="searchResultForm">
+		 <p:dataTable id="auditMasterTable" widgetVar="auditMaster" var="auditMasterVar" value="#{auditMasterManagedBean.auditMasterDataModel}" rowKey="#{auditMasterVar.id}" 
 		 		selection="#{auditMasterManagedBean.selectedMessage}"  selectionMode="single"  emptyMessage="No records found !!!"
-		 		rows="5" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+		 		rows="10" paginator="true" paginatorPosition="bottom" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}" styleClass="table table-striped" >
 				<p:ajax event="rowSelect" listener="#{auditMasterManagedBean.onRowSelect}" update=":messageDialogForm" oncomplete="PF('messageDialog').show()" />
-	          <p:column id="logInterfaceHeader"><f:facet name="header">Log Interface</f:facet><h:outputText value="#{auditMasterVar.logInterface}" /></p:column>
-	          <p:column id="applicationNameHeader"><f:facet name="header"> Application Name </f:facet><h:outputText value="#{auditMasterVar.applName}" /> </p:column>
-	          <p:column id="statusCodeHeader"><f:facet name="header">Status Code</f:facet><h:outputText value="#{auditMasterVar.statusCode}" /> </p:column>
-	          <p:column id="transTypeHeader"><f:facet name="header">Transaction Type</f:facet><h:outputText value="#{auditMasterVar.transType}" /></p:column>
-	          <p:column id="transTimeHeader"><f:facet name="header">Transaction DateTime</f:facet><h:outputText value="#{auditMasterVar.transDateTime}" /></p:column>
+	          <p:column id="logInterfaceHeader" sortBy="#{auditMasterVar.logInterface}"><f:facet name="header">Log Interface</f:facet><h:outputText value="#{auditMasterVar.logInterface}" /></p:column>
+	          <p:column id="applicationNameHeader" sortBy="#{auditMasterVar.applName}"><f:facet name="header"> Application Name </f:facet><h:outputText value="#{auditMasterVar.applName}" /> </p:column>
+	          <p:column id="statusCodeHeader" sortBy="#{auditMasterVar.statusCode}"><f:facet name="header">Status Code</f:facet><h:outputText value="#{auditMasterVar.statusCode}" /> </p:column>
+	          <p:column id="transTypeHeader" sortBy="#{auditMasterVar.transType}"><f:facet name="header">Transaction Type</f:facet><h:outputText value="#{auditMasterVar.transType}" /></p:column>
+	          <p:column id="transTimeHeader" sortBy="#{auditMasterVar.transDateTime}"><f:facet name="header">Transaction DateTime</f:facet><h:outputText value="#{auditMasterVar.transDateTime}" /></p:column>
 	    </p:dataTable>
 	  </h:form>
 </ui:define>
 <ui:define name="dialog">
-			<p:dialog header="Message Content" styleClass="dlgCSS"  widgetVar="messageDialog" resizable="false" closeOnEscape="true"  id="messageDlg" modal="true" height="400px" width="700px" >
+			<p:dialog header="Message Details" style="font-family: Raleway,sans-serif !important;"  widgetVar="messageDialog" resizable="false" closeOnEscape="true"  id="messageDlg" modal="true" height="450px" width="700px" >
 			<h:form id="messageDialogForm">
-                <table border="1" id="display" cellspacing="0" style=" border: 1px solid gainsboro;">
+                <table border="1" id="display" cellspacing="0" style=" border: 1px solid gainsboro;" class="table-padding-td">
 					<tr>
 						<td><h:outputText value="Log Interface " ></h:outputText></td>
 						<td><h:outputText value="#{auditMasterManagedBean.selectedMessage.logInterface}"  label="Log Interface"></h:outputText></td>
@@ -97,7 +130,7 @@
 					</tr>
 					<tr>
 						<td> <h:outputText value="Content"></h:outputText></td>
-						<td><div style="width: 500px;height: 150px;margin: 0;padding: 0;overflow: auto;"><h:outputText value="#{auditMasterManagedBean.messageContent}"></h:outputText></div></td>
+						<td><div style="width: 490px;height: 150px;margin: 0;padding: 0;overflow: auto;"><h:outputText value="#{auditMasterManagedBean.messageContent}"></h:outputText></div></td>
 					</tr>
                     <tr>
 						<td><h:outputText value="Download "></h:outputText></td>
@@ -110,5 +143,4 @@
 	      </p:dialog>
 </ui:define>
 </ui:composition>
-</h:body>
-</html>
+</ui:composition>

@@ -1,57 +1,81 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:c="http://java.sun.com/jsp/jstl/core"
-	xmlns:pe="http://primefaces.org/ui/extensions">
-<h:head>
-	<title><ui:insert name="title">Default title</ui:insert></title>
-	<h:outputStylesheet library="css" name="layout.css" />
-    <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'/>
-    <link rel="shortcut icon" type="image/x-icon" href="#{request.contextPath}/resources/images/favicon.ico"/>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:c="http://java.sun.com/jsp/jstl/core">
+ <h:head>
+	    <meta charset="utf-8"></meta>
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+	    <meta name="description" content=""></meta>
+	    <meta name="author" content=""></meta>
 
+		<h:outputStylesheet name="bootstrap/css/bootstrap.min.css" />
+	    <h:outputStylesheet name="css/font-awesome.min.css" />
+	    <h:outputStylesheet name="css/ionicons.min.css" />
+	    <h:outputStylesheet name="css/dataTables.bootstrap.css" />
+	    <h:outputStylesheet name="css/simplify.min.css" />
+	    <h:outputStylesheet name="css/loginlayout.css" />
+		<h:outputStylesheet name="css/morris.css" />
+		<h:outputStylesheet name="css/datepicker.css" />
+		<h:outputStylesheet name="css/animate.min.css" />
+		<h:outputStylesheet name="css/owl.carousel.min.css" />
+		<h:outputStylesheet name="css/owl.theme.default.min.css" />
+		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"/>
+		
+		<!-- <h:outputScript library="js" name="jquery-1.11.1.min.js" /> -->
+	    <h:outputScript library="bootstrap/js" name="bootstrap.min.js" />
+		<h:outputScript library="js" name="jquery.slimscroll.min.js" />
+		<h:outputScript library="js" name="rapheal.min.js" />
+		<h:outputScript library="js" name="morris.min.js" />	
+		<h:outputScript library="js/uncompressed" name="datepicker.js" />
+		<h:outputScript library="js" name="sparkline.min.js" />
+		<h:outputScript library="js/uncompressed" name="skycons.js" />
+		<h:outputScript library="js" name="jquery.popupoverlay.min.js" />
+		<h:outputScript library="js/uncompressed" name="jquery.sortable.js" />
+		<h:outputScript library="js" name="owl.carousel.min.js" />
+		<h:outputScript library="js" name="modernizr.min.js" />
+		<h:outputScript library="js/simplify" name="simplify.js" />
+
+		<style type="text/css">
+			div[id="noHeaderTable"] thead {
+					display: none;
+				}
+		</style>
 </h:head>
 
 <h:body>
-<p:layout fullPage="true">
-		<p:ajaxStatus style="width:64px;height:64px;position:fixed;right:5px;bottom:5px">  
-		    <f:facet name="start">  
-		        <p:graphicImage name="loading.gif" library="images"></p:graphicImage>
-		    </f:facet>  
-		    <f:facet name="complete">  
-		        <h:outputText value="" />  
-		    </f:facet>  
-		</p:ajaxStatus>
-		<p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"/>  
-		<p:dialog modal="true" widgetVar="statusDialog" header="Please wait..."  draggable="false" closable="false">  
-		    <p:graphicImage name="ajaxloadingbar.gif" library="images"></p:graphicImage>
-		</p:dialog>  
-
-				 <p:layoutUnit position="north" header="Hong Leong Bank - DBLogging Web"  resizable="false" closable="false" collapsible="false" style="overflow-y: hidden;">
-						<ui:insert name="header">
-							<ui:include src="header.xhtml" />
-						</ui:insert>
-						<ui:insert name="menu">
-				<h:form>
-		<p:growl id="messages" />
-		<p:menubar>
-			<p:menuitem value="Add User" url="/pages/adminhomepage.jsf" />
-			<p:menuitem value="Logout" action="${loginAuthenticationBean.doLogout}">
-			</p:menuitem>
-		</p:menubar>
-	</h:form>
+		<div id="wrapper">
+			<ui:include src="/template/sessionTimeOutChecker.xhtml" />
+			<div id="header logo">
+				<ui:insert name="logo">
+					<ui:include src="/templates/logoheader.xhtml" />
 				</ui:insert>
-					 </p:layoutUnit>
-				  <p:layoutUnit position="center">
+			</div>
+			<div id="header row">
+				<ui:insert name="header">
+					<ui:include src="/templates/adminheader.xhtml" />
+				</ui:insert>
+			</div>
+			<div id="menubar row">
+				<ui:insert name="menu">
+					<ui:include src="/templates/adminmenu.xhtml" />
+				</ui:insert>
+			</div>
+			<div id="container">
+				<div id="content">
 					<ui:insert name="content" />
-				  </p:layoutUnit>					
-				  <ui:insert name="dialog"/>
-			<p:layoutUnit position="south" style="text-align:center;" footer="© 2015 Hong Leong Bank All Rights Reserved "  resizable="false" closable="false" collapsible="false">
-    		</p:layoutUnit>
-
-		 
-</p:layout>
-</h:body>
+				</div>
+				<ui:insert name="dialog">
+				</ui:insert>
+			</div>
+			<div id="footer">
+				<ui:insert name="footer">
+					<ui:include src="/templates/footer.xhtml" />
+				</ui:insert>
+			</div>
+		</div>
+	</h:body>
 </html>
 

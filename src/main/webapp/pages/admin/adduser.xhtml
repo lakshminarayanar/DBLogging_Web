@@ -1,58 +1,13 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:p="http://primefaces.org/ui"
     xmlns:c="http://java.sun.com/jsp/jstl/core">
- <h:head>
-	    <meta charset="utf-8"></meta>
-	    <title>Add User to System</title>
-	    <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
-	    <meta name="description" content=""></meta>
-	    <meta name="author" content=""></meta>
 
-		<h:outputStylesheet name="bootstrap/css/bootstrap.min.css" />
-	    <h:outputStylesheet name="css/font-awesome.min.css" />
-	    <h:outputStylesheet name="css/ionicons.min.css" />
-	    <h:outputStylesheet name="css/simplify.min.css" />
-	    <h:outputStylesheet name="css/loginlayout.css" />
-		<h:outputStylesheet name="css/morris.css" />
-		<h:outputStylesheet name="css/datepicker.css" />
-		<h:outputStylesheet name="css/animate.min.css" />
-		<h:outputStylesheet name="css/owl.carousel.min.css" />
-		<h:outputStylesheet name="css/owl.theme.default.min.css" />
-		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"/>
-		
-		<h:outputScript library="js" name="jquery-1.11.1.min.js" />
-	    <h:outputScript library="bootstrap/js" name="bootstrap.min.js" />
-		<h:outputScript library="js" name="jquery.slimscroll.min.js" />
-		<h:outputScript library="js" name="rapheal.min.js" />
-		<h:outputScript library="js" name="morris.min.js" />	
-		<h:outputScript library="js/uncompressed" name="datepicker.js" />
-		<h:outputScript library="js" name="sparkline.min.js" />
-		<h:outputScript library="js/uncompressed" name="skycons.js" />
-		<h:outputScript library="js" name="jquery.popupoverlay.min.js" />
-		<h:outputScript library="js/uncompressed" name="jquery.sortable.js" />
-		<h:outputScript library="js" name="owl.carousel.min.js" />
-		<h:outputScript library="js" name="modernizr.min.js" />
-		<h:outputScript library="js/simplify" name="simplify.js" />
-
-<style type="text/css">
-div[id="noHeaderTable"] thead {
-	display: none;
-}
-</style>
-
-
-
-</h:head>
-  	<ui:include src="/pages/logoheader.xhtml" ></ui:include>
-  	<body class="overflow-hidden">
-  		<ui:include src="/pages/admin/adminheader.xhtml" ></ui:include>
-		<div class="wrapper preload" style="padding-top: 0px;">
-		 <ui:include src="/pages/admin/adminmenu.xhtml" ></ui:include>
-			
+  <ui:composition template="/templates/adminlayout.xhtml">
+ 	<ui:define name="title">Add User</ui:define>
+ 	<ui:define name="content">
 			<div class="main-container">
 				<div class="padding-md">
 					<div class="row" style="height: 70px;">
@@ -100,21 +55,19 @@ div[id="noHeaderTable"] thead {
 										</ul>
 									</div>
 									<div class="smart-widget-body no-padding">
-									<div style="height: 200px;">
-									<h:form>
-									<table style="width: 80%;padding: 10px;border-spacing: 20px;border-collapse: separate;margin: 45px;">
+									<div style="height: 239px;">
+									<h:form id="addUserForm">
+									<p:messages  autoUpdate="true" showDetail="false" closable="true"/>
+									<table style="width: 80%;padding: 10px;border-spacing: 20px;border-collapse: separate;margin: 5px;">
 										<tr>
 											<td>
 												<p:outputLabel value="Username :" for="acUsername" />
 											</td>
 											<td>
-												<p:autoComplete id="acUsername"
-													value="#{usersManagedBean.txt1}"
-													completeMethod="#{usersManagedBean.getUserList}"  style="width:200px;"/>
+												<p:autoComplete id="acUsername" value="#{usersManagedBean.txt1}"  completeMethod="#{usersManagedBean.getUserList}" required="true" requiredMessage="Please enter userId to add to System"  style="width:200px;"/>
 											</td>
 										</tr><tr><td colspan="2">
-										<p:commandButton id="saveUsersBtn" value="Submit"
-											action="#{usersManagedBean.createUser}" />
+										<p:commandButton id="saveUsersBtn" value="Submit" actionListener="#{usersManagedBean.createUser}"  ajax="true" update=":userListForm"/>
 										</td></tr></table>
 									</h:form>
 									</div>
@@ -153,8 +106,8 @@ div[id="noHeaderTable"] thead {
 											<li style="background-color:#fff;" data-color="reset"></li>
 										</ul>
 									</div>
-									<div class="smart-widget-body no-padding" id="noHeaderTable">
-										<h:form name="userListForm">
+									<div class="smart-widget-body no-padding" id="noHeaderTable" style="overflow-y:scroll;">
+										<h:form name="userListForm" id="userListForm">
 										<p:dataTable id="userListTable" widgetVar="userList" var="userListVar" selectionMode="single" value="#{usersManagedBean.userdatamodel}" rowKey="#{userListVar.id}" style="height:244px;">
 											<p:column id="UsernameHeader">
 											<f:facet name="usernameHead" >Existing Users</f:facet>
@@ -170,9 +123,9 @@ div[id="noHeaderTable"] thead {
 					
 					</div><!-- ./padding-md -->
 			</div><!-- /main-container -->
-			<ui:include src="/pages/footer.xhtml" ></ui:include>
-		</div><!-- /wrapper -->
 
 		<a href="#" class="scroll-to-top hidden-print"><i class="fa fa-chevron-up fa-lg"></i></a>
-  	</body>
-</html>
+  		
+		</ui:define>
+		</ui:composition>
+</ui:composition>

@@ -1,49 +1,13 @@
-<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:p="http://primefaces.org/ui"
     xmlns:c="http://java.sun.com/jsp/jstl/core">
- <h:head>
-	    <meta charset="utf-8"></meta>
-	    <title>Admin Homepage</title>
-	    <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
-	    <meta name="description" content=""></meta>
-	    <meta name="author" content=""></meta>
 
-		<h:outputStylesheet name="bootstrap/css/bootstrap.min.css" />
-	    <h:outputStylesheet name="css/font-awesome.min.css" />
-	    <h:outputStylesheet name="css/ionicons.min.css" />
-	    <h:outputStylesheet name="css/simplify.min.css" />
-	    <h:outputStylesheet name="css/loginlayout.css" />
-		<h:outputStylesheet name="css/morris.css" />
-		<h:outputStylesheet name="css/datepicker.css" />
-		<h:outputStylesheet name="css/animate.min.css" />
-		<h:outputStylesheet name="css/owl.carousel.min.css" />
-		<h:outputStylesheet name="css/owl.theme.default.min.css" />
-		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"/>
-		
-		<h:outputScript library="js" name="jquery-1.11.1.min.js" />
-	    <h:outputScript library="bootstrap/js" name="bootstrap.min.js" />
-		<h:outputScript library="js" name="jquery.slimscroll.min.js" />
-		<h:outputScript library="js" name="rapheal.min.js" />
-		<h:outputScript library="js" name="morris.min.js" />	
-		<h:outputScript library="js/uncompressed" name="datepicker.js" />
-		<h:outputScript library="js" name="sparkline.min.js" />
-		<h:outputScript library="js/uncompressed" name="skycons.js" />
-		<h:outputScript library="js" name="jquery.popupoverlay.min.js" />
-		<h:outputScript library="js/uncompressed" name="jquery.sortable.js" />
-		<h:outputScript library="js" name="owl.carousel.min.js" />
-		<h:outputScript library="js" name="modernizr.min.js" />
-		<h:outputScript library="js/simplify" name="simplify.js" />
-  	</h:head>
-  	<ui:include src="/pages/logoheader.xhtml" ></ui:include>
-  	<body class="overflow-hidden">
-  		<ui:include src="/pages/admin/adminheader.xhtml" ></ui:include>
-		<div class="wrapper preload" style="padding-top: 0px;">
-		 <ui:include src="/pages/admin/adminmenu.xhtml" ></ui:include>
-			
+ <ui:composition template="/templates/adminlayout.xhtml">
+ 	<ui:define name="title">Admin Homepage</ui:define>
+ 	<ui:define name="content">
 			<div class="main-container">
 				<div class="padding-md">
 					<div class="row">
@@ -52,15 +16,14 @@
 								Admin User
 							</div>
 							<div class="page-sub-header">
-								Welcome Back, Admin User , <i class="fa fa-map-marker text-danger"></i> Malaysia
+								Welcome Back, <h:outputText value="#{loginAuthenticationBean.username}" style="text-transform: capitalize;" /> ! , <i class="fa fa-map-marker text-danger"></i> Malaysia
 							</div>
 						</div>
 					</div>
 				</div><!-- ./padding-md -->
 			</div><!-- /main-container -->
-			 <ui:include src="/pages/footer.xhtml" ></ui:include>
-		</div><!-- /wrapper -->
 
 		<a href="#" class="scroll-to-top hidden-print"><i class="fa fa-chevron-up fa-lg"></i></a>
-  	</body>
+		</ui:define>
+	</ui:composition>
 </html>

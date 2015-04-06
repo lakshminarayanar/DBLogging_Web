@@ -31,12 +31,12 @@
 					<h:form id="loginForm" prependId="false">
             			<p:growl id="growl" sticky="true" display="text" />
 						<div class="form-group m-bottom-md">
-							<p:focus for="username"><p:inputText id="username" value="#{loginAuthenticationBean.username}" required="true" requiredMessage="Username is required" styleClass="form-control" /></p:focus>
-       						<p:watermark for="username" value="Username" id="usernameWM" />
+							<p:focus for="j_username"><p:inputText id="j_username" value="#{loginAuthenticationBean.username}" required="true" requiredMessage="Username is required" styleClass="form-control" /></p:focus>
+       						<p:watermark for="j_username" value="Username" id="j_usernameWM" />
 						</div>
 						<div class="form-group">
-							<p:inputText id="password" type="password" value="#{loginAuthenticationBean.password}" required="true" requiredMessage="Password is required" styleClass="form-control" />
-       						<p:watermark for="password" value="Password" id="passwordWM" />
+							<p:inputText id="j_password" type="password" value="#{loginAuthenticationBean.password}" required="true" requiredMessage="Password is required" styleClass="form-control" />
+       						<p:watermark for="j_password" value="Password" id="j_passwordWM" />
 						</div>
 
 						<div class="form-group">

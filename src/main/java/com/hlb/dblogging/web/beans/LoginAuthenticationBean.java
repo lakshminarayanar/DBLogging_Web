@@ -5,24 +5,29 @@ import java.io.Serializable;
 import java.util.HashSet;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
+import com.hlb.dblogging.jpa.model.Users;
 import com.hlb.dblogging.log.utility.ApplLogger;
 import com.hlb.dblogging.security.users.service.UsersService;
+import com.hlb.dblogging.user.audit.logging.AuditTrail;
+import com.hlb.dblogging.user.audit.logging.SystemAuditTrailActivity;
+import com.hlb.dblogging.user.audit.logging.SystemAuditTrailLevel;
 
 @Component
-@ViewScoped
+@SessionScoped
 public class LoginAuthenticationBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -34,17 +39,24 @@ public class LoginAuthenticationBean implements Serializable {
 	private String password;
 	private Boolean wrongPassword;
 	
+	private Users actorUsers;
+	private String oldPassword;
+	private String newPassword;
 	
+	@Autowired
+	private AuditTrail auditTrail;
+	
+	public Users getActorUsers() {
+		return actorUsers;
+	}
+	public void setActorUsers(Users actorUsers) {
+		this.actorUsers = actorUsers;
+	}
 	
 	public LoginAuthenticationBean() {
 		ApplLogger.getLogger().info("@@@@@@@@@@@ LoginAuthenticationBean object created... @@@@@@@@@");
 	}
-	public UsersService getUsersService() {
-		return usersService;
-	}
-	public void setUsersService(UsersService usersService) {
-		this.usersService = usersService;
-	}
+	
 	public String getUsername() {
 		return username;
 	}
@@ -66,6 +78,38 @@ public class LoginAuthenticationBean implements Serializable {
 	public void setWrongPassword(Boolean wrongPassword) {
 		this.wrongPassword = wrongPassword;
 	}
+	
+	public String getNewPassword() {
+		return newPassword;
+	}
+	public void setNewPassword(String newPassword) {
+		this.newPassword = newPassword;
+	}
+	
+	public UsersService getUsersService() {
+		return usersService;
+	}
+	public void setUsersService(UsersService usersService) {
+		this.usersService = usersService;
+	}
+	public AuditTrail getAuditTrail() {
+		return auditTrail;
+	}
+	public void setAuditTrail(AuditTrail auditTrail) {
+		this.auditTrail = auditTrail;
+	}
+	
+	public String getOldPassword() {
+		return oldPassword;
+	}
+	public void setOldPassword(String oldPassword) {
+		this.oldPassword = oldPassword;
+	}
+	
+	
+	
+	
+	
 	public String doLogin() throws ServletException, IOException{
 		
 		ApplLogger.getLogger().info("Authenticate here...!!!");
@@ -100,6 +144,7 @@ public class LoginAuthenticationBean implements Serializable {
 		}
 		}else{
 			// TODO: Write code for checking password and if wrong, return to login page else get list of Authorities.
+			initUsers();
 			ApplLogger.getLogger().info("Logged in user is Admin...");
 			return "/pages/admin/adminhomepage.jsf?faces-redirect=true";
 		}
@@ -118,14 +163,14 @@ public class LoginAuthenticationBean implements Serializable {
 		}
 		return false;
 	}
-	public String doLogout(){
+	public void doLogout() throws IOException{
 		//TODO Write logic to log out 
 		SecurityContextHolder.clearContext();
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 		ApplLogger.getLogger().info("Logged out successsfuly...!");
 		username=null;
 		password=null;
-		return "/login.jsf?faces-redirect=true"  ;
+		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/login.jsf");
 	 }
 	
 	private void populateAccessRightsSet() {
@@ -153,5 +198,35 @@ public class LoginAuthenticationBean implements Serializable {
 		}		
 	}
 	
+	public void doUpdatePassword() {
+		try {
+			actorUsers = usersService.changePassword(actorUsers, oldPassword, getNewPassword());
+			auditTrail.log(SystemAuditTrailActivity.UPDATED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has updated his/her password");
+			FacesMessage msg = new FacesMessage("Info : New password saved.");  
+			msg.setSeverity(FacesMessage.SEVERITY_INFO);
+	        FacesContext.getCurrentInstance().addMessage(null, msg);  
+		} catch(Exception e) {
+			FacesMessage msg = new FacesMessage("Error : "+ e.getLocalizedMessage());  
+			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+	        FacesContext.getCurrentInstance().addMessage(null, msg);  
+	        auditTrail.log(SystemAuditTrailActivity.UPDATED, SystemAuditTrailLevel.ERROR, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " tried to update his/her password but failed due to '" + e.getMessage() + "'");
+		}
+	}
+	
+	private void initUsers() {
+		try {
+			actorUsers = getUsersService().findByUsername(getUsername());
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
+	public void keepSessionAlive(){
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
+		request.getSession();
+	}
 	
 }
