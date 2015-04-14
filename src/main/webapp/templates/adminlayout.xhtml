@@ -10,7 +10,8 @@
 	    <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
 	    <meta name="description" content=""></meta>
 	    <meta name="author" content=""></meta>
-
+        <title><ui:insert name="title">Default title</ui:insert></title>
+        
 		<h:outputStylesheet name="bootstrap/css/bootstrap.min.css" />
 	    <h:outputStylesheet name="css/font-awesome.min.css" />
 	    <h:outputStylesheet name="css/ionicons.min.css" />
@@ -47,7 +48,7 @@
 
 <h:body>
 		<div id="wrapper">
-			<ui:include src="/template/sessionTimeOutChecker.xhtml" />
+			<ui:include src="/templates/sessionTimeOutChecker.xhtml" />
 			<div id="header logo">
 				<ui:insert name="logo">
 					<ui:include src="/templates/logoheader.xhtml" />

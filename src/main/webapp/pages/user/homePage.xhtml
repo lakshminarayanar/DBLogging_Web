@@ -6,11 +6,8 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:pe="http://primefaces.org/ui/extensions">
 
-<h:head>
-	<title>DBLogging Web Home Page</title>
-</h:head>
 <ui:composition template="/templates/userlayout.xhtml">
-<ui:define name="title">DBLogging Web</ui:define>
+<ui:define name="title">DBLogging Web Message Viewer</ui:define>
 <ui:define name="content">
 
     <div class="smart-widget">
@@ -58,7 +55,7 @@
 							       						<p:watermark for="TransactionTypeId" value="Transaction Type" id="TransactionTypeIdWM" />
 													</div>
 												</td><td colspan="2">
-														 <p:calendar pattern="dd/MM/yyyy" mode="popup" id="TransactionDateTimeId" value="#{auditMasterManagedBean.searchTransactionDate}" styleClass="dateTimeField" ></p:calendar>
+														 <p:calendar pattern="dd/MM/yyyy" mode="popup" navigator="true" pages="2" id="TransactionDateTimeId" value="#{auditMasterManagedBean.searchTransactionDate}" styleClass="dateTimeField" ></p:calendar>
 							       						<p:watermark for="TransactionDateTimeId" value="Transaction Date" id="TransactionDateTimeIdWM" />
 												</td></tr>
 												<tr><td colspan="3">
@@ -93,7 +90,7 @@
 	  </h:form>
 </ui:define>
 <ui:define name="dialog">
-			<p:dialog header="Message Details" style="font-family: Raleway,sans-serif !important;"  widgetVar="messageDialog" resizable="false" closeOnEscape="true"  id="messageDlg" modal="true" height="450px" width="700px" >
+			<p:dialog header="Message Details" style="font-family: Raleway,sans-serif !important;"  widgetVar="messageDialog" resizable="true" closeOnEscape="true"  id="messageDlg" modal="true" height="450px" width="700px">
 			<h:form id="messageDialogForm">
                 <table border="1" id="display" cellspacing="0" style=" border: 1px solid gainsboro;" class="table-padding-td">
 					<tr>
@@ -134,7 +131,7 @@
 					</tr>
                     <tr>
 						<td><h:outputText value="Download "></h:outputText></td>
-						<td><p:commandButton value="Download Content" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s">
+						<td><p:commandButton value="Download Content" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s"  styleClass="btn btn-success block"  style="width: 200px;">
 							<p:fileDownload value="#{auditMasterManagedBean.file}" />
 							</p:commandButton> </td>
 					</tr>	

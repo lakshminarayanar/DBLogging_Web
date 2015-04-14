@@ -1,5 +1,6 @@
 package com.hlb.dblogging.web.beans;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,17 +9,21 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.primefaces.model.UploadedFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
 
+import com.hlb.dblogging.jpa.model.ConfigurationProperties;
 import com.hlb.dblogging.jpa.model.Users;
 import com.hlb.dblogging.jpa.service.AuditMasterService;
 import com.hlb.dblogging.jpa.service.ConfigurationPropertiesService;
 import com.hlb.dblogging.log.utility.ApplLogger;
 import com.hlb.dblogging.model.UsersDataModel;
 import com.hlb.dblogging.security.users.service.UsersService;
+import com.hlb.dblogging.xml.utility.XSLTransformer;
 
 @Component
 @RequestScoped
@@ -33,6 +38,8 @@ public class UsersManagedBean implements Serializable {
 	List<String> users = new ArrayList<String>();
 	private String changedLogLevel;
 	private String currentLogLevel;
+	private String existingXSLT;
+	private UploadedFile newXSLTAttachment;
 
 	@Autowired
 	private UsersService usersService;
@@ -45,7 +52,6 @@ public class UsersManagedBean implements Serializable {
 
 	private List<Users> userslists;
 	private UsersDataModel userdatamodel;
-	private Boolean insertDeleted = false;
 	
 	
 	public String getCurrentLogLevel() {
@@ -79,6 +85,14 @@ public class UsersManagedBean implements Serializable {
 	public void setTxt2(String txt2) {
 		this.txt2 = txt2;
 	}
+	
+	public String getExistingXSLT() {
+		return existingXSLT;
+	}
+
+	public void setExistingXSLT(String existingXSLT) {
+		this.existingXSLT = existingXSLT;
+	}
 
 	public AuditMasterService getAuditMasterService() {
 		return auditMasterService;
@@ -95,6 +109,14 @@ public class UsersManagedBean implements Serializable {
 
 	public void setUserslists(List<Users> userslists) {
 		this.userslists = userslists;
+	}
+	
+	public UploadedFile getNewXSLTAttachment() {
+		return newXSLTAttachment;
+	}
+
+	public void setNewXSLTAttachment(UploadedFile newXSLTAttachment) {
+		this.newXSLTAttachment = newXSLTAttachment;
 	}
 
 	public UsersService getUsersService() {
@@ -170,6 +192,37 @@ public class UsersManagedBean implements Serializable {
 	public void populateValues(){
 		currentLogLevel = configurationPropertiesService.getLogLevelForMessageSaving();
 	}
+	
+	public void upload() throws IOException{
+		if(newXSLTAttachment!=null){
+		String fileName = newXSLTAttachment.getFileName();
+		String format = fileName.substring(fileName.length()-3);
+		if(newXSLTAttachment!= null && (format.equalsIgnoreCase("xsl")))
+		{
+			try{
+			existingXSLT = new String(IOUtils.toByteArray(newXSLTAttachment.getInputstream()));
+			ApplLogger.getLogger().info("Input Data XSLT in String form is : "+existingXSLT);
+			configurationPropertiesService.updateNewXSLTFile(existingXSLT);
+			XSLTransformer.xslTranformerStream=existingXSLT;
+			FacesMessage msg = new FacesMessage("Info : New XSLT uploaded successfully, Changes will be effected daily at 6:00AM"); 
+			msg.setSeverity(FacesMessage.SEVERITY_INFO);
+	        FacesContext.getCurrentInstance().addMessage(null, msg);
+			}catch(Exception e){
+				FacesMessage msg = new FacesMessage("Error : Unbale to upload now, Please try later.."); 
+				msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+		        FacesContext.getCurrentInstance().addMessage(null, msg);
+			}
+		}		
+		else {
+			FacesMessage msg = new FacesMessage("Error : Only XSL format allowed to upload.."); 
+			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+	        FacesContext.getCurrentInstance().addMessage(null, msg);
+		}
+		}		
+	}
+	
+	
+	
 
 	public ConfigurationPropertiesService getConfigurationPropertiesService() {
 		return configurationPropertiesService;
@@ -184,6 +237,12 @@ public class UsersManagedBean implements Serializable {
 		configurationPropertiesService.updateLoglevl(changedLogLevel);
 		currentLogLevel = changedLogLevel;
 		changedLogLevel="";
+	}
+	
+	public void populateExistingXSLT(){
+		ConfigurationProperties configuration =	configurationPropertiesService.getApplicationConfiguration();
+		XSLTransformer.xslTranformerStream = configuration.getXslTransformer();
+		existingXSLT =	XSLTransformer.xslTranformerStream;
 	}
 	
 }

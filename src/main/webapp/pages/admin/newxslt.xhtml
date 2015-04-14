@@ -5,32 +5,42 @@
     xmlns:p="http://primefaces.org/ui"
     xmlns:c="http://java.sun.com/jsp/jstl/core">
  <h:head>
-	    <title>Log Level Set</title>
+	    <title>View/Upload New XSLT</title>
 </h:head>
 <f:metadata>
-    	<f:event type="preRenderView" listener="#{usersManagedBean.populateValues}" />
+    	<f:event type="preRenderView" listener="#{usersManagedBean.populateExistingXSLT}" />
 </f:metadata>
   	<ui:composition template="/templates/adminlayout.xhtml">
- 	<ui:define name="title">Add User</ui:define>
+ 	<ui:define name="title">Current XSLT</ui:define>
  	<ui:define name="content">
 			<div class="main-container">
 				<div class="padding-md">
 					<div class="row" style="height: 70px;">
 						<div class="col-sm-6">
 							<div class="page-title">
-								Log Level Settings
+								Existing XSL Transformer
 							</div>
 							<div class="page-sub-header">
 								 Welcome Back,  <h:outputText value="#{loginAuthenticationBean.username}" style="text-transform: capitalize;" />! , <i class="fa fa-map-marker text-danger"></i> Malaysia
 							</div>
 						</div>
+						
+						
+						<div class="col-sm-6">
+							<div class="page-title" style="float:left;width: 232px;">
+								Upload New XSLT ? 
+							</div>
+							<h:form name="uploadForm">
+									<p:commandButton value="Upload" onclick="newXSLTDialog.show()" styleClass="btn btn-success block" tabindex="-1" style="width: 150px;"></p:commandButton>
+							</h:form>
+						</div>
 					</div>
 					
 					<div class="row" style="width: 1000px;">
-						<div class="col-lg-6">
+						<div class="col-lg-20">
 							<div class="smart-widget widget-dark-blue">
 								<div class="smart-widget-header">
-									Log Level
+									Existing XSLT
 									<span class="smart-widget-option">
 										<span class="refresh-icon-animated">
 											<i class="fa fa-circle-o-notch fa-spin"></i>
@@ -60,36 +70,16 @@
 										</ul>
 									</div>
 									<div class="smart-widget-body no-padding">
-									<div style="height: 200px;">
+									<div style="height: 550px;">
 									<h:form name="logForm" id="logForm">
-									<p:messages autoUpdate="true"/>
-									<table style="width: 80%;padding: 10px;border-spacing: 20px;border-collapse: separate;margin: 5px;">
+									<p:messages autoUpdate="true" closable="true" />
+									<table style="width: 99%;padding: 1px;border-spacing: 2px;border-collapse: separate;margin: 5px;">
 										<tr>
-											<td>
-											Current Log Level :
-											</td>
-											<td>
-												<h:outputText value="#{usersManagedBean.currentLogLevel}"></h:outputText>
+											<td >
+												<pre>	<h:outputText id="editor"  value="#{usersManagedBean.existingXSLT}"  /> </pre>
 											</td>
 										</tr>
-										<tr>
-										<td>Change Log Level To :</td>
-										<td>
-												<h:selectOneMenu id="logLevel" value="#{usersManagedBean.changedLogLevel}" style="width:150px" required="true" requiredMessage="Please select Log Level">
-								               <!--  <p:ajax listener="#{dropdownView.onCountryChange}" update="city" /> -->
-								                <f:selectItem itemLabel="Select Level" itemValue="" noSelectionOption="true"/>
-								                <f:selectItem itemLabel="DEBUG" itemValue="DEBUG" />
-								                <f:selectItem itemLabel="INFO" itemValue="INFO" />
-								                <f:selectItem itemLabel="WARNING" itemValue="WARNING" />
-								                <f:selectItem itemLabel="ERROR" itemValue="ERROR" />
-								                <f:selectItem itemLabel="FATAL" itemValue="FATAL" />
-								            </h:selectOneMenu>
-										</td>
-										</tr>
-										<tr><td colspan="2">
-										<p:commandButton id="saveUsersBtn" value="Submit" actionListener="#{usersManagedBean.updateLogLevel}" ajax="true" update="logForm"/>
-										</td></tr>
-										<tr><td colspan="2"></td></tr>
+										<tr><td ></td></tr>
 										</table>
 									</h:form>
 									</div>
@@ -103,6 +93,18 @@
 			</div><!-- /main-container -->
 
 		<a href="#" class="scroll-to-top hidden-print"><i class="fa fa-chevron-up fa-lg"></i></a>
+		
+	  <p:dialog header="New XSLT Upload" widgetVar="newXSLTDialog" resizable="false" id="newXSLTDialogId" modal="true" height="115px">
+	  		<h:form enctype="multipart/form-data" id="newXSLTForm">
+      			<table style="width: 20%;padding: 5px;border-spacing: 10px;border-collapse: separate;margin: 5px;">
+      			<tr>
+      			<td><p:fileUpload value="#{usersManagedBean.newXSLTAttachment}" mode="simple"  allowTypes="/(\.|\/)(xsl)$/" required="true" requiredMessage="Please select new XSLT file"/>
+				 	</td></tr>
+      			<tr><td><p:commandButton value="Submit" ajax="false" actionListener="#{usersManagedBean.upload}" oncomplete="newXSLTDialog.hide()" update=":logForm" validateClient="true" styleClass="btn btn-success block" tabindex="-1" style="width: 150px;"/>
+	      			</td></tr>
+      			</table>
+	      	</h:form>
+      </p:dialog>
   	</ui:define>
   	</ui:composition>
 </ui:composition>
