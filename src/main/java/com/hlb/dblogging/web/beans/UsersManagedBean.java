@@ -3,6 +3,7 @@ package com.hlb.dblogging.web.beans;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -11,6 +12,7 @@ import javax.faces.context.FacesContext;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.primefaces.event.SelectEvent;
 import org.primefaces.model.UploadedFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -40,6 +42,17 @@ public class UsersManagedBean implements Serializable {
 	private String currentLogLevel;
 	private String existingXSLT;
 	private UploadedFile newXSLTAttachment;
+	private Users selectedUser = new Users();
+	
+	
+
+	public Users getSelectedUser() {
+		return selectedUser;
+	}
+
+	public void setSelectedUser(Users selectedUser) {
+		this.selectedUser = selectedUser;
+	}
 
 	@Autowired
 	private UsersService usersService;
@@ -157,6 +170,9 @@ public class UsersManagedBean implements Serializable {
 			}
 			Users user=new Users();
 			user.setUsername(txt1);
+			user.setEnabled(true);
+			user.setCreatedBy("Admin");
+			user.setCreationTime(new Date());
 			usersService.create(user);
 			FacesMessage msg = new FacesMessage("SUCCESS : User is added successfully to System");  
 			msg.setSeverity(FacesMessage.SEVERITY_INFO);
@@ -244,6 +260,22 @@ public class UsersManagedBean implements Serializable {
 		XSLTransformer.xslTranformerStream = configuration.getXslTransformer();
 		existingXSLT =	XSLTransformer.xslTranformerStream;
 	}
+	
+	
+	
+	public void onRowSelect(SelectEvent event) {  
+		setSelectedUser((Users) event.getObject());
+    }  
+	
+	public void deleteUser(){
+		System.out.println("Username is going to be deleted is : "+selectedUser.getUsername());
+		if(!"admin".equalsIgnoreCase(selectedUser.getUsername()) && usersService.deleteUser(selectedUser.getUsername())>0)
+			System.out.println("Deleted successfully");
+		else
+			System.out.println("Could not delete. Try later..");
+	}
+	
+	
 	
 }
 

@@ -38,15 +38,25 @@ public class AuditMasterManagedBean implements Serializable{
 	private AuditDetailService auditDetailService;
 	private List<AuditMaster> auditMasterList;
 	private AuditMasterDataModel auditMasterDataModel;
+	private AuditMasterDataModel searchResultDataModel;
 	private Boolean insertDeleted = false;
 	private SearchBean searchBean = new SearchBean();
 	private AuditMaster selectedMessage = new AuditMaster();
 	private Date searchTransactionDate;
 	private String messageContent;
 	private StreamedContent file;
+	private AuditMaster selectedRecord = new AuditMaster();
 	
 	
-	
+	public AuditMaster getSelectedRecord() {
+		return selectedRecord;
+	}
+
+	public void setSelectedRecord(AuditMaster selectedRecord) {
+		this.selectedRecord = selectedRecord;
+	}
+
+
 	public String getMessageContent() {
 		return messageContent;
 	}
@@ -65,6 +75,17 @@ public class AuditMasterManagedBean implements Serializable{
 
 	public Date getSearchTransactionDate() {
 		return searchTransactionDate;
+	}
+	
+	
+	
+
+	public AuditMasterDataModel getSearchResultDataModel() {
+		return searchResultDataModel;
+	}
+
+	public void setSearchResultDataModel(AuditMasterDataModel searchResultDataModel) {
+		this.searchResultDataModel = searchResultDataModel;
 	}
 
 	public void setSearchTransactionDate(Date searchTransactionDate) {
@@ -114,7 +135,7 @@ public class AuditMasterManagedBean implements Serializable{
 	public List<AuditMaster> getAuditMasterMessageList(){
 		
 		if(auditMasterList ==null || insertDeleted ==true){
-		auditMasterList =	auditMasterService.getListOfMessages();
+		auditMasterList =	auditMasterService.getListOfMessagesByTime(new Date());
 		ApplLogger.getLogger().info("AuditMaster list of size from database is : "+auditMasterList.size());
 		}
 		return auditMasterList;
@@ -135,13 +156,17 @@ public class AuditMasterManagedBean implements Serializable{
 	
 	public void onRowSelect(SelectEvent event) {  
 		try{
+		// code to get the list of messages associated with unique process ID
 		setSelectedMessage((AuditMaster) event.getObject());
         FacesMessage msg = new FacesMessage("Message Selected", selectedMessage.getUniqueProcessID());  
         ApplLogger.getLogger().info("Message selected with unique ID is : "+selectedMessage.getUniqueProcessID());
-        messageContent = auditDetailService.getMessageContentFormatted(selectedMessage.getMessageFormat(), selectedMessage.getUniqueProcessID());
+        List<AuditMaster>	searchResultList =	auditMasterService.getResultByUniqueProcessId(selectedMessage.getUniqueProcessID());
+        ApplLogger.getLogger().info("List size for the uniqueprocessid : "+selectedMessage.getUniqueProcessID()+" is : "+searchResultList.size());
+        searchResultDataModel = new AuditMasterDataModel(searchResultList);
         
-        ApplLogger.getLogger().info("Formatted Message Is : "+messageContent);
-        
+        selectedRecord = searchResultDataModel.getRowData(String.valueOf(selectedMessage.getId()));
+        ApplLogger.getLogger().info("Message selected with unique ID is : "+selectedRecord.getUniqueProcessID());
+        messageContent = auditDetailService.getMessageContentFormatted(selectedRecord.getMessageFormat(), String.valueOf(selectedMessage.getId()));
         
         FacesContext.getCurrentInstance().addMessage(null, msg);  
 		}catch(Exception e){
@@ -149,6 +174,24 @@ public class AuditMasterManagedBean implements Serializable{
 			messageContent = "Unable to get the content presently for this message";
 		}
     } 
+	
+	public void onMessageRowSelect(String auditMasterId) {  
+		try{
+        selectedRecord = searchResultDataModel.getRowData(auditMasterId);
+        ApplLogger.getLogger().info("Message selected with unique ID is : "+selectedRecord.getUniqueProcessID());
+        messageContent = auditDetailService.getMessageContentFormatted(selectedRecord.getMessageFormat(), auditMasterId);
+        ApplLogger.getLogger().info("Formatted Message Is : "+messageContent);
+		}catch(Exception e){
+			ApplLogger.getLogger().error("Error while finding the content of given message : "+selectedRecord.getUniqueProcessID(),e);
+			messageContent = "Unable to get the content presently for this message";
+		}
+    } 
+	
+	public int getSearchListSize() {
+		if(searchResultDataModel!=null)
+			return searchResultDataModel.getRowCount();
+		else return 0;
+	}
 	
 	public void doSearch(){
 		try{
@@ -167,6 +210,7 @@ public class AuditMasterManagedBean implements Serializable{
 	public void reset() {
 		ApplLogger.getLogger().info("Resetting the search criteria data..");
        searchBean = new SearchBean();
+       searchTransactionDate=null;
     }
 	
 	/*@PostConstruct
@@ -178,10 +222,10 @@ public class AuditMasterManagedBean implements Serializable{
 	public StreamedContent getFile() {
 		InputStream stream = new ByteArrayInputStream(messageContent.getBytes());
 		// Check the message format, if it is xml, directly download the content else, download as text file
-		if("XML".equalsIgnoreCase(selectedMessage.getMessageFormat()))
-			file = new DefaultStreamedContent(stream, "text/xml", selectedMessage.getUniqueProcessID()+".xml");
+		if("XML".equalsIgnoreCase(selectedRecord.getMessageFormat()))
+			file = new DefaultStreamedContent(stream, "text/xml", selectedRecord.getUniqueProcessID()+".xml");
 		else
-			file = new DefaultStreamedContent(stream, "text/xml", selectedMessage.getUniqueProcessID()+".txt");
+			file = new DefaultStreamedContent(stream, "text/xml", selectedRecord.getUniqueProcessID()+".txt");
         return file;
     }
 	

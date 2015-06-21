@@ -1,0 +1,30 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:c="http://java.sun.com/jsp/jstl/core">
+     <p:ajaxStatus	style="width:64px;height:64px;position:relative;right:5px;bottom:5px">
+			<f:facet name="start">
+				<p:graphicImage name="loading.gif" library="images"></p:graphicImage>
+			</f:facet>
+
+			<f:facet name="complete">
+				<h:outputText value="" />
+			</f:facet>
+		</p:ajaxStatus>
+
+		<!-- <p:ajaxStatus onstart="PF('statusDialog').show();"	onsuccess="PF('statusDialog').hide();" /> -->
+
+		<p:dialog modal="true" widgetVar="statusDialog" 	header="Please wait..." draggable="false" closable="false">
+			<p:graphicImage name="ajaxloadingbar.gif" library="images"></p:graphicImage>
+		</p:dialog> 
+<footer class="footer" style="margin-left: 0px;position: relative;">
+	<span class="footer-brand"> <strong class="text-danger">DBLogging</strong>
+		Web
+	</span>
+	<p class="no-margin">
+		@ 2015 <strong>Hong Leong Bank</strong>. ALL Rights Reserved.
+	</p>
+</footer>
+</html>

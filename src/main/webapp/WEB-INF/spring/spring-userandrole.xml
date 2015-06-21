@@ -16,8 +16,8 @@
 	<bean id="users" class="com.hlb.dblogging.jpa.model.Users" />
 	<bean id="userToAccessRightsService" class="com.hlb.dblogging.security.users.service.UserToAccessRightsServiceImpl"></bean>
 	<bean id="usersService" class="com.hlb.dblogging.security.users.service.UsersServiceImpl">
-		<property name="userToAccessRightsService">
+		<!-- <property name="userToAccessRightsService">
 			<ref bean="userToAccessRightsService" />
-		</property>
+		</property> -->
 	</bean>
 </beans>

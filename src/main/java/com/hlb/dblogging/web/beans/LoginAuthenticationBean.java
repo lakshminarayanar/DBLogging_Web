@@ -17,6 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.hlb.dblogging.jpa.model.Users;
@@ -145,6 +147,18 @@ public class LoginAuthenticationBean implements Serializable {
 		}else{
 			// TODO: Write code for checking password and if wrong, return to login page else get list of Authorities.
 			initUsers();
+			System.out.println("Password from the database user is : "+actorUsers.getPassword());
+			
+			PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+			if(passwordEncoder.matches(password,actorUsers.getPassword()))
+				System.out.println("Admin user is authenticated successfully... ");
+			else{
+				FacesMessage msg = new FacesMessage("Admin password is wrong"); 
+				msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+				FacesContext.getCurrentInstance().addMessage("login.jsf", msg); 
+				FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
+				return "/login.jsf?faces-redirect=true";
+			}
 			ApplLogger.getLogger().info("Logged in user is Admin...");
 			return "/pages/admin/adminhomepage.jsf?faces-redirect=true";
 		}
