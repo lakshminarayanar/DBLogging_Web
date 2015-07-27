@@ -4,11 +4,13 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
 	http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd"
 	version="2.1">
- 
+
 	<application>
-		<el-resolver>
-    		    org.springframework.web.jsf.el.SpringBeanFacesELResolver
-		</el-resolver>
-  	</application>
- 
+		<el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
+	</application>
+
+	<lifecycle>
+		<phase-listener>com.hlb.dblogging.app.context.LifeCycleListener</phase-listener>
+	</lifecycle>
+
 </faces-config>

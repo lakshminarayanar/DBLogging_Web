@@ -44,26 +44,25 @@
 							       						<p:watermark for="ApplicationNameId" value="Application Name" id="ApplicationNameIdWM" />
 													</div>
 												 </td><td>
-														<div class="form-group">
-															<p:inputText id="StatusCodeId" type="text" value="#{auditMasterManagedBean.searchBean.statusCode}" styleClass="form-control" style="width:230px;"/>
-								       						<p:watermark for="StatusCodeId" value="Status Code" id="StatusCodeIdWM" />
-														</div>
-												 </td></tr>
-											<tr><td style="padding-right: 50px;">
 													<div class="form-group">
 														<p:inputText id="TransactionTypeId" type="text" value="#{auditMasterManagedBean.searchBean.transactionType}" styleClass="form-control" style="width:230px;"/>
 							       						<p:watermark for="TransactionTypeId" value="Transaction Type" id="TransactionTypeIdWM" />
 													</div>
-												</td><td style="padding-right: 50px;">
+												</td></tr>
+											<tr><td style="padding-right: 50px;">
 													<div class="form-group">
 														<p:inputText id="segmentId" type="text" value="#{auditMasterManagedBean.searchBean.segment}" styleClass="form-control" style="width:230px;"/>
 							       						<p:watermark for="segmentId" value="Segment" id="segmentIdWM" />
 													</div>
 												</td>
+												<td>
+														 <p:calendar pattern="MM/dd/yyyy HH:mm:ss" mode="popup" navigator="true" id="TransactionStartDateTimeId" value="#{auditMasterManagedBean.transactionStartDateTime}" styleClass="dateTimeField" ></p:calendar>
+							       						<p:watermark for="TransactionStartDateTimeId" value="Transaction Start Date" id="TransactionStartDateTimeIdWM" />
+												</td>
 												
 												<td>
-														 <p:calendar pattern="dd/MM/yyyy" mode="popup" navigator="true" pages="2" id="TransactionDateTimeId" value="#{auditMasterManagedBean.searchTransactionDate}" styleClass="dateTimeField" ></p:calendar>
-							       						<p:watermark for="TransactionDateTimeId" value="Transaction Date" id="TransactionDateTimeIdWM" />
+														 <p:calendar pattern="MM/dd/yyyy HH:mm:ss" mode="popup" navigator="true" id="TransactionEndDateTimeId" value="#{auditMasterManagedBean.transactionEndDateTime}" styleClass="dateTimeField" ></p:calendar>
+							       						<p:watermark for="TransactionEndDateTimeId" value="Transaction End Date" id="TransactionEndDateTimeIdWM" />
 												</td></tr>
 												<tr><td colspan="3">
 												        <p:commandButton value="Clear"   update="searchForm,:searchResultForm" immediate="true" process="@this" actionListener="#{auditMasterManagedBean.reset}"  styleClass="btn btn-success block" tabindex="-1" style="width: 200px;margin-right: 10px;" />
@@ -86,11 +85,11 @@
    <h:form id="searchResultForm">
 		 <p:dataTable id="auditMasterTable" widgetVar="auditMaster" var="auditMasterVar" value="#{auditMasterManagedBean.auditMasterDataModel}" rowKey="#{auditMasterVar.id}" 
 		 		selection="#{auditMasterManagedBean.selectedMessage}"  selectionMode="single"  emptyMessage="No records found !!!"
-		 		rows="10" paginator="true" paginatorPosition="bottom" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}" styleClass="table table-striped" >
+		 		rows="20" paginator="true" paginatorPosition="bottom" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}" rowsPerPageTemplate="10,20,30" styleClass="table table-striped" >
 				<p:ajax  event="rowSelect" listener="#{auditMasterManagedBean.onRowSelect}" update=":searchResultListForm,:messageDialogForm" oncomplete="PF('messageDialog').show();" />
 	          <p:column id="uniqueProcessIdHeader" sortBy="#{auditMasterVar.uniqueProcessId}"><f:facet name="header">Unique ProcessID</f:facet><h:outputText value="#{auditMasterVar.uniqueProcessID}" /></p:column>
 	          <p:column id="applicationNameHeader" sortBy="#{auditMasterVar.applName}"><f:facet name="header"> Application Name </f:facet><h:outputText value="#{auditMasterVar.applName}" /> </p:column>
-	          <p:column id="statusCodeHeader" sortBy="#{auditMasterVar.statusCode}"><f:facet name="header">Status Code</f:facet><h:outputText value="#{auditMasterVar.statusCode}" /> </p:column>
+	          <p:column id="statusCodeHeader" sortBy="#{auditMasterVar.messageFormat}"><f:facet name="header">Message Format</f:facet><h:outputText value="#{auditMasterVar.messageFormat}" /> </p:column>
 	          <p:column id="transTypeHeader" sortBy="#{auditMasterVar.transType}"><f:facet name="header">Transaction Type</f:facet><h:outputText value="#{auditMasterVar.transType}" /></p:column>
 	          <p:column id="segmentHeader" sortBy="#{auditMasterVar.segment}"><f:facet name="header">Segment</f:facet><h:outputText value="#{auditMasterVar.segment}" /></p:column>
 	          <p:column id="transTimeHeader" sortBy="#{auditMasterVar.transDateTime}"><f:facet name="header">Transaction DateTime</f:facet><h:outputText value="#{auditMasterVar.transDateTime}" /></p:column>
@@ -107,7 +106,7 @@
 		 		rows="5" paginator="true" paginatorPosition="bottom" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}" styleClass="table table-striped" >
 	          <p:column id="uniqueProcessIdHeader" sortBy="#{auditMasterMessageVar.uniqueProcessId}"><f:facet name="header">Unique ProcessID</f:facet><h:outputText value="#{auditMasterMessageVar.uniqueProcessID}" /></p:column>
 	          <p:column id="applicationNameHeader" sortBy="#{auditMasterMessageVar.applName}"><f:facet name="header"> Application Name </f:facet><h:outputText value="#{auditMasterMessageVar.applName}" /> </p:column>
-	          <p:column id="statusCodeHeader" sortBy="#{auditMasterMessageVar.statusCode}"><f:facet name="header">Status Code</f:facet><h:outputText value="#{auditMasterMessageVar.statusCode}" /> </p:column>
+	          <p:column id="statusCodeHeader" sortBy="#{auditMasterMessageVar.messageFormat}"><f:facet name="header">Message Format</f:facet><h:outputText value="#{auditMasterMessageVar.messageFormat}" /> </p:column>
 	          <p:column id="transTypeHeader" sortBy="#{auditMasterMessageVar.transType}"><f:facet name="header">Transaction Type</f:facet><h:outputText value="#{auditMasterMessageVar.transType}" /></p:column>
 	          <p:column id="segmentHeader" sortBy="#{auditMasterMessageVar.segment}"><f:facet name="header">Segment</f:facet><h:outputText value="#{auditMasterMessageVar.segment}" /></p:column>
 	          <p:column id="transTimeHeader" sortBy="#{auditMasterMessageVar.transDateTime}"><f:facet name="header">Transaction DateTime</f:facet><h:outputText value="#{auditMasterMessageVar.transDateTime}" /></p:column>
@@ -133,6 +132,14 @@
 					<tr>
 						<td><h:outputText value="Transaction Type "></h:outputText></td>
 						<td><h:outputText value="#{auditMasterManagedBean.selectedRecord.transType}"  label="Transaction Type"></h:outputText></td>
+					</tr>
+					<tr>
+						<td><h:outputText value="Status Code"></h:outputText></td>
+						<td><h:outputText value="#{auditMasterManagedBean.selectedRecord.statusCode}"  label="Transaction Type"></h:outputText></td>
+					</tr>
+					<tr>
+						<td><h:outputText value="Segment"></h:outputText></td>
+						<td><h:outputText value="#{auditMasterManagedBean.selectedRecord.segment}"  label="Transaction Type"></h:outputText></td>
 					</tr>
 					<tr>
 						<td><h:outputText value="Message ID "></h:outputText></td>

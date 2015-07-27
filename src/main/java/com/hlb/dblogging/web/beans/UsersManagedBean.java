@@ -220,7 +220,7 @@ public class UsersManagedBean implements Serializable {
 			ApplLogger.getLogger().info("Input Data XSLT in String form is : "+existingXSLT);
 			configurationPropertiesService.updateNewXSLTFile(existingXSLT);
 			XSLTransformer.xslTranformerStream=existingXSLT;
-			FacesMessage msg = new FacesMessage("Info : New XSLT uploaded successfully, Changes will be effected daily at 6:00AM"); 
+			FacesMessage msg = new FacesMessage("Info : New XSLT uploaded successfully, Changes will be effected for every 30 minutes"); 
 			msg.setSeverity(FacesMessage.SEVERITY_INFO);
 	        FacesContext.getCurrentInstance().addMessage(null, msg);
 			}catch(Exception e){

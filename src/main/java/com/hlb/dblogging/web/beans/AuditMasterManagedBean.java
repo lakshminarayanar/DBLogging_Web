@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ViewScoped;
@@ -40,14 +41,39 @@ public class AuditMasterManagedBean implements Serializable{
 	private AuditMasterDataModel auditMasterDataModel;
 	private AuditMasterDataModel searchResultDataModel;
 	private Boolean insertDeleted = false;
+	private String loginSuccess;
 	private SearchBean searchBean = new SearchBean();
 	private AuditMaster selectedMessage = new AuditMaster();
-	private Date searchTransactionDate;
+	private Date transactionStartDateTime;
+	private Date transactionEndDateTime;
 	private String messageContent;
 	private StreamedContent file;
 	private AuditMaster selectedRecord = new AuditMaster();
 	
-	
+	public Date getTransactionStartDateTime() {
+		return transactionStartDateTime;
+	}
+
+	public void setTransactionStartDateTime(Date transactionStartDateTime) {
+		this.transactionStartDateTime = transactionStartDateTime;
+	}
+
+	public Date getTransactionEndDateTime() {
+		return transactionEndDateTime;
+	}
+
+	public void setTransactionEndDateTime(Date transactionEndDateTime) {
+		this.transactionEndDateTime = transactionEndDateTime;
+	}
+
+	public String getLoginSuccess() {
+		return loginSuccess;
+	}
+
+	public void setLoginSuccess(String loginSuccess) {
+		this.loginSuccess = loginSuccess;
+	}
+
 	public AuditMaster getSelectedRecord() {
 		return selectedRecord;
 	}
@@ -73,23 +99,13 @@ public class AuditMasterManagedBean implements Serializable{
 		this.auditDetailService = auditDetailService;
 	}
 
-	public Date getSearchTransactionDate() {
-		return searchTransactionDate;
-	}
 	
-	
-	
-
 	public AuditMasterDataModel getSearchResultDataModel() {
 		return searchResultDataModel;
 	}
 
 	public void setSearchResultDataModel(AuditMasterDataModel searchResultDataModel) {
 		this.searchResultDataModel = searchResultDataModel;
-	}
-
-	public void setSearchTransactionDate(Date searchTransactionDate) {
-		this.searchTransactionDate = searchTransactionDate;
 	}
 
 	public AuditMaster getSelectedMessage() {
@@ -134,15 +150,25 @@ public class AuditMasterManagedBean implements Serializable{
 	
 	public List<AuditMaster> getAuditMasterMessageList(){
 		
-		if(auditMasterList ==null || insertDeleted ==true){
+		if(auditMasterList ==null || auditMasterList.isEmpty()){
 		auditMasterList =	auditMasterService.getListOfMessagesByTime(new Date());
 		ApplLogger.getLogger().info("AuditMaster list of size from database is : "+auditMasterList.size());
+		insertDeleted=false;
 		}
 		return auditMasterList;
 	}
 
 	public AuditMasterDataModel getAuditMasterDataModel() {
-		if(auditMasterDataModel==null || insertDeleted==true){
+		FacesContext f = FacesContext.getCurrentInstance();
+		Map<String, String> parameterMap = (Map<String, String>) f.getExternalContext().getRequestParameterMap();
+		if("success".equalsIgnoreCase(parameterMap.get("login"))){
+			auditMasterDataModel=null;
+			searchBean=new SearchBean();
+			transactionStartDateTime=null;
+			transactionEndDateTime=null;
+		}
+		
+		if(auditMasterDataModel==null){
 			ApplLogger.getLogger().info("Entering to get the datamodel..");
 			auditMasterDataModel = new AuditMasterDataModel(getAuditMasterMessageList());
 		}
@@ -197,7 +223,8 @@ public class AuditMasterManagedBean implements Serializable{
 		try{
 		List<AuditMaster>	filteredList = new ArrayList<AuditMaster>();
 		ApplLogger.getLogger().info("Input data captured is : "+searchBean);
-		searchBean.setTransactionDateTime(searchTransactionDate);
+		searchBean.setTransactionStartDateTime(transactionStartDateTime);
+		searchBean.setTransactionEndDateTime(transactionEndDateTime);
 		filteredList  =	auditMasterService.getSearchResultList(searchBean);
 		auditMasterDataModel = new AuditMasterDataModel(filteredList);
 		}catch(Exception e){
@@ -210,18 +237,13 @@ public class AuditMasterManagedBean implements Serializable{
 	public void reset() {
 		ApplLogger.getLogger().info("Resetting the search criteria data..");
        searchBean = new SearchBean();
-       searchTransactionDate=null;
+       transactionStartDateTime=null;
+       transactionEndDateTime=null;
     }
 	
-	/*@PostConstruct
-	public void init() {
-		ApplLogger.getLogger().info("Creating AuditMaster in @PostConstruct...");
-	    this.selectedMessage = new AuditMaster();
-	}*/
-	
+		
 	public StreamedContent getFile() {
-		InputStream stream = new ByteArrayInputStream(messageContent.getBytes());
-		// Check the message format, if it is xml, directly download the content else, download as text file
+		InputStream stream = new ByteArrayInputStream(messageContent.getBytes());		// Check the message format, if it is xml, directly download the content else, download as text file
 		if("XML".equalsIgnoreCase(selectedRecord.getMessageFormat()))
 			file = new DefaultStreamedContent(stream, "text/xml", selectedRecord.getUniqueProcessID()+".xml");
 		else

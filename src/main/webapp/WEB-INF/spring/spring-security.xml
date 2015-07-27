@@ -23,7 +23,7 @@
 	 <http auto-config='true' entry-point-ref="LoginUrlAuthenticationEntryPoint"> 
 	 	<custom-filter ref="mySecurityFilter" position="FIRST" />
 	 	<intercept-url pattern="/pages/user/*" access="ROLE_USER"/>
-	 	<form-login always-use-default-target="true" login-page="/login.jsf" authentication-failure-url="/failure.jsf" default-target-url="/pages/user/homePage.jsf"/>
+	 	<form-login always-use-default-target="true" login-page="/login.jsf" authentication-failure-url="/failure.jsf" default-target-url="/pages/user/homePage.jsf?login=success"/>
 	 	<logout invalidate-session="true" delete-cookies="true" logout-success-url="/login.jsf"/>
 		<anonymous  enabled="false"/>
 	 </http>
@@ -36,7 +36,7 @@
 	
 	<beans:bean id="successHandler"
 		class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">
-		<beans:property name="defaultTargetUrl" value="/pages/user/homePage.jsf"/>
+		<beans:property name="defaultTargetUrl" value="/pages/user/homePage.jsf?login=success"/>
 		<beans:property name="alwaysUseDefaultTargetUrl" value="true" />
 	</beans:bean>
 	<beans:bean id="failureHandler" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">

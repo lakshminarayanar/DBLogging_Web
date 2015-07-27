@@ -119,7 +119,7 @@ public class LoginAuthenticationBean implements Serializable {
 		// TODO: Write the code to check user in database and then get list of Authorities.
 		if(!checkUserExistInDatabase()){
 			ApplLogger.getLogger().info("username not found in the application database : "+username);
-			FacesMessage msg = new FacesMessage("username","username not found in database"); 
+			FacesMessage msg = new FacesMessage("User is not registered, Contact Admin to give accesss permissions","username not found in database"); 
 			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
 			FacesContext.getCurrentInstance().addMessage("login.jsf", msg); 
 			FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
@@ -138,11 +138,11 @@ public class LoginAuthenticationBean implements Serializable {
 		}else{
 			ApplLogger.getLogger().info("Authentication is failed for user :"+username);
 			wrongPassword=true;
-			/*FacesMessage msg = new FacesMessage("password is invalid","username and password does not match!!!"); 
+			FacesMessage msg = new FacesMessage("username and password does not match!!!","username and password does not match!!!"); 
 			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
 			FacesContext.getCurrentInstance().addMessage("relogin.jsf", msg); 
-			FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);*/
-			//return "/login.jsf?faces-redirect=true";
+			FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
+			return "/login.jsf?faces-redirect=true";
 		}
 		}else{
 			// TODO: Write code for checking password and if wrong, return to login page else get list of Authorities.
