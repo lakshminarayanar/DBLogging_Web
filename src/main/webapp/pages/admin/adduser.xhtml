@@ -5,144 +5,98 @@
     xmlns:p="http://primefaces.org/ui"
     xmlns:c="http://java.sun.com/jsp/jstl/core">
 
-  <ui:composition template="/templates/adminlayout.xhtml">
- 	<ui:define name="title">Add User</ui:define>
+  <ui:composition template="/templates/userlayout.xhtml">
+ 	<ui:define name="title">Users</ui:define>
  	<ui:define name="content">
-			<div class="main-container">
-				<div class="padding-md">
-					<div class="row" style="height: 70px;">
-						<div class="col-sm-6">
-							<div class="page-title">
-								Add User
-							</div>
-							<div class="page-sub-header">
-								 Welcome Back,  <h:outputText value="#{loginAuthenticationBean.username}" style="text-transform: capitalize;" />! , <i class="fa fa-map-marker text-danger"></i> Malaysia
-							</div>
-						</div>
-					</div>
-					
-					<div class="row" style="width: 1000px;">
-						<div class="col-lg-6">
-							<div class="smart-widget widget-dark-blue">
-								<div class="smart-widget-header">
-									Add User to System
-									<span class="smart-widget-option">
-										<span class="refresh-icon-animated">
-											<i class="fa fa-circle-o-notch fa-spin"></i>
-										</span>
-			                            <a href="#" class="widget-toggle-hidden-option">
-			                                <i class="fa fa-cog"></i>
-			                            </a>
-			                            <a href="#" class="widget-collapse-option" data-toggle="collapse">
-			                                <i class="fa fa-chevron-up"></i>
-			                            </a>
-			                            
-			                        </span>
-								</div>
-								<div class="smart-widget-inner">
-									<div class="smart-widget-hidden-section">
-										<ul class="widget-color-list clearfix">
-											<li style="background-color:#20232b;" data-color="widget-dark"></li>
-											<li style="background-color:#4c5f70;" data-color="widget-dark-blue"></li>
-											<li style="background-color:#23b7e5;" data-color="widget-blue"></li>
-											<li style="background-color:#2baab1;" data-color="widget-green"></li>
-											<li style="background-color:#edbc6c;" data-color="widget-yellow"></li>
-											<li style="background-color:#fbc852;" data-color="widget-orange"></li>
-											<li style="background-color:#e36159;" data-color="widget-red"></li>
-											<li style="background-color:#7266ba;" data-color="widget-purple"></li>
-											<li style="background-color:#f5f5f5;" data-color="widget-light-grey"></li>
-											<li style="background-color:#fff;" data-color="reset"></li>
-										</ul>
-									</div>
-									<div class="smart-widget-body no-padding">
-									<div style="height: 239px;">
-									<h:form id="addUserForm">
-									<p:messages  autoUpdate="true" showDetail="false" closable="true"/>
-									<table style="width: 80%;padding: 10px;border-spacing: 20px;border-collapse: separate;margin: 5px;">
-										<tr>
-											<td>
-												<p:outputLabel value="Username :" for="acUsername" />
-											</td>
-											<td>
-												<p:autoComplete id="acUsername" value="#{usersManagedBean.txt1}"  completeMethod="#{usersManagedBean.getUserList}" required="true" requiredMessage="Please enter Username to add to System"  style="width:200px;"/>
-											</td>
-										</tr><tr><td colspan="2">
-										<p:commandButton id="saveUsersBtn" value="Submit" actionListener="#{usersManagedBean.createUser}"  ajax="true" update=":userListForm,:addUserForm"/>
-										</td></tr>
-										<tr><td colspan="2"></td></tr>
-										<tr> <td colspan="2" style="color:red;"> Username should be unique and match windows active directory username</td></tr>
-									</table>
-									</h:form>
-									</div>
-								</div>
-							</div><!-- ./smart-widget-inner -->
-							</div><!-- ./smart-widget -->
-						</div><!-- ./col -->
-						<div class="col-lg-4">
-						 <div class="smart-widget widget-dark-blue">
-								<div class="smart-widget-header">
-									Users List
-									<span class="smart-widget-option">
-										<span class="refresh-icon-animated">
-											<i class="fa fa-circle-o-notch fa-spin"></i>
-										</span>
-			                            <a href="#" class="widget-toggle-hidden-option">
-			                                <i class="fa fa-cog"></i>
-			                            </a>
-			                            <a href="#" class="widget-collapse-option" data-toggle="collapse">
-			                                <i class="fa fa-chevron-up"></i>
-			                            </a>
-			                        </span>
-								</div>
-								<div class="smart-widget-inner">
-									<div class="smart-widget-hidden-section">
-										<ul class="widget-color-list clearfix">
-											<li style="background-color:#20232b;" data-color="widget-dark"></li>
-											<li style="background-color:#4c5f70;" data-color="widget-dark-blue"></li>
-											<li style="background-color:#23b7e5;" data-color="widget-blue"></li>
-											<li style="background-color:#2baab1;" data-color="widget-green"></li>
-											<li style="background-color:#edbc6c;" data-color="widget-yellow"></li>
-											<li style="background-color:#fbc852;" data-color="widget-orange"></li>
-											<li style="background-color:#e36159;" data-color="widget-red"></li>
-											<li style="background-color:#7266ba;" data-color="widget-purple"></li>
-											<li style="background-color:#f5f5f5;" data-color="widget-light-grey"></li>
-											<li style="background-color:#fff;" data-color="reset"></li>
-										</ul>
-									</div>
-									<div class="smart-widget-body no-padding" id="noHeaderTable" style="overflow-y:scroll;">
-										<h:form name="userListForm" id="userListForm">
-										<p:dataTable id="userListTable" widgetVar="userList" var="userListVar" selectionMode="single" value="#{usersManagedBean.userdatamodel}" rowKey="#{userListVar.id}" style="height:244px;">
-											<p:ajax event="rowSelect" listener="#{usersManagedBean.onRowSelect}" update=":userDetailForm" oncomplete="PF('userDialog').show()" />
-											<p:column id="UsernameHeader">
-											<f:facet name="usernameHead" >Existing Users</f:facet>
-												<h:outputText value="#{userListVar.username}" />
-											</p:column>
-										</p:dataTable>
-										</h:form>
-									</div>
-								</div>
-						</div>
-						</div>
-					</div>
-					
-					</div><!-- ./padding-md -->
-			</div><!-- /main-container -->
-
-		<a href="#" class="scroll-to-top hidden-print"><i class="fa fa-chevron-up fa-lg"></i></a>
-  		
-  		  <p:dialog header="Username Details" styleClass="dlgCSS" widgetVar="userDialog" resizable="false" id="userDlg" modal ="true">
+ 	
+ 	<h1>Users Management</h1>
+ 	<br/><br/>
+ 	 <h:form>
+ 	 	<p:commandButton value="New User" update=":newUserForm"  oncomplete="PF('newUserDialog').show()" actionListener="#{usersManagedBean.populatePickList()}" icon="ui-icon-star" title="Create New User"/>
+ 	 </h:form>
+ 	 <br/><br/>
+	<h:form id="userTableForm">
+	<p:messages autoUpdate="true" showDetail="true" severity="info"/>
+        <p:dataTable id="userTable" widgetVar="usersTable" var="user" value="#{usersManagedBean.usersDataModel}" rowKey="#{user.id}"
+                 selection="#{usersManagedBean.selectedUser}" selectionMode="single" 
+                 rows="10" paginator="true" paginatorPosition="bottom" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}  {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15" >
+          <p:ajax event="rowSelect" listener="#{usersManagedBean.onRowSelect}" update=":userDetailForm:display, :growl" oncomplete="PF('userDialog').show()" />  
+	          <p:column id="nameHeader" sortBy="#{user.username}"><f:facet name="header"> Username </f:facet> <h:outputText value="#{user.username}" /></p:column>
+	          <p:column id="descHeader"  sortBy="#{user.domain}" ><f:facet name="header"> Domain </f:facet><h:outputText value="#{user.domain}" /></p:column>
+	          <p:column id="createdByHeader"  sortBy="#{user.createdBy}" ><f:facet name="header"> Created By </f:facet><h:outputText value="#{user.createdBy}" /></p:column>
+	          <p:column id="createdTimeHeader"  sortBy="#{user.creationTime}" ><f:facet name="header"> Creation Time</f:facet><h:outputText value="#{user.creationTime}" ><f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" /></h:outputText></p:column>
+	         
+	          <p:column id="lastModifiedByHeader"  sortBy="#{user.lastModifiedBy}" ><f:facet name="header"> Last Modified By </f:facet><h:outputText value="#{user.lastModifiedBy}" /></p:column>
+	          <p:column id="lastModifiedHeader"  sortBy="#{user.lastModifiedTime}" ><f:facet name="header"> Last Modified Time</f:facet><h:outputText value="#{user.lastModifiedTime}" ><f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" /></h:outputText></p:column>
+      </p:dataTable>
+    </h:form>
+    <br/>
+    <p:growl id="growl" showDetail="true" life="1000"/> 
+ 	 		
+ 	    <p:dialog header="User Details" styleClass="dlgCSS" widgetVar="userDialog" resizable="false" id="userDlg" modal ="true">
                <h:form id="userDetailForm">
+               <p:messages autoUpdate="true"/>
                 <p:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">
             		<h:outputText value="Username :"></h:outputText>
-                    <h:outputText value="#{usersManagedBean.selectedUser.username}" />
-		              <f:facet name="footer">
-                            <p:commandButton value="Delete" update=":userListForm"  oncomplete="PF('userDialog').hide()" actionListener="#{usersManagedBean.deleteUser}" validateClient="true" style="width:120px;"/>
-                            <p:commandButton value="Cancel" oncomplete="PF('userDialog').hide()" style="width:120px;"/>
+                        <p:inputText value="#{usersManagedBean.selectedUser.username}" required="true" requiredMessage="Please Enter Username!" label="Username "> <f:validateLength minimum="4" maximum="30"/></p:inputText>
+            			<h:outputText value="Domain :"></h:outputText>
+                        <p:inputText value="#{usersManagedBean.selectedUser.domain}" required="true" requiredMessage="Please Enter Domain!" label="Domain ">  <f:validateLength minimum="4" maximum="30"/></p:inputText>
+                    	<h:outputText value="Is Admin :"></h:outputText>
+                        <p:selectBooleanCheckbox value="#{usersManagedBean.selectedUser.admin}" />
+                    	<h:outputText value="Is Active :"></h:outputText>
+                        <p:selectBooleanCheckbox value="#{usersManagedBean.selectedUser.active}" />
+                    	<h:outputText value="Assign Groups :"></h:outputText>
+                      
+    					<p:pickList id="accessRightsPickList" value="#{usersManagedBean.dualRoleList}"
+	          				var="role0" converter="rolePickListConverter" itemValue="#{role0}" itemLabel="#{role0.description}" >
+	          	 			<f:facet name="sourceCaption">Unassigned  Roles</f:facet>  
+	        				<f:facet name="targetCaption">Assigned Roles</f:facet>  
+          				</p:pickList>
+                    <f:facet name="footer">
+                            <p:commandButton value="Update" update=":userTableForm:userTable"  oncomplete="if(!args.validationFailed) PF('userDialog').hide()" actionListener="#{usersManagedBean.doUpdateUser}" validateClient="true"/>
+                            <p:commandButton value="Delete" onclick="PF('cd').show()" oncomplete="PF('userDialog').hide()"/>
                     </f:facet>
                 </p:panelGrid>
              </h:form>
       </p:dialog>
-  		
+          
+      <p:dialog header="Create New User" styleClass="dlgCSS" widgetVar="newUserDialog" resizable="false" id="newUserDlg"  modal ="true">
+              <h:form id="newUserForm">
+              <p:messages autoUpdate="true" />
+                <p:panelGrid id="displayNewUser" columns="2" cellpadding="4" style="margin:0 auto;">
+            			<h:outputText value="Username :"></h:outputText>
+                        <p:inputText value="#{usersManagedBean.newUser.username}" required="true" requiredMessage="Please Enter Username!" label="Username "> <f:validateLength minimum="4" maximum="30"/></p:inputText>
+            			<h:outputText value="Domain :"></h:outputText>
+                        <p:inputText value="#{usersManagedBean.newUser.domain}" required="true" requiredMessage="Please Enter Domain!" label="Domain ">  <f:validateLength minimum="4" maximum="30"/></p:inputText>
+                    	<h:outputText value="Is Admin :"></h:outputText>
+                        <p:selectBooleanCheckbox value="#{usersManagedBean.newUser.admin}" />
+                    	<h:outputText value="Is Active :"></h:outputText>
+                        <p:selectBooleanCheckbox value="#{usersManagedBean.newUser.active}" />
+                    	<h:outputText value="Assign Groups :"></h:outputText>
+                      
+    					<p:pickList id="accessRightsPickList" value="#{usersManagedBean.dualRoleList}"
+	          				var="role0" converter="rolePickListConverter" itemValue="#{role0}" itemLabel="#{role0.description}" >
+	          		
+	          		
+	          	 			<f:facet name="sourceCaption">Unassigned  Roles</f:facet>  
+	        				<f:facet name="targetCaption">Assigned Roles</f:facet>  
+          				</p:pickList>
+                    	<f:facet name="footer">
+                            <p:commandButton value="Submit" update=":userTableForm:userTable"  oncomplete="if(!args.validationFailed) PF('newUserDialog').hide()" validateClient="true" actionListener="#{usersManagedBean.doCreateUser}"/>
+                            <p:commandButton type="reset" value="Reset"></p:commandButton>
+                    	</f:facet>
+                </p:panelGrid>
+              </h:form>
+      </p:dialog>
+          
+          <p:confirmDialog message="Are you sure?" header="Deleting User" 
+          	severity="alert" widgetVar="cd">	
+			<h:form>
+			<p:commandButton value="Yes" actionListener="#{usersManagedBean.doDeleteUser}" update=":userTableForm:userTable" oncomplete="PF('cd').hide();"/>
+			<p:commandButton value="No" onclick="PF('cd').hide();PF('userDialog').show();" type="button" />
+			</h:form>
+			</p:confirmDialog>
 		</ui:define>
 		</ui:composition>
+		<br/><br/>
 </ui:composition>

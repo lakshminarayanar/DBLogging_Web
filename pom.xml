@@ -97,7 +97,7 @@
 		</dependency>
 
 		<!-- JSF dependencies -->
-		 <dependency>
+		<dependency>
 			<groupId>com.sun.faces</groupId>
 			<artifactId>jsf-api</artifactId>
 			<version>2.1.19</version>
@@ -108,12 +108,9 @@
 			<artifactId>jsf-impl</artifactId>
 			<version>2.1.19</version>
 		</dependency>
-		<!-- <dependency>
-			<groupId>org.glassfish</groupId>
-			<artifactId>javax.faces</artifactId>
-			 <version>2.2.8</version>
-		</dependency> -->
-		
+		<!-- <dependency> <groupId>org.glassfish</groupId> <artifactId>javax.faces</artifactId> 
+			<version>2.2.8</version> </dependency> -->
+
 
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -125,15 +122,13 @@
 		<dependency>
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
-			<version>4.0</version>
+			<version>5.2</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.primefaces.extensions</groupId>
 			<artifactId>primefaces-extensions</artifactId>
-			<version>1.2.0</version>
+			<version>3.1.0</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.primefaces.themes</groupId>
 			<artifactId>all-themes</artifactId>
@@ -145,14 +140,14 @@
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<version>3.0.1</version>
-			<scope>provided</scope>
+			<!-- <scope>provided</scope> -->
 		</dependency>
 
 		<dependency>
 			<groupId>javax.el</groupId>
 			<artifactId>el-api</artifactId>
 			<version>2.2</version>
-			<scope>provided</scope>
+			<!-- <scope>provided</scope> -->
 		</dependency>
 
 
@@ -242,7 +237,7 @@
 		</repository>
 	</repositories>
 	<build>
-	<finalName>dblogging</finalName>
+		<finalName>dblogging</finalName>
 		<plugins>
 			<plugin>
 				<groupId>com.orctom.mojo</groupId>
@@ -252,9 +247,7 @@
 					<execution>
 						<id>deploy</id>
 						<phase>install</phase>
-						<!-- <goals>
-							<goal>deploy</goal>
-						</goals> -->
+						<!-- <goals> <goal>deploy</goal> </goals> -->
 						<configuration>
 							<wasHome>${was.home}</wasHome>
 							<applicationName>${project.build.finalName}</applicationName>
@@ -303,6 +296,7 @@
 	</build>
 
 	<distributionManagement>
+		
 		<repository>
 			<id>beans-releases</id>
 			<name>Internal Releases</name>

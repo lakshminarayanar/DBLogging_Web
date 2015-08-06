@@ -21,6 +21,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import com.hlb.dblogging.app.context.FacesUtil;
 import com.hlb.dblogging.jpa.model.Users;
 import com.hlb.dblogging.log.utility.ApplLogger;
 import com.hlb.dblogging.security.users.service.UsersService;
@@ -28,7 +29,7 @@ import com.hlb.dblogging.user.audit.logging.AuditTrail;
 import com.hlb.dblogging.user.audit.logging.SystemAuditTrailActivity;
 import com.hlb.dblogging.user.audit.logging.SystemAuditTrailLevel;
 
-@Component
+@Component(value="loginAuthenticationBean")
 @SessionScoped
 public class LoginAuthenticationBean implements Serializable {
 
@@ -135,6 +136,7 @@ public class LoginAuthenticationBean implements Serializable {
 		Authentication auth=SecurityContextHolder.getContext().getAuthentication();
 		if(auth!=null){
 			ApplLogger.getLogger().info("Authentication is successful..");
+			initUsers();
 		}else{
 			ApplLogger.getLogger().info("Authentication is failed for user :"+username);
 			wrongPassword=true;
@@ -230,6 +232,7 @@ public class LoginAuthenticationBean implements Serializable {
 	private void initUsers() {
 		try {
 			actorUsers = getUsersService().findByUsername(getUsername());
+			FacesUtil.setSessionMapValue("LOGGEDIN_USER", actorUsers);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

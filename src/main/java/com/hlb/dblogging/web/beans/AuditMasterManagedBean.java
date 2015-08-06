@@ -162,7 +162,7 @@ public class AuditMasterManagedBean implements Serializable{
 		FacesContext f = FacesContext.getCurrentInstance();
 		Map<String, String> parameterMap = (Map<String, String>) f.getExternalContext().getRequestParameterMap();
 		if("success".equalsIgnoreCase(parameterMap.get("login"))){
-			auditMasterDataModel=null;
+			auditMasterDataModel= new AuditMasterDataModel();
 			searchBean=new SearchBean();
 			transactionStartDateTime=null;
 			transactionEndDateTime=null;

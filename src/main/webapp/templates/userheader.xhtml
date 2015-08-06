@@ -5,30 +5,21 @@
     xmlns:p="http://primefaces.org/ui"
     xmlns:c="http://java.sun.com/jsp/jstl/core">
  
-<div class="wrapper preload" style="padding-top: 0px;min-height: 0% !important;padding-bottom: 0px;">
-			<header class="top-nav" style="margin-top: 0px;position: static">
-				<div class="top-nav-inner">
-					<div class="nav-header">
-						<a href="#" class="brand">
-							<i class="fa fa-database"></i><span class="brand-name">DBLOGGING WEB</span>
-						</a>
-					</div>
-					<div class="nav-container">
-						<div class="pull-right m-right-sm">
-							<div class="user-block hidden-xs">
-								<a href="#" id="userToggle" data-toggle="dropdown">
-									<p:graphicImage name="user.png" library="images" styleClass="img-circle inline-block user-profile-pic" width="50px" height="50px"/>
-									<div class="user-detail inline-block" style="margin-left: 0px;">
-										<h:outputText value="#{loginAuthenticationBean.username}" style="text-transform: capitalize;" />
-									</div>
-								</a>
-							<a href="${request.contextPath}/logout.jsf" style="padding-left: 20px;">
-								<i class="fa fa-power-off fa-lg"></i><span class="m-left-xs">Sign out</span>
-							</a>
-							</div>
-						</div>
-					</div>
-				</div><!-- ./top-nav-inner -->	
-			</header>
-		</div>
+<div>
+	<h:form>
+		<p:growl id="messages" />
+		<!-- Need to add authorization based on role here -->
+		<p:menubar>
+			<p:menuitem value="Home" url="/pages/user/homePage.jsf" />
+			<p:menuitem value="User Administration" url="/pages/user/homePage.jsf" />
+			<p:menuitem value="XSLT Upload" url="/pages/admin/newxslt.jsf" />
+			<p:menuitem value="XSLT View" url="/pages/admin/newxslt.jsf" />
+			<p:menuitem value="Log Level" url="/pages/admin/loglevel.jsf" />
+			<p:menuitem value="Users" url="/pages/admin/adduser.jsf" />
+			<p:menuitem value="Change Password" url="/pages/admin/adminchangepassword.jsf" />
+			<p:menuitem value="Logout" url="/logout.jsf"></p:menuitem>
+		</p:menubar>
+	</h:form>
+</div>
+
 </ui:composition>

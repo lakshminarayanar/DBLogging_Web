@@ -10,10 +10,10 @@
 <f:metadata>
     	<f:event type="preRenderView" listener="#{usersManagedBean.populateExistingXSLT}" />
 </f:metadata>
-  	<ui:composition template="/templates/adminlayout.xhtml">
+  	<ui:composition template="/templates/userlayout.xhtml">
  	<ui:define name="title">Current XSLT</ui:define>
  	<ui:define name="content">
-			<div class="main-container">
+			<div class="main-container" style="margin-left: 0px;">
 				<div class="padding-md">
 					<div class="row" style="height: 70px;">
 						<div class="col-sm-6">
@@ -91,7 +91,7 @@
 					
 					</div><!-- ./padding-md -->
 			</div><!-- /main-container -->
-
+			<br/><br/>
 		<a href="#" class="scroll-to-top hidden-print"><i class="fa fa-chevron-up fa-lg"></i></a>
 		
 	  <p:dialog header="New XSLT Upload" widgetVar="newXSLTDialog" resizable="false" id="newXSLTDialogId" modal="true" height="115px">
