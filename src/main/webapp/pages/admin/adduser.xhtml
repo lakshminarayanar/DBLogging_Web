@@ -16,7 +16,7 @@
  	 </h:form>
  	 <br/><br/>
 	<h:form id="userTableForm">
-	<p:messages autoUpdate="true" showDetail="true" severity="info"/>
+	<p:messages autoUpdate="true" showDetail="false" />
         <p:dataTable id="userTable" widgetVar="usersTable" var="user" value="#{usersManagedBean.usersDataModel}" rowKey="#{user.id}"
                  selection="#{usersManagedBean.selectedUser}" selectionMode="single" 
                  rows="10" paginator="true" paginatorPosition="bottom" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}  {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15" >
@@ -41,10 +41,12 @@
                         <p:inputText value="#{usersManagedBean.selectedUser.username}" required="true" requiredMessage="Please Enter Username!" label="Username "> <f:validateLength minimum="4" maximum="30"/></p:inputText>
             			<h:outputText value="Domain :"></h:outputText>
                         <p:inputText value="#{usersManagedBean.selectedUser.domain}" required="true" requiredMessage="Please Enter Domain!" label="Domain ">  <f:validateLength minimum="4" maximum="30"/></p:inputText>
-                    	<h:outputText value="Is Admin :"></h:outputText>
-                        <p:selectBooleanCheckbox value="#{usersManagedBean.selectedUser.admin}" />
-                    	<h:outputText value="Is Active :"></h:outputText>
-                        <p:selectBooleanCheckbox value="#{usersManagedBean.selectedUser.active}" />
+                    	
+                    	<h:outputText value="User Status :"></h:outputText>
+                    	<p:selectOneRadio id="userStatusId" value="#{usersManagedBean.selectedUser.active}">
+				            <f:selectItem itemLabel="Active" itemValue="true" />
+				            <f:selectItem itemLabel="Not Active" itemValue="false" />
+				        </p:selectOneRadio>
                     	<h:outputText value="Assign Groups :"></h:outputText>
                       
     					<p:pickList id="accessRightsPickList" value="#{usersManagedBean.dualRoleList}"
@@ -62,24 +64,24 @@
           
       <p:dialog header="Create New User" styleClass="dlgCSS" widgetVar="newUserDialog" resizable="false" id="newUserDlg"  modal ="true">
               <h:form id="newUserForm">
-              <p:messages autoUpdate="true" />
                 <p:panelGrid id="displayNewUser" columns="2" cellpadding="4" style="margin:0 auto;">
             			<h:outputText value="Username :"></h:outputText>
                         <p:inputText value="#{usersManagedBean.newUser.username}" required="true" requiredMessage="Please Enter Username!" label="Username "> <f:validateLength minimum="4" maximum="30"/></p:inputText>
             			<h:outputText value="Domain :"></h:outputText>
                         <p:inputText value="#{usersManagedBean.newUser.domain}" required="true" requiredMessage="Please Enter Domain!" label="Domain ">  <f:validateLength minimum="4" maximum="30"/></p:inputText>
-                    	<h:outputText value="Is Admin :"></h:outputText>
-                        <p:selectBooleanCheckbox value="#{usersManagedBean.newUser.admin}" />
-                    	<h:outputText value="Is Active :"></h:outputText>
-                        <p:selectBooleanCheckbox value="#{usersManagedBean.newUser.active}" />
+                    	<h:outputText value="User Status :"></h:outputText>
+                    	<p:selectOneRadio id="userStatusId" value="#{usersManagedBean.newUser.active}">
+				            <f:selectItem itemLabel="Active" itemValue="true" />
+				            <f:selectItem itemLabel="Not Active" itemValue="false" />
+				        </p:selectOneRadio>
                     	<h:outputText value="Assign Groups :"></h:outputText>
                       
     					<p:pickList id="accessRightsPickList" value="#{usersManagedBean.dualRoleList}"
 	          				var="role0" converter="rolePickListConverter" itemValue="#{role0}" itemLabel="#{role0.description}" >
 	          		
 	          		
-	          	 			<f:facet name="sourceCaption">Unassigned  Roles</f:facet>  
-	        				<f:facet name="targetCaption">Assigned Roles</f:facet>  
+	          	 			<f:facet name="sourceCaption">Unassigned  Groups</f:facet>  
+	        				<f:facet name="targetCaption">Assigned Groups</f:facet>  
           				</p:pickList>
                     	<f:facet name="footer">
                             <p:commandButton value="Submit" update=":userTableForm:userTable"  oncomplete="if(!args.validationFailed) PF('newUserDialog').hide()" validateClient="true" actionListener="#{usersManagedBean.doCreateUser}"/>

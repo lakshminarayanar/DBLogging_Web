@@ -5,106 +5,122 @@
     xmlns:p="http://primefaces.org/ui"
     xmlns:c="http://java.sun.com/jsp/jstl/core">
  <h:head>
-	    <title>View/Upload New XSLT</title>
+	    <title>XSLT</title>
 </h:head>
-<f:metadata>
-    	<f:event type="preRenderView" listener="#{usersManagedBean.populateExistingXSLT}" />
-</f:metadata>
+
   	<ui:composition template="/templates/userlayout.xhtml">
- 	<ui:define name="title">Current XSLT</ui:define>
+ 	<ui:define name="title">XSLT Management</ui:define>
  	<ui:define name="content">
-			<div class="main-container" style="margin-left: 0px;">
-				<div class="padding-md">
-					<div class="row" style="height: 70px;">
-						<div class="col-sm-6">
-							<div class="page-title">
-								Existing XSL Transformer
-							</div>
-							<div class="page-sub-header">
-								 Welcome Back,  <h:outputText value="#{loginAuthenticationBean.username}" style="text-transform: capitalize;" />! , <i class="fa fa-map-marker text-danger"></i> Malaysia
-							</div>
-						</div>
-						
-						
-						<div class="col-sm-6">
-							<div class="page-title" style="float:left;width: 232px;">
-								Upload New XSLT ? 
-							</div>
-							<h:form name="uploadForm">
-									<p:commandButton value="Upload" onclick="newXSLTDialog.show()" styleClass="btn btn-success block" tabindex="-1" style="width: 150px;"></p:commandButton>
-							</h:form>
-						</div>
-					</div>
-					
-					<div class="row" style="width: 1000px;">
-						<div class="col-lg-20">
-							<div class="smart-widget widget-dark-blue">
-								<div class="smart-widget-header">
-									Existing XSLT
-									<span class="smart-widget-option">
-										<span class="refresh-icon-animated">
-											<i class="fa fa-circle-o-notch fa-spin"></i>
-										</span>
-			                            <a href="#" class="widget-toggle-hidden-option">
-			                                <i class="fa fa-cog"></i>
-			                            </a>
-			                            <a href="#" class="widget-collapse-option" data-toggle="collapse">
-			                                <i class="fa fa-chevron-up"></i>
-			                            </a>
-			                            
-			                        </span>
-								</div>
-								<div class="smart-widget-inner">
-									<div class="smart-widget-hidden-section">
-										<ul class="widget-color-list clearfix">
-											<li style="background-color:#20232b;" data-color="widget-dark"></li>
-											<li style="background-color:#4c5f70;" data-color="widget-dark-blue"></li>
-											<li style="background-color:#23b7e5;" data-color="widget-blue"></li>
-											<li style="background-color:#2baab1;" data-color="widget-green"></li>
-											<li style="background-color:#edbc6c;" data-color="widget-yellow"></li>
-											<li style="background-color:#fbc852;" data-color="widget-orange"></li>
-											<li style="background-color:#e36159;" data-color="widget-red"></li>
-											<li style="background-color:#7266ba;" data-color="widget-purple"></li>
-											<li style="background-color:#f5f5f5;" data-color="widget-light-grey"></li>
-											<li style="background-color:#fff;" data-color="reset"></li>
-										</ul>
-									</div>
-									<div class="smart-widget-body no-padding">
-									<div style="height: 550px;">
-									<h:form name="logForm" id="logForm">
-									<p:messages autoUpdate="true" closable="true" />
-									<table style="width: 99%;padding: 1px;border-spacing: 2px;border-collapse: separate;margin: 5px;">
-										<tr>
-											<td >
-												<pre>	<h:outputText id="editor"  value="#{usersManagedBean.existingXSLT}"  /> </pre>
-											</td>
-										</tr>
-										<tr><td ></td></tr>
-										</table>
-									</h:form>
-									</div>
-								</div>
-							</div><!-- ./smart-widget-inner -->
-							</div><!-- ./smart-widget -->
-						</div><!-- ./col -->
-					</div>
-					
-					</div><!-- ./padding-md -->
-			</div><!-- /main-container -->
-			<br/><br/>
-		<a href="#" class="scroll-to-top hidden-print"><i class="fa fa-chevron-up fa-lg"></i></a>
-		
-	  <p:dialog header="New XSLT Upload" widgetVar="newXSLTDialog" resizable="false" id="newXSLTDialogId" modal="true" height="115px">
-	  		<h:form enctype="multipart/form-data" id="newXSLTForm">
-      			<table style="width: 20%;padding: 5px;border-spacing: 10px;border-collapse: separate;margin: 5px;">
-      			<tr>
-      			<td><p:fileUpload value="#{usersManagedBean.newXSLTAttachment}" mode="simple"  allowTypes="/(\.|\/)(xsl)$/" required="true" requiredMessage="Please select new XSLT file"/>
-				 	</td></tr>
-      			<tr><td><p:commandButton value="Submit" ajax="false" actionListener="#{usersManagedBean.upload}" oncomplete="newXSLTDialog.hide()" update=":logForm" validateClient="true" styleClass="btn btn-success block" tabindex="-1" style="width: 150px;"/>
-	      			</td></tr>
-      			</table>
-	      	</h:form>
+	<h1>XSLT Management</h1>
+ 	<br/><br/>
+ 	 <h:form>
+ 	 	<p:commandButton value="Add New XSLT" update=":newXsltForm"  oncomplete="PF('newXsltDialog').show()" actionListener="#{XSLTManagedBean.doInitializeForm()}" icon="ui-icon-star" title="Upload New XSLT"/>
+ 	 </h:form>
+ 	 <br/><br/>
+	<h:form id="xsltTableForm">
+	<p:messages autoUpdate="true" />
+        <p:dataTable id="xsltTable" widgetVar="xsltTableVar" var="xsltVar" value="#{XSLTManagedBean.xsltDataModel}" rowKey="#{xsltVar.id}" style="table-layout: fixed"
+                 selection="#{XSLTManagedBean.selectedXSLT}" selectionMode="single" emptyMessage="Really no XSLT uploaded"
+                 rows="10" paginator="true" paginatorPosition="bottom" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}  {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15" >
+          <p:ajax event="rowSelect" listener="#{XSLTManagedBean.onRowSelect}" update=":xsltDetailForm:display, :growl" oncomplete="PF('xsltDialog').show()" />  
+	          <p:column id="nameHeader" sortBy="#{xsltVar.name}"><f:facet name="header"> XSLT Name </f:facet> <h:outputText value="#{xsltVar.name}" /></p:column>
+	          <p:column id="transTypeHeader" sortBy="#{xsltVar.transType}" style="width:130px;"><f:facet name="header"> Trans Type </f:facet> <h:outputText value="#{xsltVar.transType}" /></p:column>
+	          <p:column id="xsltModeHeader" sortBy="#{xsltVar.viewOrSave}" style="width:90px;"><f:facet name="header">  Mode </f:facet> <h:outputText value="#{xsltVar.viewOrSave}" /></p:column>
+	          <p:column id="createdByHeader"  sortBy="#{xsltVar.createdBy}" ><f:facet name="header"> Created By </f:facet><h:outputText value="#{xsltVar.createdBy}" /></p:column>
+	          <p:column id="createdTimeHeader"  sortBy="#{xsltVar.creationTime}" ><f:facet name="header"> Creation Time</f:facet><h:outputText value="#{xsltVar.creationTime}" style="white-space: pre;"><f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" /></h:outputText></p:column>
+	          <p:column id="lastModifiedByHeader"  sortBy="#{xsltVar.lastModifiedBy}" ><f:facet name="header"> Last Modified By </f:facet><h:outputText value="#{xsltVar.lastModifiedBy}" /></p:column>
+	          <p:column id="lastModifiedHeader"  sortBy="#{xsltVar.lastModifiedTime}" ><f:facet name="header"> Last Modified Time</f:facet><h:outputText value="#{xsltVar.lastModifiedTime}" style="white-space: pre;"><f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" /></h:outputText></p:column>
+      </p:dataTable>
+    </h:form>
+    <p:growl id="growl" showDetail="true" life="1000"/> 
+ 	 		
+ 	    <p:dialog header="XSLT Details" styleClass="dlgCSS" widgetVar="xsltDialog" resizable="false" id="xsltDlg" modal ="true">
+               <h:form id="xsltDetailForm">
+               <p:messages autoUpdate="true" id="uploadMessages"/>
+                <p:panel id="display" style="margin:0 auto;">
+            		 <table border="1"  cellspacing="0" style="border: 1px solid gainsboro;" class="table-padding-td" align="center">
+                <tr>
+                	<td><h:outputText value="Name :"></h:outputText></td>
+                    <td><p:inputText value="#{XSLTManagedBean.selectedXSLT.name}" required="true" requiredMessage="Please Enter Name!" label="XSLT Name "> <f:validateLength minimum="4" maximum="30"/></p:inputText></td>
+               </tr>
+               <tr>
+               		<td><h:outputText value="Trans Type :"></h:outputText></td>
+                    <td><p:inputText value="#{XSLTManagedBean.selectedXSLT.transType}" required="true" requiredMessage="Please Enter Trans Type" label="Trans Type "> <f:validateLength minimum="4" maximum="30"/></p:inputText></td>
+               	</tr>
+               	<tr>
+               		<td><h:outputText value="XSLT Mode :"></h:outputText></td>
+	                <td><p:selectOneRadio id="xsltTypeEditId" value="#{XSLTManagedBean.selectedXSLT.viewOrSave}">
+			           	 	<f:selectItem itemLabel="View" itemValue="VIEW" />
+			            	<f:selectItem itemLabel="Save" itemValue="SAVE" />
+			    	 	</p:selectOneRadio>
+               		</td>
+               	</tr>
+               	<tr>
+               		<td><h:outputText value="Active Status"></h:outputText></td>
+	                <td><p:selectOneRadio id="console" value="#{XSLTManagedBean.selectedXSLT.enabled}">
+				            <f:selectItem itemLabel="Active" itemValue="true" />
+				            <f:selectItem itemLabel="Not Active" itemValue="false" />
+				        </p:selectOneRadio>
+               		</td>
+               	</tr>
+               	<tr>
+               		<td><h:outputText value="XSLT View"></h:outputText></td>
+               		<td><div style="width: 490px;height: 150px;margin: 0;padding: 0;overflow: auto;"><pre><h:outputText value="#{XSLTManagedBean.selectedXSLT.xsltFile}"></h:outputText></pre> </div></td>
+                </tr>
+                <tr>
+               		<td><h:outputText value="XSLT Upload New :"></h:outputText></td>
+	                <td> <p:fileUpload  fileUploadListener="#{XSLTManagedBean.handleFileUpload}" mode="advanced" dragDropSupport="true"  update="uploadMessages" auto="true" sizeLimit="100000" allowTypes="/(\.|\/)(xsl)$/" /></td>
+               	</tr>
+                <tr>
+                	<td colspan="2"> 
+                    <f:facet name="footer">
+                            <p:commandButton value="Update" update=":xsltTableForm:xsltTable"  oncomplete="if(!args.validationFailed) PF('xsltDialog').hide()" actionListener="#{XSLTManagedBean.doUpdateXSLT}" validateClient="true"/>
+                            <p:commandButton value="Delete" actionListener="#{XSLTManagedBean.doDeleteXSLT}" update=":xsltTableForm:xsltTable" oncomplete="PF('xsltDialog').hide()"/>
+                    </f:facet>
+                    </td>
+                 </tr>
+                </table>
+                </p:panel>
+             </h:form>
       </p:dialog>
-  	</ui:define>
+          
+      <p:dialog header="Add New XSLT" styleClass="dlgCSS" widgetVar="newXsltDialog" resizable="false" id="newXsltDlg"  modal ="true">
+              <h:form id="newXsltForm">
+              <p:messages autoUpdate="true"  id="uploadMessages" severity="info"/>
+                <p:panelGrid id="displayNewXslt" columns="2" cellpadding="4" style="margin:0 auto;">
+            			<h:outputText value="XSLT Name :"></h:outputText>
+                        <p:inputText value="#{XSLTManagedBean.newXSLT.name}" required="true" requiredMessage="Please Enter Name!" label="Name "> <f:validateLength minimum="4" maximum="50"/></p:inputText>
+            			<h:outputText value="Trans Type :"></h:outputText>
+                        <p:inputText value="#{XSLTManagedBean.newXSLT.transType}" required="true" requiredMessage="Please Select TransType!" label="TransType! "></p:inputText>
+            			<h:outputText value="XSLT Mode :"></h:outputText>
+                       	 <p:selectOneRadio id="xsltTypeId" value="#{XSLTManagedBean.newXSLT.viewOrSave}">
+				            <f:selectItem itemLabel="View" itemValue="VIEW" />
+				            <f:selectItem itemLabel="Save" itemValue="SAVE" />
+				        </p:selectOneRadio>
+				        <h:outputText value="Upload XSLT :"></h:outputText>
+				        <p:fileUpload fileUploadListener="#{XSLTManagedBean.handleFileUpload}" mode="advanced" dragDropSupport="true"   update="uploadMessages" auto="true" sizeLimit="100000" allowTypes="/(\.|\/)(xsl)$/" />
+ 
+            			
+                    	<h:outputText value="Active Status"></h:outputText>
+                    	<p:selectOneRadio id="console" value="#{XSLTManagedBean.newXSLT.enabled}">
+				            <f:selectItem itemLabel="Active" itemValue="true" />
+				            <f:selectItem itemLabel="Not Active" itemValue="false" />
+				        </p:selectOneRadio>
+                    	<f:facet name="footer">
+                            <p:commandButton value="Submit" update=":xsltTableForm:xsltTable"  oncomplete="if(!args.validationFailed) PF('newXsltDialog').hide()" validateClient="true" actionListener="#{XSLTManagedBean.doCreateXSLT}"/>
+                            <p:commandButton value="Reset" actionListener="#{XSLTManagedBean.doInitializeForm}" update=":newXsltForm"></p:commandButton>
+                    	</f:facet>
+                </p:panelGrid>
+              </h:form>
+      </p:dialog>
+          
+          <p:confirmDialog message="Are you sure?" header="Deleting XSLT" 
+          	severity="alert" widgetVar="cd">	
+			<h:form>
+			<p:commandButton value="Yes" actionListener="#{XSLTManagedBean.doDeleteXSLT}" update=":xsltTableForm:xsltTable" oncomplete="PF('cd').hide();"/>
+			<p:commandButton value="No" onclick="PF('cd').hide();PF('xsltDialog').show();" type="button" />
+			</h:form>
+			</p:confirmDialog>
+		</ui:define>
   	</ui:composition>
 </ui:composition>

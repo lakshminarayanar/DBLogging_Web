@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.PostConstruct;
@@ -23,15 +22,12 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
 
 import com.hlb.dblogging.app.context.FacesUtil;
-import com.hlb.dblogging.jpa.model.AuditMaster;
 import com.hlb.dblogging.jpa.model.ConfigurationProperties;
 import com.hlb.dblogging.jpa.model.Role;
-import com.hlb.dblogging.jpa.model.SearchBean;
 import com.hlb.dblogging.jpa.model.Users;
 import com.hlb.dblogging.jpa.service.AuditMasterService;
 import com.hlb.dblogging.jpa.service.ConfigurationPropertiesService;
 import com.hlb.dblogging.log.utility.ApplLogger;
-import com.hlb.dblogging.model.AuditMasterDataModel;
 import com.hlb.dblogging.model.UsersDataModel;
 import com.hlb.dblogging.security.users.service.RoleService;
 import com.hlb.dblogging.security.users.service.UsersService;
@@ -63,6 +59,7 @@ public class UsersManagedBean implements Serializable {
 	private Set<Role> assignedRoleSet = new HashSet<Role>();
 	private Set<Role> unassignedRoleSet = new HashSet<Role>();
 	private DualListModel<Role> dualRoleList = new DualListModel<Role>();
+	private Boolean dmlOperationPerformed=Boolean.FALSE;
 	
 
 	@Autowired
@@ -171,7 +168,7 @@ public class UsersManagedBean implements Serializable {
 	}
 	public List<Users> getUsersListFromDatabase(){
 		
-		if(usersList ==null || usersList.isEmpty()){
+		if(usersList ==null || usersList.isEmpty() || dmlOperationPerformed){
 			usersList =	usersService.findAllUsers();
 		ApplLogger.getLogger().info("Users list of size from database is : "+usersList.size());
 		}
@@ -179,7 +176,7 @@ public class UsersManagedBean implements Serializable {
 	}
 
 	public UsersDataModel getUsersDataModel() {
-		if(usersDataModel==null){
+		if(usersDataModel==null || dmlOperationPerformed){
 			ApplLogger.getLogger().info("Entering to get the datamodel..");
 			usersDataModel = new UsersDataModel(getUsersListFromDatabase());
 		}
@@ -269,8 +266,8 @@ public class UsersManagedBean implements Serializable {
 	public void doCreateUser() {
 
 		try {
+			System.out.println("Getting logged in user from session..");
 			loggedInUser = (Users) FacesUtil.getSessionMapValue("LOGGEDIN_USER");
-			
 			newUser.setDeleted(false);
 			newUser.setCreatedBy(getLoggedInUser().getUsername());
 			newUser.setCreationTime(new Date());
@@ -282,6 +279,7 @@ public class UsersManagedBean implements Serializable {
 			auditTrail.log(SystemAuditTrailActivity.CREATED,SystemAuditTrailLevel.INFO, getLoggedInUser().getId(),getLoggedInUser().getUsername(), getLoggedInUser().getUsername() + " has created a department");
 			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("SUCCESS : User is added successfully to System"));
 			newUser = new Users();
+			dmlOperationPerformed = Boolean.TRUE;
 		} catch(Exception e){ 
 			if(e instanceof DataIntegrityViolationException){
 			  ApplLogger.getLogger().error("Error while adding new user to System",e);
@@ -298,10 +296,7 @@ public class UsersManagedBean implements Serializable {
 	}
 	public void onRowSelect(SelectEvent event) {
 		setSelectedUser((Users) event.getObject());
-		FacesMessage msg = new FacesMessage("User Selected",
-				selectedUser.getUsername());
-
-		FacesContext.getCurrentInstance().addMessage(null, msg);
+		
 	}
 
 	public void doInitializeForm() {
