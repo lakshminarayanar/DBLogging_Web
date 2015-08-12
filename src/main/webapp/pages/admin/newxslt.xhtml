@@ -34,7 +34,7 @@
     </h:form>
     <p:growl id="growl" showDetail="true" life="1000"/> 
  	 		
- 	    <p:dialog header="XSLT Details" styleClass="dlgCSS" widgetVar="xsltDialog" resizable="false" id="xsltDlg" modal ="true">
+ 	    <p:dialog header="XSLT Details" styleClass="dlgCSS" resizable="true" closeOnEscape="true" widgetVar="xsltDialog"  id="xsltDlg" modal ="true">
                <h:form id="xsltDetailForm">
                <p:messages autoUpdate="true" id="uploadMessages"/>
                 <p:panel id="display" style="margin:0 auto;">
@@ -45,22 +45,34 @@
                </tr>
                <tr>
                		<td><h:outputText value="Trans Type :"></h:outputText></td>
-                    <td><p:inputText value="#{XSLTManagedBean.selectedXSLT.transType}" required="true" requiredMessage="Please Enter Trans Type" label="Trans Type "> <f:validateLength minimum="4" maximum="30"/></p:inputText></td>
+                    <td><p:inputText value="#{XSLTManagedBean.selectedXSLT.transType}" readonly="true" rendered="#{XSLTManagedBean.selectedXSLT.transType eq 'ALL'}"	required="true" requiredMessage="Please Enter Trans Type" label="Trans Type "> <f:validateLength minimum="4" maximum="30"/></p:inputText>
+                    	<p:inputText value="#{XSLTManagedBean.selectedXSLT.transType}" required="true" rendered="#{XSLTManagedBean.selectedXSLT.transType ne 'ALL'}"	requiredMessage="Please Enter Trans Type" label="Trans Type "> <f:validateLength minimum="4" maximum="30"/></p:inputText>
+                    </td>
                	</tr>
                	<tr>
                		<td><h:outputText value="XSLT Mode :"></h:outputText></td>
-	                <td><p:selectOneRadio id="xsltTypeEditId" value="#{XSLTManagedBean.selectedXSLT.viewOrSave}">
+	                <td><p:selectOneRadio id="xsltTypeEditId" value="#{XSLTManagedBean.selectedXSLT.viewOrSave}" rendered="#{XSLTManagedBean.selectedXSLT.transType ne 'ALL'}">
 			           	 	<f:selectItem itemLabel="View" itemValue="VIEW" />
-			            	<f:selectItem itemLabel="Save" itemValue="SAVE" />
+			            	<f:selectItem itemLabel="Save" itemValue="SAVE"/>
 			    	 	</p:selectOneRadio>
+			    	 	<p:selectOneRadio id="xsltTypeDisableId" value="#{XSLTManagedBean.selectedXSLT.viewOrSave}" disabled="true"  rendered="#{XSLTManagedBean.selectedXSLT.transType eq 'ALL'}">
+			    	 	<f:selectItem itemLabel="View" itemValue="VIEW" />
+			            <f:selectItem itemLabel="Save" itemValue="SAVE"/>
+			    	 	</p:selectOneRadio>
+			    	 	 <h:inputHidden value="#{XSLTManagedBean.selectedXSLT.viewOrSave}" rendered="#{XSLTManagedBean.selectedXSLT.transType eq 'ALL'}" ></h:inputHidden>
                		</td>
                	</tr>
                	<tr>
                		<td><h:outputText value="Active Status"></h:outputText></td>
-	                <td><p:selectOneRadio id="console" value="#{XSLTManagedBean.selectedXSLT.enabled}">
+	                <td><p:selectOneRadio id="console" value="#{XSLTManagedBean.selectedXSLT.enabled}" rendered="#{XSLTManagedBean.selectedXSLT.transType ne 'ALL'}">
 				            <f:selectItem itemLabel="Active" itemValue="true" />
 				            <f:selectItem itemLabel="Not Active" itemValue="false" />
 				        </p:selectOneRadio>
+				        <p:selectOneRadio id="consoleDisable" value="#{XSLTManagedBean.selectedXSLT.enabled}" disabled="true" rendered="#{XSLTManagedBean.selectedXSLT.transType eq 'ALL'}" >
+				            <f:selectItem itemLabel="Active" itemValue="true" />
+				            <f:selectItem itemLabel="Not Active" itemValue="false" />
+				        </p:selectOneRadio>
+				        <h:inputHidden value="#{XSLTManagedBean.selectedXSLT.enabled}" rendered="#{XSLTManagedBean.selectedXSLT.transType eq 'ALL'}" ></h:inputHidden>
                		</td>
                	</tr>
                	<tr>
@@ -75,7 +87,7 @@
                 	<td colspan="2"> 
                     <f:facet name="footer">
                             <p:commandButton value="Update" update=":xsltTableForm:xsltTable"  oncomplete="if(!args.validationFailed) PF('xsltDialog').hide()" actionListener="#{XSLTManagedBean.doUpdateXSLT}" validateClient="true"/>
-                            <p:commandButton value="Delete" actionListener="#{XSLTManagedBean.doDeleteXSLT}" update=":xsltTableForm:xsltTable" oncomplete="PF('xsltDialog').hide()"/>
+                            <p:commandButton value="Delete" actionListener="#{XSLTManagedBean.doDeleteXSLT}"  rendered="#{XSLTManagedBean.selectedXSLT.transType ne 'ALL'}" update=":xsltTableForm:xsltTable" oncomplete="PF('xsltDialog').hide()"/>
                     </f:facet>
                     </td>
                  </tr>
@@ -84,7 +96,7 @@
              </h:form>
       </p:dialog>
           
-      <p:dialog header="Add New XSLT" styleClass="dlgCSS" widgetVar="newXsltDialog" resizable="false" id="newXsltDlg"  modal ="true">
+      <p:dialog header="Add New XSLT" styleClass="dlgCSS" widgetVar="newXsltDialog" resizable="true" closeOnEscape="true" id="newXsltDlg"  modal ="true">
               <h:form id="newXsltForm">
               <p:messages autoUpdate="true"  id="uploadMessages" severity="info"/>
                 <p:panelGrid id="displayNewXslt" columns="2" cellpadding="4" style="margin:0 auto;">

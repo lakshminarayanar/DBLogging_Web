@@ -1,0 +1,45 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:c="http://java.sun.com/jsp/jstl/core">
+ <h:head>
+	    <title>Global XSLT Settings</title>
+</h:head>
+<f:metadata>
+    	<f:event type="preRenderView" listener="#{settingsManagedBean.populateValues}" />
+</f:metadata> 
+  	<ui:composition template="/templates/userlayout.xhtml">
+ 	<ui:define name="title">Global XSLT Settings</ui:define>
+ 	<ui:define name="content">
+ 	<h1>Global XSLT Settings</h1>
+			<div>
+				<h:form name="settingsForm" id="settingsForm">
+						<p:messages autoUpdate="true"/>
+									<table style="width: 40%;padding: 10px;border-spacing: 20px;border-collapse: separate;margin: 5px;">
+										<tr>
+											<td>
+											Apply XSLT on All Messages while Saving Log
+											</td>
+											<td>
+												<b><p:selectBooleanCheckbox value="#{settingsManagedBean.applyXsltAtSave}" /></b>
+											</td>
+										</tr>
+										<tr>
+										<td>Apply XSLT on All Messages while View Log</td>
+										<td>
+											<b><p:selectBooleanCheckbox value="#{settingsManagedBean.applyXsltAtView}" /></b>
+										</td>
+										</tr>
+										<tr><td colspan="2">
+										<p:commandButton id="saveUsersBtn" value="Submit" actionListener="#{settingsManagedBean.doUpdateSettings}" ajax="true" update="settingsForm"/>
+										</td></tr>
+										<tr><td colspan="2"></td></tr>
+										</table>
+									</h:form>
+							</div>
+
+  	</ui:define>
+  	</ui:composition>
+</ui:composition>

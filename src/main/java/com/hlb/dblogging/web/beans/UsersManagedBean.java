@@ -357,7 +357,7 @@ public class UsersManagedBean implements Serializable {
 									+ existingXSLT);
 					configurationPropertiesService
 							.updateNewXSLTFile(existingXSLT);
-					XSLTransformer.xslTranformerStream = existingXSLT;
+					XSLTransformer.defaultViewXslStream = existingXSLT;
 					FacesMessage msg = new FacesMessage(
 							"Info : New XSLT uploaded successfully, Changes will be effected for every 30 minutes");
 					msg.setSeverity(FacesMessage.SEVERITY_INFO);
@@ -387,16 +387,25 @@ public class UsersManagedBean implements Serializable {
 	}
 
 	public void updateLogLevel() {
+		try{
 		configurationPropertiesService.updateLoglevl(changedLogLevel);
 		currentLogLevel = changedLogLevel;
 		changedLogLevel = "";
+		FacesMessage msg = new FacesMessage("INFO : Loglevel changed successfully");
+		msg.setSeverity(FacesMessage.SEVERITY_INFO);
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+		}catch(Exception e){
+			FacesMessage msg = new FacesMessage("ERROR : Can't change Loglevel presently");
+			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		}
 	}
 
 	public void populateExistingXSLT() {
 		ConfigurationProperties configuration = configurationPropertiesService
 				.getApplicationConfiguration();
-		XSLTransformer.xslTranformerStream = configuration.getXslTransformer();
-		existingXSLT = XSLTransformer.xslTranformerStream;
+		XSLTransformer.defaultViewXslStream = configuration.getViewXslTransformer();
+		existingXSLT = XSLTransformer.defaultViewXslStream;
 	}
 
 	public void deleteUser() {

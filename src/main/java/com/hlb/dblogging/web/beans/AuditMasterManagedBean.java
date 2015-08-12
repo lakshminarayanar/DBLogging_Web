@@ -192,7 +192,7 @@ public class AuditMasterManagedBean implements Serializable{
         
         selectedRecord = searchResultDataModel.getRowData(String.valueOf(selectedMessage.getId()));
         ApplLogger.getLogger().info("Message selected with unique ID is : "+selectedRecord.getUniqueProcessID());
-        messageContent = auditDetailService.getMessageContentFormatted(selectedRecord.getMessageFormat(), String.valueOf(selectedMessage.getId()));
+        messageContent = auditDetailService.getMessageContentFormatted(selectedRecord.getMessageFormat(), String.valueOf(selectedMessage.getId()),selectedRecord.getTransType());
         
         FacesContext.getCurrentInstance().addMessage(null, msg);  
 		}catch(Exception e){
@@ -205,7 +205,7 @@ public class AuditMasterManagedBean implements Serializable{
 		try{
         selectedRecord = searchResultDataModel.getRowData(auditMasterId);
         ApplLogger.getLogger().info("Message selected with unique ID is : "+selectedRecord.getUniqueProcessID());
-        messageContent = auditDetailService.getMessageContentFormatted(selectedRecord.getMessageFormat(), auditMasterId);
+        messageContent = auditDetailService.getMessageContentFormatted(selectedRecord.getMessageFormat(), auditMasterId,selectedRecord.getTransType());
         ApplLogger.getLogger().info("Formatted Message Is : "+messageContent);
 		}catch(Exception e){
 			ApplLogger.getLogger().error("Error while finding the content of given message : "+selectedRecord.getUniqueProcessID(),e);
@@ -251,6 +251,15 @@ public class AuditMasterManagedBean implements Serializable{
         return file;
     }
 	
-	
+	public StreamedContent getFileRaw() {
+		try{
+		messageContent = auditDetailService.getMessageContentInRawFormat(selectedRecord.getMessageFormat(), String.valueOf(selectedMessage.getId()));
+		InputStream stream = new ByteArrayInputStream(messageContent.getBytes());		// Check the message format, if it is xml, directly download the content else, download as text file
+			file = new DefaultStreamedContent(stream, "text/xml", selectedRecord.getUniqueProcessID()+".txt");
+		}catch(Exception e){
+			ApplLogger.getLogger().error("Error while trying to download the file with uniqueprocess Id : "+selectedRecord.getUniqueProcessID(), e);
+		}
+		  return file;
+    }
 
 }

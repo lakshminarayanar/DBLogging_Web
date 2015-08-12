@@ -24,6 +24,7 @@ import com.hlb.dblogging.model.XSLTDataModel;
 import com.hlb.dblogging.user.audit.logging.AuditTrail;
 import com.hlb.dblogging.user.audit.logging.SystemAuditTrailActivity;
 import com.hlb.dblogging.user.audit.logging.SystemAuditTrailLevel;
+import com.hlb.dblogging.xml.utility.XSLTransformer;
 
 @Component
 @ViewScoped
@@ -149,6 +150,7 @@ public class XSLTManagedBean implements Serializable {
 			newXSLT.setCreationTime(new Date());
 			newXSLT.setXsltFile(uploadingNewXSLT);
 			Boolean status = xsltService.createNewXSLT(newXSLT);
+			XSLTransformer.xsltMap.put(newXSLT.getTransType(),uploadingNewXSLT);
 			auditTrail.log(SystemAuditTrailActivity.CREATED,SystemAuditTrailLevel.INFO, getLoggedInUser().getId(),getLoggedInUser().getUsername(), getLoggedInUser().getUsername() + " has created a new XSLT with name : "+newXSLT.getName());
 			dmlOperationPerformed = Boolean.TRUE;
 			uploadingNewXSLT=null;
@@ -175,13 +177,19 @@ public class XSLTManagedBean implements Serializable {
 
 	public void doInitializeForm() {
 		newXSLT = new XSLT();
-		// Get the groups from the database
+		uploadingNewXSLT = null;
 	}
 
 		
 	public void doDeleteXSLT() {
 		System.out.println("XSLT is going to be deleted is : "+ selectedXSLT.getName());
 		try{
+			/*if("ALL".equalsIgnoreCase(selectedXSLT.getTransType()) && ("VIEW".equalsIgnoreCase(selectedXSLT.getViewOrSave()) || "SAVE".equalsIgnoreCase(selectedXSLT.getViewOrSave())))
+			{
+				FacesMessage msg = new  FacesMessage("ERROR : Database problem while deleting XSLT, please try later");
+				msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+				FacesContext.getCurrentInstance().addMessage(null, msg); 
+			}*/
 			loggedInUser = (Users) FacesUtil.getSessionMapValue("LOGGEDIN_USER");
 			selectedXSLT.setLastModifiedBy(loggedInUser.getUsername());
 			selectedXSLT.setLastModifiedTime(new Date());
@@ -194,6 +202,7 @@ public class XSLTManagedBean implements Serializable {
 		
 			auditTrail.log(SystemAuditTrailActivity.DELETED,SystemAuditTrailLevel.INFO, getLoggedInUser().getId(),getLoggedInUser().getUsername(), getLoggedInUser().getUsername() + " has deleted XSLT with id: "+selectedXSLT.getId());
 			dmlOperationPerformed = Boolean.TRUE;
+			XSLTransformer.xsltMap.remove(selectedXSLT.getTransType());
 			}catch(Exception e){
 				 ApplLogger.getLogger().error("Error while deleting XSLT from System",e);
 				  FacesMessage msg = new  FacesMessage("ERROR : Database problem while deleting XSLT, please try later");
@@ -218,6 +227,7 @@ public class XSLTManagedBean implements Serializable {
 	
 		auditTrail.log(SystemAuditTrailActivity.UPDATED,SystemAuditTrailLevel.INFO, getLoggedInUser().getId(),getLoggedInUser().getUsername(), getLoggedInUser().getUsername() + " has updated a new XSLT with id: "+selectedXSLT.getId());
 		dmlOperationPerformed = Boolean.TRUE;
+		XSLTransformer.xsltMap.put(selectedXSLT.getTransType(),uploadingNewXSLT);
 		uploadingNewXSLT=null;
 		}catch(Exception e){
 			 ApplLogger.getLogger().error("Error while updating new XSLT to System",e);

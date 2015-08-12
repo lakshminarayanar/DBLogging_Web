@@ -92,23 +92,24 @@
 	  <br/>
 </ui:define>
 <ui:define name="dialog">
-			<p:dialog header="Message Details" style="font-family: Raleway,sans-serif !important;"  widgetVar="messageDialog" resizable="true" closeOnEscape="true"  id="messageDlg" modal="true"  height="550px" width="1050px">
+			<p:dialog header="Message Listing" style="font-family: Raleway,sans-serif !important;"  widgetVar="messageDialog" resizable="true" closeOnEscape="true"  id="messageDlg" modal="true"  height="550px" width="1050px">
 			
 			
 	   <h:form id="searchResultListForm">
 		 <p:dataTable id="auditMasterListTable" widgetVar="auditMasterList" var="auditMasterMessageVar" value="#{auditMasterManagedBean.searchResultDataModel}" rowKey="#{auditMasterMessageVar.id}" 
 		 		selection="#{auditMasterManagedBean.selectedMessage}"  emptyMessage="No records found !!!"
 		 		rows="5" paginator="true" paginatorPosition="bottom" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"  >
-	          <p:column id="uniqueProcessIdHeader" sortBy="#{auditMasterMessageVar.uniqueProcessId}"><f:facet name="header">Unique ProcessID</f:facet><h:outputText value="#{auditMasterMessageVar.uniqueProcessID}" /></p:column>
-	          <p:column id="applicationNameHeader" sortBy="#{auditMasterMessageVar.applName}"><f:facet name="header"> Application Name </f:facet><h:outputText value="#{auditMasterMessageVar.applName}" /> </p:column>
-	          <p:column id="statusCodeHeader" sortBy="#{auditMasterMessageVar.messageFormat}"><f:facet name="header">Message Format</f:facet><h:outputText value="#{auditMasterMessageVar.messageFormat}" /> </p:column>
-	          <p:column id="transTypeHeader" sortBy="#{auditMasterMessageVar.transType}"><f:facet name="header">Transaction Type</f:facet><h:outputText value="#{auditMasterMessageVar.transType}" /></p:column>
+	          <p:column id="uniqueProcessIdHeader" sortBy="#{auditMasterMessageVar.uniqueProcessId}"><f:facet name="header">Unique PID</f:facet><h:outputText value="#{auditMasterMessageVar.uniqueProcessID}" /></p:column>
+	          <p:column id="applicationNameHeader" sortBy="#{auditMasterMessageVar.applName}"><f:facet name="header"> App Name </f:facet><h:outputText value="#{auditMasterMessageVar.applName}" /> </p:column>
+	          <p:column id="statusCodeHeader" sortBy="#{auditMasterMessageVar.messageFormat}"><f:facet name="header">Msg Format</f:facet><h:outputText value="#{auditMasterMessageVar.messageFormat}" /> </p:column>
+	          <p:column id="transTypeHeader" sortBy="#{auditMasterMessageVar.transType}"><f:facet name="header">Trans Type</f:facet><h:outputText value="#{auditMasterMessageVar.transType}" /></p:column>
 	          <!-- <p:column id="segmentHeader" sortBy="#{auditMasterMessageVar.segment}"><f:facet name="header">Segment</f:facet><h:outputText value="#{auditMasterMessageVar.segment}" /></p:column> -->
-	          <p:column id="transTimeHeader" sortBy="#{auditMasterMessageVar.transDateTime}"><f:facet name="header">Transaction Date</f:facet><h:outputText value="#{auditMasterMessageVar.transDateTime}" style="white-space: pre;"/></p:column>
+	          <p:column id="transTimeHeader" sortBy="#{auditMasterMessageVar.transDateTime}"><f:facet name="header">Trans Date</f:facet><h:outputText value="#{auditMasterMessageVar.transDateTime}" style="white-space: pre;"/></p:column>
 	          <p:column id="buttonHeader" style="width: 91px;"><f:facet name="header">Message</f:facet> <p:commandButton ajax="true" actionListener="#{auditMasterManagedBean.onMessageRowSelect(auditMasterMessageVar.id)}" update=":messageDialogForm"  icon="ui-icon-search" value="View"></p:commandButton> </p:column>
 	    </p:dataTable>
 	  </h:form>
-			
+	<br/>
+	<h4>Message Details</h4>		
 			<h:form id="messageDialogForm">
                 <table border="1" id="display" cellspacing="0" style="border: 1px solid gainsboro;" class="table-padding-td" align="center">
                 <tr>
@@ -161,10 +162,20 @@
 						<td><div style="width: 490px;height: 150px;margin: 0;padding: 0;overflow: auto;"><pre><h:outputText value="#{auditMasterManagedBean.messageContent}"></h:outputText></pre> </div></td>
 					</tr>
                     <tr>
-						<td><h:outputText value="Download "></h:outputText></td>
-						<td><p:commandButton value="Download Content" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s"  styleClass="btn btn-success block"  style="width: 200px;">
+						<td><h:outputText value="Download Format"></h:outputText></td>
+						<td>
+							<p:commandButton value="Download Content" ajax="false" rendered="#{auditMasterManagedBean.selectedRecord.messageFormat eq 'XML'}" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s"  styleClass="btn btn-success block"  style="width: 230px;">
 							<p:fileDownload value="#{auditMasterManagedBean.file}" />
-							</p:commandButton> </td>
+							</p:commandButton> 
+							<p:commandButton value="Download ASCII" ajax="false" rendered="#{auditMasterManagedBean.selectedRecord.messageFormat eq 'RAW'}" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s"  styleClass="btn btn-success block"  style="width: 200px;">
+							<p:fileDownload value="#{auditMasterManagedBean.file}" />
+							</p:commandButton> 
+							&#160;
+							<p:commandButton value="Download EBCDIC" ajax="false" rendered="#{auditMasterManagedBean.selectedRecord.messageFormat eq 'RAW'}" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s"  styleClass="btn btn-success block"  style="width: 210px;">
+							<p:fileDownload value="#{auditMasterManagedBean.fileRaw}" />
+							</p:commandButton> 
+							
+						</td>
 					</tr>	
 				</table>
 	      </h:form>
