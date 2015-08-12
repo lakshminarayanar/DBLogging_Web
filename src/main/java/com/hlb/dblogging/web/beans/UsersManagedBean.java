@@ -22,6 +22,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
 
 import com.hlb.dblogging.app.context.FacesUtil;
+import com.hlb.dblogging.exception.utility.BSLException;
 import com.hlb.dblogging.jpa.model.ConfigurationProperties;
 import com.hlb.dblogging.jpa.model.Role;
 import com.hlb.dblogging.jpa.model.Users;
@@ -60,6 +61,7 @@ public class UsersManagedBean implements Serializable {
 	private Set<Role> unassignedRoleSet = new HashSet<Role>();
 	private DualListModel<Role> dualRoleList = new DualListModel<Role>();
 	private Boolean dmlOperationPerformed=Boolean.FALSE;
+	private boolean insertDelete = false;
 	
 
 	@Autowired
@@ -78,10 +80,10 @@ public class UsersManagedBean implements Serializable {
 	private AuditTrail auditTrail;
 	
 	
-	@PostConstruct
+/*	@PostConstruct
 	public void init() {
 		roleSet = roleService.findAllInSet();
-	}
+	}*/
 
 	public Users getLoggedInUser() {
 		return loggedInUser;
@@ -165,6 +167,15 @@ public class UsersManagedBean implements Serializable {
 
 	public void setSelectedUser(Users selectedUser) {
 		this.selectedUser = selectedUser;
+		this.assignedRoleSet = this.selectedUser.getUserRoles();
+		this.unassignedRoleSet.addAll(this.roleSet);
+		this.unassignedRoleSet.removeAll(this.assignedRoleSet);
+		List<Role> unassignedRoleList = new ArrayList<Role>();
+		unassignedRoleList.addAll(unassignedRoleSet);
+		
+		List<Role> assignedRoleList = new ArrayList<Role>();
+		assignedRoleList.addAll(assignedRoleSet);
+		this.dualRoleList = new DualListModel<Role>(unassignedRoleList, assignedRoleList);
 	}
 	public List<Users> getUsersListFromDatabase(){
 		
@@ -181,6 +192,10 @@ public class UsersManagedBean implements Serializable {
 			usersDataModel = new UsersDataModel(getUsersListFromDatabase());
 		}
 		return usersDataModel;
+	}
+
+	public void setUsersDataModel(UsersDataModel usersDataModel) {
+		this.usersDataModel = usersDataModel;
 	}
 
 	public String getCurrentLogLevel() {
@@ -253,7 +268,7 @@ public class UsersManagedBean implements Serializable {
 		return results;
 	}
 
-	public List<Users> getAllUsersList() {
+/*	public List<Users> getAllUsersList() {
 		return usersService.findAllUsers();
 
 	}
@@ -261,7 +276,7 @@ public class UsersManagedBean implements Serializable {
 	public UsersDataModel getUserdatamodel() {
 
 		return new UsersDataModel(getAllUsersList());
-	}
+	}*/
 
 	public void doCreateUser() {
 
@@ -304,6 +319,30 @@ public class UsersManagedBean implements Serializable {
 		// Get the groups from the database
 		//rolesList = roleService.findAll();
 	}
+	
+	
+public void doUpdateUser(){
+		
+		try{
+			
+			loggedInUser = (Users) FacesUtil.getSessionMapValue("LOGGEDIN_USER");
+			
+			List<Role> selectedRoleList = dualRoleList.getTarget();
+			HashSet<Role> selectedRoleSet = new HashSet<Role>();
+			selectedRoleSet.addAll(selectedRoleList);
+			selectedUser.setUserRoles(selectedRoleSet);
+			getUsersService().update(selectedUser);
+			dmlOperationPerformed = Boolean.TRUE;
+			auditTrail.log(SystemAuditTrailActivity.UPDATED,SystemAuditTrailLevel.INFO, getLoggedInUser().getId(),getLoggedInUser().getUsername(), getLoggedInUser().getUsername() + " has Update User");
+			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("SUCCESS : User is updated successfully in the System"));
+			
+		}catch(Exception e){
+			
+			FacesMessage msg = new FacesMessage("ERROR : Not able to update user in the System");
+			 FacesContext.getCurrentInstance().addMessage(null, msg);  
+		}
+	}
+	
 
 	/*
 	 * public void createUser(){ try{
@@ -419,12 +458,50 @@ public class UsersManagedBean implements Serializable {
 	}
 	
 	public void populatePickList(){
+		roleSet = roleService.findAllInSet();
 		this.unassignedRoleSet.addAll(this.roleSet);
 		List<Role> unassignedRoleList = new ArrayList<Role>();
 		unassignedRoleList.addAll(unassignedRoleSet);
 		List<Role> assignedRoleList = new ArrayList<Role>();
 		this.dualRoleList = new DualListModel<Role>(unassignedRoleList, assignedRoleList);	
 		
+	}
+	
+	public void doDeleteUser() {
+		System.out.println("Username is going to be deleted is : "
+				+ selectedUser.getUsername());
+		/*if (!"admin".equalsIgnoreCase(selectedUser.getUsername())
+				&& usersService.deleteUser(selectedUser.getUsername()) > 0)
+			System.out.println("Deleted successfully");
+		else
+			System.out.println("Could not delete. Try later..");*/
+		
+		try {
+			
+			loggedInUser = (Users) FacesUtil.getSessionMapValue("LOGGEDIN_USER");
+			
+			getUsersService().delete(selectedUser.getId());
+			dmlOperationPerformed = Boolean.TRUE;
+			auditTrail.log(SystemAuditTrailActivity.UPDATED,SystemAuditTrailLevel.INFO, getLoggedInUser().getId(),getLoggedInUser().getUsername(), getLoggedInUser().getUsername() + " has deleted User" +selectedUser.getUsername());
+			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("SUCCESS : User is deleted successfully in the System"));
+				
+			
+		//	FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Info",getExcptnMesProperty("info.role.delete")));
+		//	new Refresh().refreshPage();
+		} catch (BSLException e) {
+		//	FacesMessage msg = new FacesMessage("Error",getExcptnMesProperty(e.getMessage()));  
+		//	msg.setSeverity(FacesMessage.SEVERITY_ERROR); 
+		//	FacesContext.getCurrentInstance().addMessage(null, msg);  
+		}	
+		
+	}
+
+	public boolean isInsertDelete() {
+		return insertDelete;
+	}
+
+	public void setInsertDelete(boolean insertDelete) {
+		this.insertDelete = insertDelete;
 	}
 	
 	
