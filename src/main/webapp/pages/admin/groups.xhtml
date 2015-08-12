@@ -1,0 +1,95 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:pe="http://primefaces.org/ui/extensions" >
+	<f:metadata>
+    	<f:event type="preRenderView" listener="#{loginAuthenticationBean.hasPageAccess('AR_ADMIN_HOME')}" />
+    </f:metadata>
+<ui:composition template="/templates/userlayout.xhtml">
+	<ui:define name="title">Groups</ui:define>
+	<ui:define name="content">
+        <h1>Groups</h1>
+		<h:form id="roleTableForm">
+		<p:messages autoUpdate="true" severity="info" globalOnly="true" showDetail="true"/>
+		 <p:panel header="Search" toggleable="true">
+			<p:panelGrid id="SearchRole" columns="2" cellpadding="4">
+				<h:outputText value="Role" />
+				<h:inputText value="#{roleManagedBean.searchRoleName}"></h:inputText>					
+				<f:facet name="footer">				
+					<p:commandButton value="Search" update="roleTable" actionListener="#{roleManagedBean.searchRole()}"></p:commandButton>
+					<p:commandButton type="reset" value="Reset"></p:commandButton>
+				</f:facet>
+			</p:panelGrid>
+		</p:panel>
+        <p:dataTable id="roleTable" var="role0" value="#{roleManagedBean.roleDataModel}" widgetVar="roleSearch" rowKey="#{role0.id}"
+                 								selection="#{roleManagedBean.selectedRole}" scrollable="true" selectionMode="single" emptyMessage="No data found with given criteria" 
+                 							paginator="true" rows="10" sortMode="multiple"	paginatorPosition="bottom" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}  {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15" >
+          		<p:ajax event="rowSelect" listener="#{roleManagedBean.onRowSelect}" update=":roleDetailForm:display, :growl" oncomplete="PF('roleDialog').show()" />  
+          		<p:column id="roleHeader" sortBy="#{role0.role}" ><f:facet name="header"> Group </f:facet><h:outputText value="#{role0.role}" /></p:column>        
+        		<p:column id="descHeader" sortBy="#{role0.description}"><f:facet name="header"> Description </f:facet><h:outputText value="#{role0.description}" /></p:column>
+          		<p:column id="lastModifiedByHeader" sortBy="#{role0.lastModifiedBy}"><f:facet name="header"> Last Modified By</f:facet><h:outputText value="#{role0.lastModifiedBy}" /></p:column>
+	            <p:column id="lastModifiedHeader" sortBy="#{role0.lastModifiedTime}"><f:facet name="header"> Last Modified Time</f:facet><h:outputText value="#{role0.lastModifiedTime}" >  <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" /></h:outputText></p:column>
+        </p:dataTable>
+      </h:form>
+      <h:form id="commandButtonForm">
+        <p:commandButton value="New Group" update=":newRoleForm" actionListener="#{roleManagedBean.populatePickList}" oncomplete="PF('newRoleDialog').show()" icon="ui-icon-star" title="Creates new Group"/>
+      </h:form>      
+      <p:growl id="growl" showDetail="true" life="1000"/> 
+  </ui:define>  
+  <ui:define name="dialog">
+      <p:dialog header="Group Detail" styleClass="dlgCSS" widgetVar="roleDialog" resizable="false" id="roleDlg" modal="true" >
+          <h:form id="roleDetailForm">
+          <p:messages autoUpdate="true"/>
+               <p:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">
+           			 <h:outputText value="Group :"></h:outputText>
+                     <h:inputText value="#{roleManagedBean.selectedRole.role}" required="true" requiredMessage="Please Enter Group!" label="Group "><f:validateLength minimum="4" maximum="30"/></h:inputText>
+           			 <h:outputText value="Description"></h:outputText>
+            		 <h:inputText value="#{roleManagedBean.selectedRole.description}" required="true" requiredMessage="please Enter Description" label="Description"><f:validateLength minimum="4" maximum="30"/></h:inputText>
+                     <h:outputText value="Assign AccessRights :"></h:outputText>
+                     <p:pickList id="accessRightsPickList" value="#{roleManagedBean.dualAccessRightsList}"
+          				var="accessRights0" converter="roleToAccessRightsPickListConverter" itemValue="#{accessRights0}" itemLabel="#{accessRights0.accessRights}" >
+          		
+          	 			<f:facet name="sourceCaption">Unassigned  Access Rights</f:facet>  
+        				<f:facet name="targetCaption">Assigned Access Rights</f:facet>  
+          			</p:pickList>
+                     <f:facet name="footer">
+                            <p:commandButton value="Update" update=":roleTableForm:roleTable"  oncomplete="if(!args.validationFailed)  PF('roleDialog').hide()" validateClient="true" actionListener="#{roleManagedBean.doUpdateRole}"/>
+                            <p:commandButton value="Delete" onclick="PF('cd').show()" oncomplete="PF('roleDialog').hide()"/>                        
+                    </f:facet>
+              </p:panelGrid>
+          </h:form>
+      </p:dialog>
+      <p:dialog header="Create New Group" styleClass="dlgCSS"  widgetVar="newRoleDialog" resizable="false" id="newRoleDlg" modal="true">
+          <h:form id="newRoleForm">
+          <p:messages autoUpdate="true"/>
+              <p:panelGrid id="displayNewRole" columns="2" cellpadding="4" style="margin:0 auto;">
+            		<h:outputText value="Group :"></h:outputText>
+                    <p:inputText value="#{roleManagedBean.newRole.role}" required="true" requiredMessage="Please Enter Group!" label="Group"><f:validateLength minimum="4" maximum="30"/></p:inputText>
+             		<h:outputText value="Description"></h:outputText>          
+			 		<p:inputText value="#{roleManagedBean.newRole.description}" required="true" requiredMessage="please Enter Description" label="Description" ><f:validateLength minimum="4" maximum="30"/></p:inputText>
+ 					<h:outputText value="Assign AccessRights :"></h:outputText>
+                    <p:pickList id="accessRightsPickList" value="#{roleManagedBean.dualAccessRightsList}"
+          				var="accessRights0" converter="roleToAccessRightsPickListConverter" itemValue="#{accessRights0}" itemLabel="#{accessRights0.accessRights}" >
+          	 			<f:facet name="sourceCaption">Unassigned  Access Rights</f:facet>  
+        				<f:facet name="targetCaption">Assigned Access Rights</f:facet>  
+          			</p:pickList>
+                    
+                    <f:facet name="footer">
+                            <p:commandButton value="Submit" update=":roleTableForm:roleTable"  oncomplete="if(!args.validationFailed)  PF('newRoleDialog').hide()" validateClient="true" actionListener="#{roleManagedBean.doCreateRole}"/>
+                            <p:commandButton type="reset" value="Reset"></p:commandButton>
+                    </f:facet>
+              </p:panelGrid>
+         </h:form>
+      </p:dialog>
+      <p:confirmDialog message="Are you sure?" header="Deleting Group" severity="alert" widgetVar="cd">	
+		<h:form>
+			<p:commandButton value="Yes" actionListener="#{roleManagedBean.doDeleteRole}" update=":roleTableForm:roleTable" oncomplete="PF('cd').hide();"/>
+			<p:commandButton value="No" onclick="PF('cd').hide();PF('roleDialog').show();" type="button" />
+		</h:form>			
+	  </p:confirmDialog>
+	</ui:define>
+  </ui:composition>
+</ui:composition>

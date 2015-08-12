@@ -3,55 +3,84 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:p="http://primefaces.org/ui"
-    xmlns:c="http://java.sun.com/jsp/jstl/core">
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:pe="http://primefaces.org/ui/extensions" >
  <h:head>
 	    <title>Access Rights Settings</title>
 </h:head>
-<f:metadata>
-    	<f:event type="preRenderView" listener="#{usersManagedBean.populateValues}" />
-</f:metadata>
-  	<ui:composition template="/templates/adminlayout.xhtml">
- 	<ui:define name="title">Add User</ui:define>
+
+	<f:metadata>
+    	<f:event type="preRenderView" listener="#{loginAuthenticationBean.hasPageAccess('AR_ADMIN_HOME')}" />
+    </f:metadata>
+  	<ui:composition template="/templates/userlayout.xhtml">
+ 	<ui:define name="title">Access Rights</ui:define>
  	<ui:define name="content">
-			<div class="main-container">
-				<div class="padding-md">
-					<div class="row" style="height: 70px;">
-						<div class="col-sm-6">
-							<div class="page-title">
-								Roles And Access Right Settings
-							</div>
-							<div class="page-sub-header">
-								 Welcome Back,  <h:outputText value="#{loginAuthenticationBean.username}" style="text-transform: capitalize;" />! , <i class="fa fa-map-marker text-danger"></i> Malaysia
-							</div>
-						</div>
-					</div>
-					
-					<h3> All users are with single Role and Access Right..!!!</h3>
-					<div class="row" style="width: 1000px;">
-						<div class="col-lg-6">
-							<div class="smart-widget widget-dark-blue">
-								<div class="smart-widget-header">
-									Roles and Access Rights
-									<span class="smart-widget-option">
-										<span class="refresh-icon-animated">
-											<i class="fa fa-circle-o-notch fa-spin"></i>
-										</span>
-			                            <a href="#" class="widget-toggle-hidden-option">
-			                                <i class="fa fa-cog"></i>
-			                            </a>
-			                            <a href="#" class="widget-collapse-option" data-toggle="collapse">
-			                                <i class="fa fa-chevron-up"></i>
-			                            </a>
-			                            
-			                        </span>
-								</div>
-								
-							</div><!-- ./smart-widget -->
-						</div><!-- ./col -->
-					</div><!-- ./padding-md -->
-			</div><!-- /main-container -->
-</div>
-		<a href="#" class="scroll-to-top hidden-print"><i class="fa fa-chevron-up fa-lg"></i></a>
-  	</ui:define>
+        <h1>Access Rights</h1>
+		<h:form id="accessRightsTableForm">
+		<p:messages autoUpdate="true" showDetail="true" severity="info"/>
+			 <p:panel header="Search" toggleable="true">
+					<p:panelGrid id="SearchAccessRight" columns="2" cellpadding="4">
+						<h:outputText value="Access Right" />
+							<h:inputText value="#{accessRightsManagedBean.searchAccessRight}"></h:inputText>					
+						<f:facet name="footer">				
+							<p:commandButton value="Search" update="accessRightsTable" actionListener="#{accessRightsManagedBean.searchAccessRightName()}"></p:commandButton>
+							<p:commandButton type="reset" value="Reset"></p:commandButton>
+						</f:facet>
+					</p:panelGrid>
+			</p:panel>
+        <p:dataTable id="accessRightsTable" var="accessRights0" value="#{accessRightsManagedBean.accessRightsDataModel}" widgetVar="accessRightsSearch" rowKey="#{accessRights0.id}"
+                 							selection="#{accessRightsManagedBean.selectedAccessRights}" scrollable="true"  selectionMode="single" emptyMessage="No data found with given criteria" 
+                 						 paginator="true" rows="10" sortMode="multiple"	paginatorPosition="bottom" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}  {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15" >
+          <p:ajax event="rowSelect" listener="#{accessRightsManagedBean.onRowSelect}" update=":accessRightsDetailForm:display, :growl" oncomplete="PF('accessRightsDialog').show()" />  
+          	<p:column id="accessRightHeader"  sortBy="#{accessRights0.accessRights}" ><f:facet name="header"> Access Right</f:facet><h:outputText value="#{accessRights0.accessRights}" /></p:column>  
+          	<p:column id="descHeader"  sortBy="#{accessRights0.description}" ><f:facet name="header"> Description</f:facet><h:outputText value="#{accessRights0.description}" /></p:column>
+          	<p:column id="lastModifiedByHeader"  sortBy="#{accessRights0.lastModifiedBy}" > <f:facet name="header"> Last Modified By</f:facet><h:outputText value="#{accessRights0.lastModifiedBy}" /> </p:column>
+	        <p:column id="lastModifiedTimeHeader"  sortBy="#{accessRights0.lastModifiedTime}" ><f:facet name="header"> Last Modified Time</f:facet><h:outputText value="#{accessRights0.lastModifiedTime}" >  <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" /> </h:outputText> </p:column>
+       </p:dataTable>
+       </h:form>
+	   <h:form id="commandButtonForm">
+	       <p:commandButton value="New Access Rights" update=":newAccessRightsForm" oncomplete="PF('newAccessRightsDialog').show()" icon="ui-icon-star" title="Creates New Access Right"/>
+	   </h:form>      
+       <p:growl id="growl" showDetail="true" life="1000"/> 
+  </ui:define>
+   <ui:define name="dialog">
+      <p:dialog header="Access Rights Detail" widgetVar="accessRightsDialog" resizable="false" id="accessRightsDlg" modal="true" >
+           <h:form id="accessRightsDetailForm">
+           <p:messages autoUpdate="true"/>
+           <p:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">
+            <h:outputText value="Name :"></h:outputText>
+            <h:inputText value="#{accessRightsManagedBean.selectedAccessRights.accessRights}" required="true" requiredMessage="Please Enter Name!" label="Name "><f:validateLength minimum="4"/></h:inputText>
+            <h:outputText value="Description"></h:outputText>
+            <h:inputText value="#{accessRightsManagedBean.selectedAccessRights.description}" required="true" requiredMessage="please Enter Description" label="Description "><f:validateLength minimum="4"/></h:inputText>
+                    <f:facet name="footer">
+                            <p:commandButton value="Update" update=":accessRightsTableForm:accessRightsTable"  oncomplete="if(!args.validationFailed)  PF('accessRightsDialog').hide()" validateClient="true" actionListener="#{accessRightsManagedBean.doUpdateAccessRights}"/>
+                            <p:commandButton value="Delete" onclick="PF('cd').show()" oncomplete="PF('accessRightsDialog').hide()"/>                        
+                            
+                    </f:facet>
+          </p:panelGrid>
+        </h:form>
+    </p:dialog>
+    <p:dialog header="Create New Access Right" widgetVar="newAccessRightsDialog" resizable="false" id="newAccessRightsDlg" modal="true">
+         <h:form id="newAccessRightsForm">
+         <p:messages autoUpdate="true"/>
+           <p:panelGrid id="displayNewAccessRights" columns="2" cellpadding="4" style="margin:0 auto;">
+            <h:outputText value="Name :"></h:outputText>
+            <p:inputText value="#{accessRightsManagedBean.newAccessRights.accessRights}" required="true" requiredMessage="Please Enter Name!" label="Name "><f:validateLength minimum="4"/></p:inputText>
+            <h:outputText value="Description"></h:outputText>           
+			<p:inputText value="#{accessRightsManagedBean.newAccessRights.description}" required="true" requiredMessage="please Enter Description" label="Description "><f:validateLength minimum="4"/></p:inputText>
+            <f:facet name="footer">
+                            <p:commandButton value="Submit" update=":accessRightsTableForm:accessRightsTable"  oncomplete="if(!args.validationFailed) PF('newAccessRightsDialog').hide()" validateClient="true" actionListener="#{accessRightsManagedBean.doCreateAccessRights}"/>
+                            <p:commandButton type="reset" value="Reset"></p:commandButton>
+                    </f:facet>
+         </p:panelGrid>
+       </h:form>
+   </p:dialog>
+      <p:confirmDialog message="Are you sure?" header="Deleting Access Right" severity="alert" widgetVar="cd">	
+		<h:form>
+		  <p:commandButton value="Yes" actionListener="#{accessRightsManagedBean.doDeleteAccessRights}" update=":accessRightsTableForm:accessRightsTable" oncomplete="PF('cd').hide();"/>
+		  <p:commandButton value="No" onclick="PF('cd').hide();PF('accessRightsDialog').show();" type="button" />
+		</h:form>
+		</p:confirmDialog>
+  </ui:define>
   	</ui:composition>
 </ui:composition>

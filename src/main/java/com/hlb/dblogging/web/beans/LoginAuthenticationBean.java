@@ -214,6 +214,8 @@ public class LoginAuthenticationBean implements Serializable {
 		}		
 	}
 	
+	
+	
 	public void doUpdatePassword() {
 		try {
 			actorUsers = usersService.changePassword(actorUsers, oldPassword, getNewPassword());
