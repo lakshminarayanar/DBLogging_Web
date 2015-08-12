@@ -185,6 +185,7 @@ public class SettingsManagedBean implements Serializable {
 		
 		if(status){
 			XSLTransformer.isViewEnabled=applyXsltAtView;
+			XSLTransformer.isSaveEnabled=applyXsltAtSave;
 			FacesMessage msg = new FacesMessage("INFO : Global XSLT changes updated successfully");
 			msg.setSeverity(FacesMessage.SEVERITY_INFO);
 			FacesContext.getCurrentInstance().addMessage(null, msg);

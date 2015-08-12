@@ -4,7 +4,7 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:p="http://primefaces.org/ui"
-    xmlns:c="http://java.sun.com/jsp/jstl/core" style="background-color: #459e00;">
+    xmlns:c="http://java.sun.com/jsp/jstl/core">
   	<h:head>
 	    <meta charset="utf-8"></meta>
 	    <title>DBLogging Web</title>
@@ -12,60 +12,35 @@
 	    <meta name="description" content=""></meta>
 	    <meta name="author" content=""></meta>
 	    
-	    <h:outputStylesheet name="bootstrap/css/bootstrap.min.css" />
-	    <h:outputStylesheet name="css/font-awesome.min.css" />
-	    <h:outputStylesheet name="css/ionicons.min.css" />
-	    <h:outputStylesheet name="css/simplify.min.css" />
 	    <h:outputStylesheet name="css/loginlayout.css" />
 	
   	</h:head>
 	<ui:include src="/pages/logoheader.xhtml" ></ui:include>
-  	<body class="overflow-hidden light-background" style="width: 1100px;margin-left: auto; margin-right: auto;">
-		<div class="wrapper no-navigation preload">
-			<div class="sign-in-wrapper">
-				<div class="sign-in-inner">
-					<div class="login-brand text-center">
-					DBLogging-Web <strong class="text-skin">Login</strong>
-					</div>
-
-					<h:form id="loginForm" prependId="false">
-            			<p:growl id="growl" sticky="true" display="text" />
-						<div class="form-group m-bottom-md">
-							<p:focus for="j_username"><p:inputText id="j_username" value="#{loginAuthenticationBean.username}" required="true" requiredMessage="Username is required" styleClass="form-control" /></p:focus>
-       						<p:watermark for="j_username" value="Username" id="j_usernameWM" />
-						</div>
-						<div class="form-group">
-							<p:inputText id="j_password" type="password" value="#{loginAuthenticationBean.password}" required="true" requiredMessage="Password is required" styleClass="form-control" />
-       						<p:watermark for="j_password" value="Password" id="j_passwordWM" />
-						</div>
-
-						<div class="form-group">
-							<div class="custom-checkbox">
-								<input type="checkbox" id="chkRemember"/>
-								<label for="chkRemember"></label>
-							</div>
-							Remember me
-						</div>
-
-						<div class="m-top-md p-top-sm">
-							<h:commandButton id="loginButton" style="width:100%" class="btn btn-success block" value="Sign in" action="#{loginAuthenticationBean.doLogin}" />
-						</div>
-					
-					</h:form>
-				</div><!-- ./sign-in-inner -->
-			</div><!-- ./sign-in-wrapper -->
-		</div><!-- /wrapper -->
-		<ui:include src="/templates/footer.xhtml" />
-
-		<a href="" id="scroll-to-top" class="hidden-print"><i class="icon-chevron-up"></i></a>
-
-		<h:outputScript target="body" name="loadingScript">
-			<script src="js/jquery-1.11.1.min.js"></script>
-			<script src="bootstrap/js/bootstrap.min.js"></script>
-			<script src='js/jquery.slimscroll.min.js'></script>
-			<script src='js/jquery.popupoverlay.min.js'></script>
-			<script src='js/modernizr.min.js'></script>
-			<script src="js/simplify/simplify.js"></script>
-		</h:outputScript>
+  	<body  style="width: 1100px;margin-left: auto; margin-right: auto;">
+  	
+  	 <div id="loginContainer">
+  	 
+  	 <h2>DBLogging-Web Login</h2>
+        <h:form id="loginForm" prependId="false">
+            <p:growl id="growl" showDetail="true" sticky="true" display="text" />
+	            <p:panelGrid id="panel" columns="1" style="margin-left: auto; margin-right: auto;"> 
+	                <f:facet name="header">
+	                    Please Login
+	                </f:facet> 
+	                
+	               		<p:focus for="j_username"><p:inputText id="j_username" value="#{loginAuthenticationBean.username}" required="true" requiredMessage="Username is required" styleClass="form-control" /></p:focus>
+	       				<p:watermark for="j_username" value="Username" id="j_usernameWM" />
+						                
+	                    <p:inputText id="j_password" type="password" value="#{loginAuthenticationBean.password}" required="true" requiredMessage="Password is required" styleClass="form-control" />
+	       				<p:watermark for="j_password" value="Password" id="j_passwordWM" />
+	          
+	                <f:facet name="footer">
+	                   <p:commandButton id="loginButton" styleClass="btn btn-success block" ajax="false"  tabindex="-1" style="width: 200px;" value="Login" actionListener="#{loginAuthenticationBean.doLogin}" />
+	                </f:facet>              
+	            </p:panelGrid>
+        </h:form> 
+        <br/><br/><br/><br/>  
+            <ui:include src="/templates/footer.xhtml" />             
+    </div>
   	</body>
 </html>

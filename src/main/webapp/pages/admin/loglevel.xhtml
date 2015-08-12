@@ -14,7 +14,7 @@
  	<ui:define name="title">Log Level Settings</ui:define>
  	<ui:define name="content">
  	<h1>Log Level Settings</h1>
-			<div>
+			<p:panel id="toggleable" header="Log Level Settings"  toggleSpeed="500" closeSpeed="500" widgetVar="panel" style="margin-bottom:20px">
 					<h:form name="logForm" id="logForm">
 						<p:messages autoUpdate="true"/>
 									<table style="width: 40%;padding: 10px;border-spacing: 20px;border-collapse: separate;margin: 5px;">
@@ -46,7 +46,7 @@
 										<tr><td colspan="2"></td></tr>
 										</table>
 									</h:form>
-							</div>
+							</p:panel>
 
   	</ui:define>
   	</ui:composition>

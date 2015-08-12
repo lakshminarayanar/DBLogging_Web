@@ -79,7 +79,7 @@
 			 		selection="#{auditMasterManagedBean.selectedMessage}"  selectionMode="single"  emptyMessage="No records found !!!"
 			 		rows="10" paginator="true" paginatorPosition="bottom" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}  {RowsPerPageDropdown}" rowsPerPageTemplate="10,20,30" >
 					<p:ajax  event="rowSelect" listener="#{auditMasterManagedBean.onRowSelect}" update=":searchResultListForm,:messageDialogForm" oncomplete="PF('messageDialog').show();" />
-		          <p:column id="uniqueProcessIdHeader" sortBy="#{auditMasterVar.uniqueProcessId}"><f:facet name="header">Unique PID</f:facet><h:outputText value="#{auditMasterVar.uniqueProcessID}" /></p:column>
+		          <p:column id="uniqueProcessIdHeader" sortBy="#{auditMasterVar.uniqueProcessId}"><f:facet name="header">Unique PID</f:facet><h:outputText value="#{auditMasterVar.uniqueProcessID}"  title="#{auditMasterVar.uniqueProcessID}"/></p:column>
 		          <p:column id="appTransIdHeader" sortBy="#{auditMasterVar.applicationTransactionId}"><f:facet name="header">App TransID </f:facet><h:outputText value="#{auditMasterVar.applicationTransactionId}" /> </p:column>
 		          <p:column id="applicationNameHeader" sortBy="#{auditMasterVar.applName}"><f:facet name="header"> App Name </f:facet><h:outputText value="#{auditMasterVar.applName}" /> </p:column>
 		          <p:column id="statusCodeHeader" sortBy="#{auditMasterVar.messageFormat}"><f:facet name="header">Msg Format</f:facet><h:outputText value="#{auditMasterVar.messageFormat}" /> </p:column>
