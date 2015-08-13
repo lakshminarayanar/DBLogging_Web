@@ -6,12 +6,16 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:pe="http://primefaces.org/ui/extensions" >
 	<f:metadata>
-    	<f:event type="preRenderView" listener="#{loginAuthenticationBean.hasPageAccess('AR_ADMIN_HOME')}" />
+    	<f:event type="preRenderView" listener="#{loginAuthenticationBean.hasPageAccess('GROUPS_MANAGEMENT')}" />
     </f:metadata>
 <ui:composition template="/templates/userlayout.xhtml">
-	<ui:define name="title">Groups</ui:define>
+	<ui:define name="title">Groups Management</ui:define>
 	<ui:define name="content">
-        <h1>Groups</h1>
+        <h1>Groups Management</h1>
+         <h:form id="commandButtonForm">
+        <p:commandButton value="Add New" update=":newRoleForm" actionListener="#{roleManagedBean.populatePickList}" oncomplete="PF('newRoleDialog').show()" icon="ui-icon-star" title="Creates new Group"/>
+      </h:form> 
+      <br/><br/>
 		<h:form id="roleTableForm">
 		<p:messages autoUpdate="true" severity="info" globalOnly="true" showDetail="true"/>
 		 <p:panel header="Search" toggleable="true">
@@ -34,9 +38,7 @@
 	            <p:column id="lastModifiedHeader" sortBy="#{role0.lastModifiedTime}"><f:facet name="header"> Last Modified Time</f:facet><h:outputText value="#{role0.lastModifiedTime}" >  <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" /></h:outputText></p:column>
         </p:dataTable>
       </h:form>
-      <h:form id="commandButtonForm">
-        <p:commandButton value="New Group" update=":newRoleForm" actionListener="#{roleManagedBean.populatePickList}" oncomplete="PF('newRoleDialog').show()" icon="ui-icon-star" title="Creates new Group"/>
-      </h:form>      
+          
       <p:growl id="growl" showDetail="true" life="1000"/> 
   </ui:define>  
   <ui:define name="dialog">
@@ -50,7 +52,7 @@
             		 <h:inputText value="#{roleManagedBean.selectedRole.description}" required="true" requiredMessage="please Enter Description" label="Description"><f:validateLength minimum="4" maximum="30"/></h:inputText>
                      <h:outputText value="Assign AccessRights :"></h:outputText>
                      <p:pickList id="accessRightsPickList" value="#{roleManagedBean.dualAccessRightsList}"
-          				var="accessRights0" converter="roleToAccessRightsPickListConverter" itemValue="#{accessRights0}" itemLabel="#{accessRights0.accessRights}" >
+          				var="accessRights0" converter="roleToAccessRightsPickListConverter" itemValue="#{accessRights0}" itemLabel="#{accessRights0.description}" >
           		
           	 			<f:facet name="sourceCaption">Unassigned  Access Rights</f:facet>  
         				<f:facet name="targetCaption">Assigned Access Rights</f:facet>  
@@ -72,7 +74,7 @@
 			 		<p:inputText value="#{roleManagedBean.newRole.description}" required="true" requiredMessage="please Enter Description" label="Description" ><f:validateLength minimum="4" maximum="30"/></p:inputText>
  					<h:outputText value="Assign AccessRights :"></h:outputText>
                     <p:pickList id="accessRightsPickList" value="#{roleManagedBean.dualAccessRightsList}"
-          				var="accessRights0" converter="roleToAccessRightsPickListConverter" itemValue="#{accessRights0}" itemLabel="#{accessRights0.accessRights}" >
+          				var="accessRights0" converter="roleToAccessRightsPickListConverter" itemValue="#{accessRights0}" itemLabel="#{accessRights0.description}" >
           	 			<f:facet name="sourceCaption">Unassigned  Access Rights</f:facet>  
         				<f:facet name="targetCaption">Assigned Access Rights</f:facet>  
           			</p:pickList>

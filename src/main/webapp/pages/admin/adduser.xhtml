@@ -5,7 +5,7 @@
     xmlns:p="http://primefaces.org/ui"
     xmlns:c="http://java.sun.com/jsp/jstl/core">
 	<f:metadata>
-    	<f:event type="preRenderView" listener="#{loginAuthenticationBean.hasPageAccess('AR_ADMIN_HOME')}" />
+    	<f:event type="preRenderView" listener="#{loginAuthenticationBean.hasPageAccess('USER_MANAGEMENT')}" />
     </f:metadata>
   <ui:composition template="/templates/userlayout.xhtml">
  	<ui:define name="title">Users</ui:define>
@@ -87,7 +87,7 @@
           				</p:pickList>
                     	<f:facet name="footer">
                             <p:commandButton value="Submit" update=":userTableForm:userTable"  oncomplete="if(!args.validationFailed) PF('newUserDialog').hide()" validateClient="true" actionListener="#{usersManagedBean.doCreateUser}"/>
-                            <p:commandButton type="reset" value="Reset"></p:commandButton>
+                            &#160;&#160;&#160;<p:commandButton type="reset" value="Reset"></p:commandButton>
                     	</f:facet>
                 </p:panelGrid>
               </h:form>

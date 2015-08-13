@@ -29,7 +29,7 @@
 										<tr>
 										<td>Change Log Level To :</td>
 										<td>
-												<h:selectOneMenu id="logLevel" value="#{settingsManagedBean.changedLogLevel}" style="width:150px" required="true" requiredMessage="Please select Log Level">
+											<p:selectOneMenu id="logLevel" value="#{settingsManagedBean.changedLogLevel}" style="width:150px" required="true" requiredMessage="Please select Log Level">
 								               <!--  <p:ajax listener="#{dropdownView.onCountryChange}" update="city" /> -->
 								                <f:selectItem itemLabel="Select Level" itemValue="" noSelectionOption="true"/>
 								                <f:selectItem itemLabel="DEBUG" itemValue="DEBUG" />
@@ -37,7 +37,7 @@
 								                <f:selectItem itemLabel="WARNING" itemValue="WARN" />
 								                <f:selectItem itemLabel="ERROR" itemValue="ERROR" />
 								                <f:selectItem itemLabel="FATAL" itemValue="FATAL" />
-								            </h:selectOneMenu>
+								            </p:selectOneMenu>
 										</td>
 										</tr>
 										<tr><td colspan="2">

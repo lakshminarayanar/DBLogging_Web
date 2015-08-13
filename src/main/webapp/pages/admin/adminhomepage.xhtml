@@ -5,42 +5,15 @@
     xmlns:p="http://primefaces.org/ui"
     xmlns:c="http://java.sun.com/jsp/jstl/core">
 
- <ui:composition template="/templates/adminlayout.xhtml">
+ <ui:composition template="/templates/userlayout.xhtml">
  	<ui:define name="title">Admin Homepage</ui:define>
  	<ui:define name="content">
-			<div class="main-container">
-				<div class="padding-md">
-					<div class="row">
-						<div class="col-sm-6">
-							<div class="page-title">
-								Admin User
-							</div>
-							<div class="page-sub-header">
-								Welcome Back, <h:outputText value="#{loginAuthenticationBean.username}" style="text-transform: capitalize;" /> ! , <i class="fa fa-map-marker text-danger"></i> Malaysia
-							</div><br/><br/><br/>
-							<div class="page-title" style="color: red;">
-								Reminder
-							</div>
-							<div class="page-sub-header" style="color: rgb(42, 42, 150);">
-							  <h4>Change affect Immediately</h4>
-							</div>
-							<ul>	
-								<li style="margin-left: 20px;">Add User </li>
-							</ul>
-							<div class="page-sub-header" style="color: rgb(42, 42, 150);">
-							  <h4>Change affect every 30 minutes</h4>
-							</div>
-							<ul>	
-								<li style="margin-left: 20px;">Log Level </li>
-								<li style="margin-left: 20px;">Upload XSLT </li>
-							</ul>
-						</div>
-					</div>
-						<div class="row"><br/><br/><br/></div>
-				</div><!-- ./padding-md -->
-			</div><!-- /main-container -->
-
-		<a href="#" class="scroll-to-top hidden-print"><i class="fa fa-chevron-up fa-lg"></i></a>
+			
+			<p:panel id="toggleable" header="Admin Homepage"  toggleSpeed="500" closeSpeed="500" widgetVar="panel" style="margin-bottom:20px">
+			<div >
+				Welcome Back, <h:outputText value="#{loginAuthenticationBean.username}" style="text-transform: capitalize;" /> !
+			</div><br/><br/><br/>
+			</p:panel>
 		</ui:define>
 	</ui:composition>
 </html>

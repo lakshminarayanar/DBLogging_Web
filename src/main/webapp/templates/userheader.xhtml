@@ -10,15 +10,24 @@
 		<p:growl id="messages" />
 		<!-- Need to add authorization based on role here -->
 		<p:menubar>
-			<p:menuitem value="Home" url="/pages/user/homePage.jsf" />
-			<p:menuitem value="Access Rights" url="/pages/admin/accessrights.jsf" />
-			<p:menuitem value="Groups" url="/pages/admin/groups.jsf" />
-			<p:menuitem value="XSLT" url="/pages/admin/newxslt.jsf" />
-			<p:menuitem value="Log Level" url="/pages/admin/loglevel.jsf" />
-			<p:menuitem value="Users" url="/pages/admin/adduser.jsf" />
-			<p:menuitem value="Settings" url="/pages/admin/globalxsltsettings.jsf" />
-			<p:menuitem value="Change Password" url="/pages/admin/adminchangepassword.jsf" />
-			<p:menuitem value="Logout" url="/logout.jsf"></p:menuitem>
+			<p:menuitem value="Home" url="/pages/user/homePage.jsf"  rendered="#{loginAuthenticationBean.hasAccess('USER_HOME')}" />
+			<p:menuitem value="Home" url="/pages/admin/adminhomepage.jsf"  rendered="#{loginAuthenticationBean.hasAccess('ADMIN_HOME')}" />
+			<p:menuitem value="XSLT" url="/pages/admin/newxslt.jsf" rendered="#{loginAuthenticationBean.hasAccess('XSLT_MANAGEMENT')}" />
+			<p:submenu label="Settings" rendered="#{loginAuthenticationBean.hasAccess('GLOBAL_XSLT')}">
+				<p:menuitem value="Global XSLT Settings" url="/pages/admin/globalxsltsettings.jsf" />
+				<p:menuitem value="Log Level" url="/pages/admin/loglevel.jsf"/>
+			</p:submenu>
+			<p:submenu label="Administration" rendered="#{loginAuthenticationBean.hasAccess('USER_MANAGEMENT')}">
+			<p:menuitem value="Access Rights" url="/pages/admin/accessrights.jsf" rendered="#{loginAuthenticationBean.hasAccess('ACCESS_RIGHTS')}" />
+			<p:menuitem value="Groups" url="/pages/admin/groups.jsf" rendered="#{loginAuthenticationBean.hasAccess('GROUPS_MANAGEMENT')}" />
+			<p:menuitem value="Users" url="/pages/admin/adduser.jsf" rendered="#{loginAuthenticationBean.hasAccess('USER_MANAGEMENT')}"/>
+			</p:submenu>
+			<p:menuitem value="Change Password" url="/pages/admin/adminchangepassword.jsf" rendered="#{loginAuthenticationBean.username eq 'admin'}"/>
+			<f:facet name="options" >
+				<span style="margin-bottom: 10px;margin-top: 7px;display:inline-block;">
+            	 Welcome	<h:outputText style="margin-right:10px" value="#{loginAuthenticationBean.username}"/>| &#160;<p:link value="Logout" href="/logout.jsf" /> 
+            	 &#160;&#160;&#160;<!--  <h:graphicImage name="user.png" library="images" width="45px" height="30px"></h:graphicImage> --></span> 
+        	</f:facet>
 		</p:menubar>
 	</h:form>
 </div>

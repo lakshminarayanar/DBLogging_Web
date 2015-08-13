@@ -14,7 +14,7 @@
 	<h1>XSLT Management</h1>
  	<br/><br/>
  	 <h:form>
- 	 	<p:commandButton value="Add New XSLT" update=":newXsltForm"  oncomplete="PF('newXsltDialog').show()" actionListener="#{XSLTManagedBean.doInitializeForm()}" icon="ui-icon-star" title="Upload New XSLT"/>
+ 	 	<p:commandButton value="Add New" update=":newXsltForm"  oncomplete="PF('newXsltDialog').show()" actionListener="#{XSLTManagedBean.doInitializeForm()}" icon="ui-icon-star" title="Upload New XSLT"/>
  	 </h:form>
  	 <br/><br/>
 	<h:form id="xsltTableForm">
@@ -37,7 +37,7 @@
  	    <p:dialog header="XSLT Details" styleClass="dlgCSS" resizable="true" closeOnEscape="true" widgetVar="xsltDialog"  id="xsltDlg" modal ="true">
                <h:form id="xsltDetailForm">
                <p:messages autoUpdate="true" id="uploadMessages"/>
-                <p:panel id="display" style="margin:0 auto;">
+                <p:panel id="display" style="margin:0 auto;border:none;">
             		 <table border="1"  cellspacing="0" style="border: 1px solid gainsboro;" class="table-padding-td" align="center">
                 <tr>
                 	<td><h:outputText value="Name :"></h:outputText></td>
@@ -63,7 +63,7 @@
                		</td>
                	</tr>
                	<tr>
-               		<td><h:outputText value="Active Status"></h:outputText></td>
+               		<td><h:outputText value="Status :"></h:outputText></td>
 	                <td><p:selectOneRadio id="console" value="#{XSLTManagedBean.selectedXSLT.enabled}" rendered="#{XSLTManagedBean.selectedXSLT.transType ne 'ALL'}">
 				            <f:selectItem itemLabel="Active" itemValue="true" />
 				            <f:selectItem itemLabel="Not Active" itemValue="false" />
@@ -77,20 +77,18 @@
                	</tr>
                	<tr>
                		<td><h:outputText value="XSLT View"></h:outputText></td>
-               		<td><div style="width: 490px;height: 150px;margin: 0;padding: 0;overflow: auto;"><pre><h:outputText value="#{XSLTManagedBean.selectedXSLT.xsltFile}"></h:outputText></pre> </div></td>
+               		<td><div style="width: 490px;height: 150px;margin: 0;padding: 0;overflow: auto;background-color: beige;"><pre><h:outputText value="#{XSLTManagedBean.selectedXSLT.xsltFile}"></h:outputText></pre> </div></td>
                 </tr>
                 <tr>
-               		<td><h:outputText value="XSLT Upload New :"></h:outputText></td>
-	                <td> <p:fileUpload  fileUploadListener="#{XSLTManagedBean.handleFileUpload}" mode="advanced" dragDropSupport="true"  update="uploadMessages" auto="true" sizeLimit="100000" allowTypes="/(\.|\/)(xsl)$/" /></td>
+               		<td><h:outputText value="Upload New XSLT  :"></h:outputText></td>
+	                <td> <p:fileUpload  fileUploadListener="#{XSLTManagedBean.handleFileUpload}" label="Browse" mode="advanced" dragDropSupport="true"  update="uploadMessages" auto="true" sizeLimit="100000" allowTypes="/(\.|\/)(xsl)$/" /></td>
                	</tr>
-                <tr>
-                	<td colspan="2"> 
+               
                     <f:facet name="footer">
                             <p:commandButton value="Update" update=":xsltTableForm:xsltTable"  oncomplete="if(!args.validationFailed) PF('xsltDialog').hide()" actionListener="#{XSLTManagedBean.doUpdateXSLT}" validateClient="true"/>
-                            <p:commandButton value="Delete" actionListener="#{XSLTManagedBean.doDeleteXSLT}"  rendered="#{XSLTManagedBean.selectedXSLT.transType ne 'ALL'}" update=":xsltTableForm:xsltTable" oncomplete="PF('xsltDialog').hide()"/>
+                            &#160;&#160;&#160;<p:commandButton value="Delete" actionListener="#{XSLTManagedBean.doDeleteXSLT}"  rendered="#{XSLTManagedBean.selectedXSLT.transType ne 'ALL'}" update=":xsltTableForm:xsltTable" oncomplete="PF('xsltDialog').hide()"/>
                     </f:facet>
-                    </td>
-                 </tr>
+                
                 </table>
                 </p:panel>
              </h:form>
@@ -110,7 +108,7 @@
 				            <f:selectItem itemLabel="Save" itemValue="SAVE" />
 				        </p:selectOneRadio>
 				        <h:outputText value="Upload XSLT :"></h:outputText>
-				        <p:fileUpload fileUploadListener="#{XSLTManagedBean.handleFileUpload}" mode="advanced" dragDropSupport="true"   update="uploadMessages" auto="true" sizeLimit="100000" allowTypes="/(\.|\/)(xsl)$/" />
+				        <p:fileUpload fileUploadListener="#{XSLTManagedBean.handleFileUpload}" mode="advanced" label="Browse" dragDropSupport="true"   update="uploadMessages" auto="true" sizeLimit="100000" allowTypes="/(\.|\/)(xsl)$/" />
  
             			
                     	<h:outputText value="Active Status"></h:outputText>
@@ -120,7 +118,7 @@
 				        </p:selectOneRadio>
                     	<f:facet name="footer">
                             <p:commandButton value="Submit" update=":xsltTableForm:xsltTable"  oncomplete="if(!args.validationFailed) PF('newXsltDialog').hide()" validateClient="true" actionListener="#{XSLTManagedBean.doCreateXSLT}"/>
-                            <p:commandButton value="Reset" actionListener="#{XSLTManagedBean.doInitializeForm}" update=":newXsltForm"></p:commandButton>
+                            &#160;&#160;&#160;<p:commandButton value="Reset" actionListener="#{XSLTManagedBean.doInitializeForm}" update=":newXsltForm"></p:commandButton>
                     	</f:facet>
                 </p:panelGrid>
               </h:form>

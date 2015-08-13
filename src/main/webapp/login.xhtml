@@ -7,12 +7,20 @@
     xmlns:c="http://java.sun.com/jsp/jstl/core">
   	<h:head>
 	    <meta charset="utf-8"></meta>
-	    <title>DBLogging Web</title>
+	    <title>ESB Monitoring Console</title>
 	    <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
 	    <meta name="description" content=""></meta>
 	    <meta name="author" content=""></meta>
-	    
 	    <h:outputStylesheet name="css/loginlayout.css" />
+		<style type="text/css">
+			body { 
+					    background-color: #fefdfa;
+					    font-family: Gill Sans,Arial,sans-serif;
+					    font-size: 11px;
+					    height: 100%;
+					    margin: 0 0.5em;
+				}
+		</style>
 	
   	</h:head>
 	<ui:include src="/pages/logoheader.xhtml" ></ui:include>
@@ -20,7 +28,7 @@
   	
   	 <div id="loginContainer">
   	 
-  	 <h2>DBLogging-Web Login</h2>
+  	 <h2>ESB Monitoring Console</h2>
         <h:form id="loginForm" prependId="false">
             <p:growl id="growl" showDetail="true" sticky="true" display="text" />
 	            <p:panelGrid id="panel" columns="1" style="margin-left: auto; margin-right: auto;"> 
@@ -35,7 +43,7 @@
 	       				<p:watermark for="j_password" value="Password" id="j_passwordWM" />
 	          
 	                <f:facet name="footer">
-	                   <p:commandButton id="loginButton" styleClass="btn btn-success block" ajax="false"  tabindex="-1" style="width: 200px;" value="Login" actionListener="#{loginAuthenticationBean.doLogin}" />
+	                   <p:commandButton id="loginButton" styleClass="btn btn-success block" ajax="false"  tabindex="-1" style="width: 200px;" value="Login" action="#{loginAuthenticationBean.doLogin}" />
 	                </f:facet>              
 	            </p:panelGrid>
         </h:form> 

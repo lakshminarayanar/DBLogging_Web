@@ -117,6 +117,20 @@
 						<td><h:outputText value="#{auditMasterManagedBean.selectedRecord.uniqueProcessID}"  label="Unique ProcessID"></h:outputText></td>
 					</tr>
 					<tr>
+						<td><h:outputText value="AppTransaction ID "></h:outputText></td>
+						<td><h:outputText value="#{auditMasterManagedBean.selectedRecord.applicationTransactionId}"  label="AppTransaction ID"></h:outputText></td>
+					</tr>
+					<tr>
+						<td><h:outputText value="Message Format " ></h:outputText></td>
+						<td><h:outputText value="#{auditMasterManagedBean.selectedRecord.messageFormat}"  label="Message Format "></h:outputText></td>
+					</tr>
+					<tr>
+						<td><h:outputText value="Journal Sequence "></h:outputText></td>
+						<td><h:outputText value="#{auditMasterManagedBean.selectedRecord.journalSeq}"  label="Journal Sequence"></h:outputText></td>
+					</tr>
+					
+					
+					<tr>
 						<td><h:outputText value="Log Interface " ></h:outputText></td>
 						<td><h:outputText value="#{auditMasterManagedBean.selectedRecord.logInterface}"  label="Log Interface"></h:outputText></td>
 					</tr>
@@ -159,7 +173,7 @@
 					</tr>
 					<tr>
 						<td> <h:outputText value="Content"></h:outputText></td>
-						<td><div style="width: 490px;height: 150px;margin: 0;padding: 0;overflow: auto;"><pre><h:outputText value="#{auditMasterManagedBean.messageContent}"></h:outputText></pre> </div></td>
+						<td><div style="width: 490px;height: 150px;margin: 0;padding: 0;overflow: auto;background-color: beige;"><pre><h:outputText value="#{auditMasterManagedBean.messageContent}"></h:outputText></pre> </div></td>
 					</tr>
                     <tr>
 						<td><h:outputText value="Download Format"></h:outputText></td>
@@ -171,7 +185,7 @@
 							<p:fileDownload value="#{auditMasterManagedBean.file}" />
 							</p:commandButton> 
 							&#160;
-							<p:commandButton value="Download EBCDIC" ajax="false" rendered="#{auditMasterManagedBean.selectedRecord.messageFormat eq 'RAW'}" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s"  styleClass="btn btn-success block"  style="width: 210px;">
+							<p:commandButton value="Download HEX" ajax="false" rendered="#{auditMasterManagedBean.selectedRecord.messageFormat eq 'RAW'}" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s"  styleClass="btn btn-success block"  style="width: 210px;">
 							<p:fileDownload value="#{auditMasterManagedBean.fileRaw}" />
 							</p:commandButton> 
 							

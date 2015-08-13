@@ -207,7 +207,7 @@ public class LoginAuthenticationBean implements Serializable {
 	public void hasPageAccess(String key) {
 		if (key != null && !accessRightsSet.contains(key)) {
 				try {
-					FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/login.jsf");
+					FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/accessdenied.jsf");
 				} catch(IOException e) {
 					e.printStackTrace();
 				}

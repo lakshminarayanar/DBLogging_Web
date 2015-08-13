@@ -10,12 +10,16 @@
 </h:head>
 
 	<f:metadata>
-    	<f:event type="preRenderView" listener="#{loginAuthenticationBean.hasPageAccess('AR_ADMIN_HOME')}" />
+    	<f:event type="preRenderView" listener="#{loginAuthenticationBean.hasPageAccess('ACCESS_RIGHTS')}" />
     </f:metadata>
   	<ui:composition template="/templates/userlayout.xhtml">
- 	<ui:define name="title">Access Rights</ui:define>
+ 	<ui:define name="title">Access Rights Management</ui:define>
  	<ui:define name="content">
         <h1>Access Rights</h1>
+         <h:form id="commandButtonForm">
+	       <p:commandButton value="Add New" update=":newAccessRightsForm" oncomplete="PF('newAccessRightsDialog').show()" icon="ui-icon-star" title="Creates New Access Right"/>
+	   </h:form>  
+	   <br/>
 		<h:form id="accessRightsTableForm">
 		<p:messages autoUpdate="true" showDetail="true" severity="info"/>
 			 <p:panel header="Search" toggleable="true">
@@ -38,9 +42,7 @@
 	        <p:column id="lastModifiedTimeHeader"  sortBy="#{accessRights0.lastModifiedTime}" ><f:facet name="header"> Last Modified Time</f:facet><h:outputText value="#{accessRights0.lastModifiedTime}" >  <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" /> </h:outputText> </p:column>
        </p:dataTable>
        </h:form>
-	   <h:form id="commandButtonForm">
-	       <p:commandButton value="New Access Rights" update=":newAccessRightsForm" oncomplete="PF('newAccessRightsDialog').show()" icon="ui-icon-star" title="Creates New Access Right"/>
-	   </h:form>      
+	      
        <p:growl id="growl" showDetail="true" life="1000"/> 
   </ui:define>
    <ui:define name="dialog">
