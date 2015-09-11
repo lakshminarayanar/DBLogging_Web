@@ -61,6 +61,9 @@
 	</filter-mapping>
 
 	<listener>
+		<listener-class>com.sun.faces.config.ConfigureListener</listener-class>
+	</listener>
+	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 	<listener>
@@ -83,11 +86,7 @@
 		<welcome-file>login.jsf</welcome-file>
 	</welcome-file-list>
 
-<!-- 
-	<resource-ref>
-		<res-ref-name>jdbc/MyDB</res-ref-name>
-		<res-type>javax.sql.DataSource</res-type>
-		<res-auth>Container</res-auth>
-		<res-sharing-scope>Shareable</res-sharing-scope>
-	</resource-ref> -->
+	<!-- <resource-ref> <res-ref-name>jdbc/MyDB</res-ref-name> <res-type>javax.sql.DataSource</res-type> 
+		<res-auth>Container</res-auth> <res-sharing-scope>Shareable</res-sharing-scope> 
+		</resource-ref> -->
 </web-app>

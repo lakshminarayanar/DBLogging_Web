@@ -186,7 +186,7 @@ public class SettingsManagedBean implements Serializable {
 		if(status){
 			XSLTransformer.isViewEnabled=applyXsltAtView;
 			XSLTransformer.isSaveEnabled=applyXsltAtSave;
-			FacesMessage msg = new FacesMessage("INFO : Global XSLT changes updated successfully, Will be affective at next interval");
+			FacesMessage msg = new FacesMessage("INFO : Global XSLT changes updated successfully, Will be effective at next interval");
 			msg.setSeverity(FacesMessage.SEVERITY_INFO);
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}else{
@@ -205,7 +205,7 @@ public class SettingsManagedBean implements Serializable {
 		configurationPropertiesService.updateLoglevl(changedLogLevel);
 		currentLogLevel = changedLogLevel;
 		changedLogLevel = "";
-		FacesMessage msg = new FacesMessage("INFO : Loglevel changed successfully, Will be affective at next interval");
+		FacesMessage msg = new FacesMessage("INFO : Log level changed successfully, Will be effective at next interval");
 		msg.setSeverity(FacesMessage.SEVERITY_INFO);
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		}catch(Exception e){

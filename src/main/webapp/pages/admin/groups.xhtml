@@ -17,17 +17,7 @@
       </h:form> 
       <br/><br/>
 		<h:form id="roleTableForm">
-		<p:messages autoUpdate="true" severity="info" globalOnly="true" showDetail="true"/>
-		 <p:panel header="Search" toggleable="true">
-			<p:panelGrid id="SearchRole" columns="2" cellpadding="4">
-				<h:outputText value="Role" />
-				<h:inputText value="#{roleManagedBean.searchRoleName}"></h:inputText>					
-				<f:facet name="footer">				
-					<p:commandButton value="Search" update="roleTable" actionListener="#{roleManagedBean.searchRole()}"></p:commandButton>
-					<p:commandButton type="reset" value="Reset"></p:commandButton>
-				</f:facet>
-			</p:panelGrid>
-		</p:panel>
+		<p:messages autoUpdate="true" severity="info" globalOnly="true" />
         <p:dataTable id="roleTable" var="role0" value="#{roleManagedBean.roleDataModel}" widgetVar="roleSearch" rowKey="#{role0.id}"
                  								selection="#{roleManagedBean.selectedRole}" scrollable="true" selectionMode="single" emptyMessage="No data found with given criteria" 
                  							paginator="true" rows="10" sortMode="multiple"	paginatorPosition="bottom" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}  {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15" >
@@ -39,7 +29,7 @@
         </p:dataTable>
       </h:form>
           
-      <p:growl id="growl" showDetail="true" life="1000"/> 
+      <p:growl id="growl"  life="1000"/> 
   </ui:define>  
   <ui:define name="dialog">
       <p:dialog header="Group Detail" styleClass="dlgCSS" widgetVar="roleDialog" resizable="false" id="roleDlg" modal="true" >

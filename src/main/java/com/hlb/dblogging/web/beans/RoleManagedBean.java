@@ -149,6 +149,8 @@ private static final long serialVersionUID = 1L;
 	public void setSelectedRole(Role selectedRole) {		
 		this.selectedRole = selectedRole;
 		this.assignedAccessRightsSet = this.selectedRole.getAccessRights();
+		if(accessRightsSet==null)
+			accessRightsSet = accessRightsService.findAllInSet();
 		this.unassignedAccessRightsSet.addAll(this.accessRightsSet);
 		this.unassignedAccessRightsSet.removeAll(this.assignedAccessRightsSet);
 		List<AccessRights> unassignedAccessRightsList = new ArrayList<AccessRights>();
@@ -195,9 +197,6 @@ private static final long serialVersionUID = 1L;
 	
 	public void onRowSelect(SelectEvent event) { 
 		setSelectedRole((Role)event.getObject());
-		 FacesMessage msg = new FacesMessage("Group Selected", selectedRole.getRole());  
-	        
-	        FacesContext.getCurrentInstance().addMessage(null, msg); 	
 	}
 	
 	public void doDeleteRole()  {

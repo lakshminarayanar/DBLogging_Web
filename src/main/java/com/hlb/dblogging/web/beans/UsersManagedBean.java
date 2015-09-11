@@ -8,7 +8,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -168,6 +167,8 @@ public class UsersManagedBean implements Serializable {
 	public void setSelectedUser(Users selectedUser) {
 		this.selectedUser = selectedUser;
 		this.assignedRoleSet = this.selectedUser.getUserRoles();
+		if(roleSet==null)
+			roleSet = roleService.findAllInSet();
 		this.unassignedRoleSet.addAll(this.roleSet);
 		this.unassignedRoleSet.removeAll(this.assignedRoleSet);
 		List<Role> unassignedRoleList = new ArrayList<Role>();

@@ -104,7 +104,7 @@ private static final long serialVersionUID = 1L;
 		setInsertDelete(true);	
 		auditTrail.log(SystemAuditTrailActivity.CREATED,SystemAuditTrailLevel.INFO, getLoggedInUser().getId(),getLoggedInUser().getUsername(), getLoggedInUser().getUsername() + " has created new AccessRight " +newAccessRights.getAccessRights());
 		
-	 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("SUCCESS : AccessRight  " + newAccessRights.getAccessRights()+ " created successfully"));
+	 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("SUCCESS : Access Right  " + newAccessRights.getAccessRights()+ " created successfully"));
 	 newAccessRights = new AccessRights();	
 	 //new Refresh().refreshPage();
 	}catch(BSLException e){
@@ -135,7 +135,7 @@ private static final long serialVersionUID = 1L;
 			accessRightsService.update(selectedAccessRights);		
 			setInsertDelete(true);
 			auditTrail.log(SystemAuditTrailActivity.UPDATED,SystemAuditTrailLevel.INFO, getLoggedInUser().getId(),getLoggedInUser().getUsername(), getLoggedInUser().getUsername() + " has updated AccessRight " +selectedAccessRights.getAccessRights());
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("SUCCESS : AccessRight " + selectedAccessRights.getAccessRights()+ " updated successfully"));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("SUCCESS : Access Right " + selectedAccessRights.getAccessRights()+ " updated successfully"));
 		} catch (BSLException e){
 		//	FacesMessage msg = new FacesMessage("Error",getExcptnMesProperty(e.getMessage()));  
 		//	msg.setSeverity(FacesMessage.SEVERITY_ERROR);  
@@ -145,9 +145,6 @@ private static final long serialVersionUID = 1L;
 	
 	public void onRowSelect(SelectEvent event){
 		setSelectedAccessRights((AccessRights)event.getObject());
-		 FacesMessage msg = new FacesMessage("AccessRight Selected: ", selectedAccessRights.getAccessRights()); 
-	        
-	        FacesContext.getCurrentInstance().addMessage(null, msg); 
 	}
 	
 	
@@ -159,7 +156,7 @@ private static final long serialVersionUID = 1L;
 			getAccessRightsService().delete(selectedAccessRights.getId());
 			setInsertDelete(true);
 			auditTrail.log(SystemAuditTrailActivity.DELETED,SystemAuditTrailLevel.INFO, getLoggedInUser().getId(),getLoggedInUser().getUsername(), getLoggedInUser().getUsername() + " has deleted AccessRight " +selectedAccessRights.getAccessRights());
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("SUCCESS : AccessRight " + selectedAccessRights.getAccessRights()+ " deleted successfully"));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("SUCCESS : Access Right " + selectedAccessRights.getAccessRights()+ " deleted successfully"));
 		//	new Refresh().refreshPage();
 		}catch (BSLException e) {
 		//	FacesMessage msg = new FacesMessage("Error",getExcptnMesProperty(e.getMessage()));  

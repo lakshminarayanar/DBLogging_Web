@@ -14,7 +14,7 @@
  	<h1>Users Management</h1>
  	<br/><br/>
  	 <h:form>
- 	 	<p:commandButton value="New User" update=":newUserForm"  oncomplete="PF('newUserDialog').show()" actionListener="#{usersManagedBean.populatePickList()}" icon="ui-icon-star" title="Create New User"/>
+ 	 	<p:commandButton value="Add New" update=":newUserForm"  oncomplete="PF('newUserDialog').show()" actionListener="#{usersManagedBean.populatePickList()}" icon="ui-icon-star" title="Create New User"/>
  	 </h:form>
  	 <br/><br/>
 	<h:form id="userTableForm">
@@ -66,6 +66,7 @@
           
       <p:dialog header="Create New User" styleClass="dlgCSS" widgetVar="newUserDialog" resizable="false" id="newUserDlg"  modal ="true">
               <h:form id="newUserForm">
+              <p:messages autoUpdate="true" showDetail="false" />
                 <p:panelGrid id="displayNewUser" columns="2" cellpadding="4" style="margin:0 auto;">
             			<h:outputText value="Username :"></h:outputText>
                         <p:inputText value="#{usersManagedBean.newUser.username}" required="true" requiredMessage="Please Enter Username!" label="Username "> <f:validateLength minimum="4" maximum="30"/></p:inputText>

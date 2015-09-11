@@ -11,66 +11,34 @@
 <ui:define name="content">
 
 	<p:panel id="toggleable" header="Advanced Search" toggleable="true" closable="true" toggleSpeed="500" closeSpeed="500" widgetVar="panel" style="margin-bottom:20px">
- 		<div class="smart-widget-inner">
-			<div class="smart-widget-body">
-				<h:form  id="searchForm" class="form-inline no-margin">
-					<table style="margin-left: 150px;width: 57%;">
-						<tr><td style="padding-right: 50px;">
-							    <div class="form-group">
-									<p:inputText id="uniqueProcessID" type="text" value="#{auditMasterManagedBean.searchBean.uniqueProcessId}" styleClass="form-control" style="width:230px;"/>
-		       						<p:watermark for="uniqueProcessID" value="Unique ProcessID" id="uniqueProcessIDWM" />
-								</div>
-							 </td><td style="padding-right: 50px;">
-								<div class="form-group">
-									<p:inputText id="ApplicationNameId" type="text" value="#{auditMasterManagedBean.searchBean.applicationName}" styleClass="form-control" style="width:230px;"/>
-		       						<p:watermark for="ApplicationNameId" value="Application Name" id="ApplicationNameIdWM" />
-								</div>
-							 </td><td>
-								<div class="form-group">
-									<p:inputText id="TransactionTypeId" type="text" value="#{auditMasterManagedBean.searchBean.transactionType}" styleClass="form-control" style="width:230px;"/>
-		       						<p:watermark for="TransactionTypeId" value="Transaction Type" id="TransactionTypeIdWM" />
-								</div>
-							</td></tr>
-						<tr><td style="padding-right: 50px;">
-							    <div class="form-group">
-									<p:inputText id="messageFormatID" type="text" value="#{auditMasterManagedBean.searchBean.messageFormat}" styleClass="form-control" style="width:230px;"/>
-		       						<p:watermark for="messageFormatID" value="Message Format" id="messageFormatIDWM" />
-								</div>
-							 </td><td style="padding-right: 50px;">
-								<div class="form-group">
-									<p:inputText id="journalSequenceID" type="text" value="#{auditMasterManagedBean.searchBean.journalSequence}" styleClass="form-control" style="width:230px;"/>
-		       						<p:watermark for="journalSequenceID" value="Journal Sequence" id="journalSequenceIDWM" />
-								</div>
-							 </td><td>
-								<div class="form-group">
-									<p:inputText id="applicationTxId" type="text" value="#{auditMasterManagedBean.searchBean.applicationTransactionId}" styleClass="form-control" style="width:230px;"/>
-		       						<p:watermark for="applicationTxId" value="Application Transaction ID" id="applicationTxIdWM" />
-								</div>
-							</td></tr>
-						<tr><td style="padding-right: 50px;">
-								<div class="form-group">
-									<p:inputText id="segmentId" type="text" value="#{auditMasterManagedBean.searchBean.segment}" styleClass="form-control" style="width:230px;"/>
-		       						<p:watermark for="segmentId" value="Segment" id="segmentIdWM" />
-								</div>
-							</td>
-							<td>
-									 <p:calendar pattern="MM/dd/yyyy HH:mm:ss" mode="popup" navigator="true" id="TransactionStartDateTimeId" value="#{auditMasterManagedBean.transactionStartDateTime}" styleClass="dateTimeField" ></p:calendar>
-		       						<p:watermark for="TransactionStartDateTimeId" value="Transaction Start Date" id="TransactionStartDateTimeIdWM" />
-							</td>
-							
-							<td>
-									 <p:calendar pattern="MM/dd/yyyy HH:mm:ss" mode="popup" navigator="true" id="TransactionEndDateTimeId" value="#{auditMasterManagedBean.transactionEndDateTime}" styleClass="dateTimeField" ></p:calendar>
-		       						<p:watermark for="TransactionEndDateTimeId" value="Transaction End Date" id="TransactionEndDateTimeIdWM" />
-							</td></tr>
-						<tr><td colspan="3">
-							        <p:commandButton value="Clear"   update="searchForm,:searchResultForm" immediate="true" process="@this" actionListener="#{auditMasterManagedBean.reset}"  styleClass="btn btn-success block" tabindex="-1" style="width: 200px;margin-right: 10px;" />
-  												 	<p:commandButton value="Search"  actionListener="#{auditMasterManagedBean.doSearch}" update=":searchResultForm:auditMasterTable" styleClass="btn btn-success block" tabindex="-1" style="width: 200px;"></p:commandButton>
-  
-				        	</td></tr>
-			 		</table>
-			</h:form>
-	      </div>
-	     </div> 
+ 		<h:form  id="searchForm" class="form-inline no-margin">
+ 		
+ 			<p:panelGrid columns="6" id="searchGrid" cellpadding="4" style="width:100%;border-collapse: separate;" styleClass="searchHeaderGrid">
+ 						<h:outputText value="Unique ProcessID"></h:outputText>
+						<p:inputText id="uniqueProcessID" type="text" value="#{auditMasterManagedBean.searchBean.uniqueProcessId}" />
+ 						<h:outputText value="Application Name"></h:outputText>
+						<p:inputText id="ApplicationNameId" type="text" value="#{auditMasterManagedBean.searchBean.applicationName}"  />
+						<h:outputText value="Transaction Type"></h:outputText>
+						<p:inputText id="TransactionTypeId" type="text" value="#{auditMasterManagedBean.searchBean.transactionType}"  />
+						<h:outputText value="Message Format"></h:outputText>
+						<p:inputText id="messageFormatID" type="text" value="#{auditMasterManagedBean.searchBean.messageFormat}"  />
+						<h:outputText value="Journal Sequence"></h:outputText>
+						<p:inputText id="journalSequenceID" type="text" value="#{auditMasterManagedBean.searchBean.journalSequence}"  />
+						<h:outputText value="Application Transaction ID"></h:outputText>
+						<p:inputText id="applicationTxId" type="text" value="#{auditMasterManagedBean.searchBean.applicationTransactionId}"  />
+						<h:outputText value="Segment"></h:outputText>
+						<p:inputText id="segmentId" type="text" value="#{auditMasterManagedBean.searchBean.segment}"  />
+						<h:outputText value="Transaction Start Date"></h:outputText>
+						<p:calendar pattern="MM/dd/yyyy HH:mm:ss" mode="popup" navigator="true" id="TransactionStartDateTimeId" value="#{auditMasterManagedBean.transactionStartDateTime}"  ></p:calendar>
+						<h:outputText value="Transaction End Date"></h:outputText>
+						<p:calendar pattern="MM/dd/yyyy HH:mm:ss" mode="popup" navigator="true" id="TransactionEndDateTimeId" value="#{auditMasterManagedBean.transactionEndDateTime}"  ></p:calendar>
+			</p:panelGrid>
+			<br/><br/>
+			<div align="center">	
+				<p:commandButton value="Clear"   update="searchForm,:searchResultForm" immediate="true" process="@this" actionListener="#{auditMasterManagedBean.reset}"  styleClass="btn btn-success block" tabindex="-1" style="width: 200px;margin-right: 10px;" />
+  				<p:commandButton value="Search"  actionListener="#{auditMasterManagedBean.doSearch}" update=":searchResultForm:auditMasterTable" styleClass="btn btn-success block" tabindex="-1" style="width: 200px;"></p:commandButton>
+  			</div>
+		</h:form>
     </p:panel>
     
     <p:panel id="searchResultPanel" header="Search Results" toggleable="true" closable="true" toggleSpeed="500" closeSpeed="500" widgetVar="panelResult" style="margin-bottom:20px">

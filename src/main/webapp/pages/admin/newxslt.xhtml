@@ -20,7 +20,7 @@
 	<h:form id="xsltTableForm">
 	<p:messages autoUpdate="true" />
         <p:dataTable id="xsltTable" widgetVar="xsltTableVar" var="xsltVar" value="#{XSLTManagedBean.xsltDataModel}" rowKey="#{xsltVar.id}" style="table-layout: fixed"
-                 selection="#{XSLTManagedBean.selectedXSLT}" selectionMode="single" emptyMessage="Really no XSLT uploaded"
+                 selection="#{XSLTManagedBean.selectedXSLT}" selectionMode="single" emptyMessage="No XSLT found"
                  rows="10" paginator="true" paginatorPosition="bottom" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}  {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15" >
           <p:ajax event="rowSelect" listener="#{XSLTManagedBean.onRowSelect}" update=":xsltDetailForm:display, :growl" oncomplete="PF('xsltDialog').show()" />  
 	          <p:column id="nameHeader" sortBy="#{xsltVar.name}"><f:facet name="header"> XSLT Name </f:facet> <h:outputText value="#{xsltVar.name}" /></p:column>
@@ -94,10 +94,10 @@
              </h:form>
       </p:dialog>
           
-      <p:dialog header="Add New XSLT" styleClass="dlgCSS" widgetVar="newXsltDialog" resizable="true" closeOnEscape="true" id="newXsltDlg"  modal ="true">
+      <p:dialog header="Add New XSLT" styleClass="dlgCSS" widgetVar="newXsltDialog" resizable="true" closeOnEscape="true" id="newXsltDlg"  modal ="true" height="300px" width="600px">
               <h:form id="newXsltForm">
               <p:messages autoUpdate="true"  id="uploadMessages" severity="info"/>
-                <p:panelGrid id="displayNewXslt" columns="2" cellpadding="4" style="margin:0 auto;">
+                <p:panelGrid id="displayNewXslt" columns="2" cellpadding="4" style="margin:0 auto;width:85%;">
             			<h:outputText value="XSLT Name :"></h:outputText>
                         <p:inputText value="#{XSLTManagedBean.newXSLT.name}" required="true" requiredMessage="Please Enter Name!" label="Name "> <f:validateLength minimum="4" maximum="50"/></p:inputText>
             			<h:outputText value="Trans Type :"></h:outputText>

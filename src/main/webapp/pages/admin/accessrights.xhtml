@@ -21,17 +21,8 @@
 	   </h:form>  
 	   <br/>
 		<h:form id="accessRightsTableForm">
-		<p:messages autoUpdate="true" showDetail="true" severity="info"/>
-			 <p:panel header="Search" toggleable="true">
-					<p:panelGrid id="SearchAccessRight" columns="2" cellpadding="4">
-						<h:outputText value="Access Right" />
-							<h:inputText value="#{accessRightsManagedBean.searchAccessRight}"></h:inputText>					
-						<f:facet name="footer">				
-							<p:commandButton value="Search" update="accessRightsTable" actionListener="#{accessRightsManagedBean.searchAccessRightName()}"></p:commandButton>
-							<p:commandButton type="reset" value="Reset"></p:commandButton>
-						</f:facet>
-					</p:panelGrid>
-			</p:panel>
+		<p:messages autoUpdate="true"  severity="info"/>
+			
         <p:dataTable id="accessRightsTable" var="accessRights0" value="#{accessRightsManagedBean.accessRightsDataModel}" widgetVar="accessRightsSearch" rowKey="#{accessRights0.id}"
                  							selection="#{accessRightsManagedBean.selectedAccessRights}" scrollable="true"  selectionMode="single" emptyMessage="No data found with given criteria" 
                  						 paginator="true" rows="10" sortMode="multiple"	paginatorPosition="bottom" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}  {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15" >

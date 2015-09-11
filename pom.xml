@@ -96,20 +96,12 @@
 			<version>${spring.data.jpa.version}</version>
 		</dependency>
 
-		<!-- JSF dependencies -->
 		<dependency>
-			<groupId>com.sun.faces</groupId>
-			<artifactId>jsf-api</artifactId>
-			<version>2.1.19</version>
+			<groupId>org.glassfish</groupId>
+			<artifactId>javax.faces</artifactId>
+			<version>2.2.9</version>
+			<scope>compile</scope>
 		</dependency>
-
-		<dependency>
-			<groupId>com.sun.faces</groupId>
-			<artifactId>jsf-impl</artifactId>
-			<version>2.1.19</version>
-		</dependency>
-		<!-- <dependency> <groupId>org.glassfish</groupId> <artifactId>javax.faces</artifactId> 
-			<version>2.2.8</version> </dependency> -->
 
 
 		<dependency>
@@ -140,14 +132,14 @@
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<version>3.0.1</version>
-			<!-- <scope>provided</scope> -->
+			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>javax.el</groupId>
 			<artifactId>el-api</artifactId>
 			<version>2.2</version>
-			<!-- <scope>provided</scope> -->
+			<scope>provided</scope>
 		</dependency>
 
 
@@ -296,7 +288,7 @@
 	</build>
 
 	<distributionManagement>
-		
+
 		<repository>
 			<id>beans-releases</id>
 			<name>Internal Releases</name>

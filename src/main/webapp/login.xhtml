@@ -20,6 +20,11 @@
 					    height: 100%;
 					    margin: 0 0.5em;
 				}
+			.loginHeaderGrid.ui-panelgrid>*>tr,
+			.loginHeaderGrid.ui-panelgrid .ui-panelgrid-cell {
+    		border: none;
+    		padding: 10px;
+			}
 		</style>
 	
   	</h:head>
@@ -30,20 +35,17 @@
   	 
   	 <h2>ESB Monitoring Console</h2>
         <h:form id="loginForm" prependId="false">
-            <p:growl id="growl" showDetail="true" sticky="true" display="text" />
-	            <p:panelGrid id="panel" columns="1" style="margin-left: auto; margin-right: auto;"> 
+            <p:growl id="growl" sticky="true" display="text" />
+	            <p:panelGrid id="panel" columns="2" styleClass="loginHeaderGrid" style="margin-left: auto; margin-right: auto;"> 
 	                <f:facet name="header">
-	                    Please Login
+	                     Enter Valid Details
 	                </f:facet> 
-	                
+	                	<h:outputText value="Username :"></h:outputText>
 	               		<p:focus for="j_username"><p:inputText id="j_username" value="#{loginAuthenticationBean.username}" required="true" requiredMessage="Username is required" styleClass="form-control" /></p:focus>
-	       				<p:watermark for="j_username" value="Username" id="j_usernameWM" />
-						                
+						<h:outputText value="Password :"></h:outputText>              
 	                    <p:inputText id="j_password" type="password" value="#{loginAuthenticationBean.password}" required="true" requiredMessage="Password is required" styleClass="form-control" />
-	       				<p:watermark for="j_password" value="Password" id="j_passwordWM" />
-	          
 	                <f:facet name="footer">
-	                   <p:commandButton id="loginButton" styleClass="btn btn-success block" ajax="false"  tabindex="-1" style="width: 200px;" value="Login" action="#{loginAuthenticationBean.doLogin}" />
+	                   <p:commandButton id="loginButton" styleClass="btn btn-success block" ajax="false"  tabindex="-1" style="width: 100%;" value="Login" action="#{loginAuthenticationBean.doLogin}"  />
 	                </f:facet>              
 	            </p:panelGrid>
         </h:form> 
