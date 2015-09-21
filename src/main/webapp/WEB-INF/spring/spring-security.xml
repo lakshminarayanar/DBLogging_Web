@@ -5,10 +5,19 @@
 	http://www.springframework.org/schema/security
 	http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
+		 <beans:bean id="mailProperties"
+    class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+ 
+    <beans:property name="location" value="classpath:config.properties" ></beans:property>
+ 
+</beans:bean>
+
+   
 	<beans:bean id="ldapAuthProvider"
 		class="org.springframework.security.ldap.authentication.ad.ActiveDirectoryLdapAuthenticationProvider">
-		<beans:constructor-arg value="technical.bgm.com.my" />
-		<beans:constructor-arg value="ldap://bgmtechnical.technical.bgm.com.my" />
+		<beans:constructor-arg value="${ldap.domain}" />
+		<beans:constructor-arg value="${ldap.url}" />
+		<!-- <beans:constructor-arg value ="${ldap.searchfilter}"/>  -->
 		<beans:property name="convertSubErrorCodesToExceptions"  value="true"/>
 		<beans:property name="userDetailsContextMapper" ref="tdrUserDetailsContextMapper"/>
     	<beans:property name="useAuthenticationRequestCredentials" value="true"/>
