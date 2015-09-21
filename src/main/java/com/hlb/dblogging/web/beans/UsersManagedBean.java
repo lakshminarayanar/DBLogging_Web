@@ -11,6 +11,7 @@ import java.util.Set;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.naming.ldap.LdapContext;
 
 import org.apache.commons.io.IOUtils;
 import org.primefaces.event.SelectEvent;
@@ -20,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
 
+import com.hlb.dblogging.app.activedirectory.service.ActiveDirectoryService;
 import com.hlb.dblogging.app.context.FacesUtil;
 import com.hlb.dblogging.exception.utility.BSLException;
 import com.hlb.dblogging.jpa.model.ConfigurationProperties;
@@ -78,6 +80,8 @@ public class UsersManagedBean implements Serializable {
 	@Autowired
 	private AuditTrail auditTrail;
 	
+	@Autowired 
+	private ActiveDirectoryService activeDirectoryService;	
 	
 /*	@PostConstruct
 	public void init() {
@@ -284,6 +288,31 @@ public class UsersManagedBean implements Serializable {
 		try {
 			System.out.println("Getting logged in user from session..");
 			loggedInUser = (Users) FacesUtil.getSessionMapValue("LOGGEDIN_USER");
+			String newUsername=newUser.getUsername();
+
+			LdapContext context=null;
+			try{
+			 context =activeDirectoryService.getLdapContext();
+			}
+			catch (Exception nex) {
+	            String msg=("LDAP Connection: FAILED");
+	            ApplLogger.getLogger().error(msg);
+				 throw new Exception(msg);
+
+	           // nex.printStackTrace();
+	        }
+			boolean valid=activeDirectoryService.checkUserinAD(newUsername,context);
+			
+			if(!valid){
+				String msg="User doesn't exist in active directory";
+				System.out.println(msg);
+				ApplLogger.getLogger().error(msg);
+				 FacesMessage msg1 = new  FacesMessage("ERROR : "+msg);
+				  msg1.setSeverity(FacesMessage.SEVERITY_ERROR);
+				  FacesContext.getCurrentInstance().addMessage(null, msg1); 
+			}
+			
+			
 			newUser.setDeleted(false);
 			newUser.setCreatedBy(getLoggedInUser().getUsername());
 			newUser.setCreationTime(new Date());

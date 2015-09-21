@@ -4,6 +4,7 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
+import com.hlb.dblogging.app.activedirectory.service.PropertiesConfig;
 import com.hlb.dblogging.log.utility.ApplLogger;
 
 @WebListener
@@ -15,6 +16,7 @@ public final class CustomMQContextListener implements ServletContextListener {
 		 * (when the Web application is deployed). You can initialize servlet
 		 * context related data here.
 		 */
+		new PropertiesConfig();
 		new SystemConfigPropertiesService().updateConfigurationWithDatabaseValues();
 	}
 
