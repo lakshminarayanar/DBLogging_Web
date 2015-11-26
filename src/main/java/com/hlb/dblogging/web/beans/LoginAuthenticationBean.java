@@ -142,7 +142,7 @@ public class LoginAuthenticationBean implements Serializable {
 			wrongPassword=true;
 			FacesMessage msg = new FacesMessage("username and password does not match!!!","username and password does not match!!!"); 
 			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
-			FacesContext.getCurrentInstance().addMessage("relogin.jsf", msg); 
+			FacesContext.getCurrentInstance().addMessage("login.jsf", msg); 
 			FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
 			return "/login.jsf?faces-redirect=true";
 		}

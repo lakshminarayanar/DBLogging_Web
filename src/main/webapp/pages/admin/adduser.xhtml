@@ -18,7 +18,7 @@
  	 </h:form>
  	 <br/><br/>
 	<h:form id="userTableForm">
-	<p:messages autoUpdate="true" showDetail="false" />
+	<p:messages autoUpdate="true" showDetail="true" />
         <p:dataTable id="userTable" widgetVar="usersTable" var="user" value="#{usersManagedBean.usersDataModel}" rowKey="#{user.id}"
                  selection="#{usersManagedBean.selectedUser}" selectionMode="single" 
                  rows="10" paginator="true" paginatorPosition="bottom" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}  {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15" >
@@ -66,7 +66,7 @@
           
       <p:dialog header="Create New User" styleClass="dlgCSS" widgetVar="newUserDialog" resizable="false" id="newUserDlg"  modal ="true">
               <h:form id="newUserForm">
-              <p:messages autoUpdate="true" showDetail="false" />
+              <p:messages autoUpdate="true" showDetail="true" />
                 <p:panelGrid id="displayNewUser" columns="2" cellpadding="4" style="margin:0 auto;">
             			<h:outputText value="Username :"></h:outputText>
                         <p:inputText value="#{usersManagedBean.newUser.username}" required="true" requiredMessage="Please Enter Username!" label="Username "> <f:validateLength minimum="4" maximum="30"/></p:inputText>

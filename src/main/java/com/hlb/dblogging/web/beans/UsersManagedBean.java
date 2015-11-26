@@ -310,6 +310,7 @@ public class UsersManagedBean implements Serializable {
 				 FacesMessage msg1 = new  FacesMessage("ERROR : "+msg);
 				  msg1.setSeverity(FacesMessage.SEVERITY_ERROR);
 				  FacesContext.getCurrentInstance().addMessage(null, msg1); 
+				  return;
 			}
 			
 			
@@ -361,6 +362,7 @@ public void doUpdateUser(){
 			HashSet<Role> selectedRoleSet = new HashSet<Role>();
 			selectedRoleSet.addAll(selectedRoleList);
 			selectedUser.setUserRoles(selectedRoleSet);
+			selectedUser.setLastModifiedBy(loggedInUser.getUsername());
 			getUsersService().update(selectedUser);
 			dmlOperationPerformed = Boolean.TRUE;
 			auditTrail.log(SystemAuditTrailActivity.UPDATED,SystemAuditTrailLevel.INFO, getLoggedInUser().getId(),getLoggedInUser().getUsername(), getLoggedInUser().getUsername() + " has Update User");

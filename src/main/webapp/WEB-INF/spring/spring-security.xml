@@ -1,9 +1,9 @@
 <beans:beans xmlns="http://www.springframework.org/schema/security"
 	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
-	http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+	http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/security
-	http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+	http://www.springframework.org/schema/security/spring-security.xsd">
 
 		 <beans:bean id="mailProperties"
     class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -17,7 +17,7 @@
 		class="org.springframework.security.ldap.authentication.ad.ActiveDirectoryLdapAuthenticationProvider">
 		<beans:constructor-arg value="${ldap.domain}" />
 		<beans:constructor-arg value="${ldap.url}" />
-		<!-- <beans:constructor-arg value ="${ldap.searchfilter}"/>  -->
+		<beans:constructor-arg value ="${ldap.searchfilter}"/> 
 		<beans:property name="convertSubErrorCodesToExceptions"  value="true"/>
 		<beans:property name="userDetailsContextMapper" ref="tdrUserDetailsContextMapper"/>
     	<beans:property name="useAuthenticationRequestCredentials" value="true"/>

@@ -22,7 +22,6 @@ public class AuditMasterDataModel extends ListDataModel<AuditMaster> implements 
 	}
 	
 	@SuppressWarnings("unchecked")
-	@Override
 	public AuditMaster getRowData(String rowkey) {
 		  List<AuditMaster> AuditMasterList = (List<AuditMaster>) getWrappedData();
 	        Integer rowKeyInt = Integer.parseInt(rowkey);
@@ -37,7 +36,6 @@ public class AuditMasterDataModel extends ListDataModel<AuditMaster> implements 
 		
 	}
 
-	@Override
 	public Object getRowKey(AuditMaster AuditMaster) {
 		
 		return AuditMaster.getId();

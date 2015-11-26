@@ -49,8 +49,12 @@ public class ActiveDirectoryServiceImpl implements	ActiveDirectoryService {
 			//logger.info("LDAP Connection: COMPLETE");
 		} catch (NamingException nex) {
 		//	logger.error("LDAP Connection: FAILED");
-			// nex.printStackTrace();
+			 nex.printStackTrace();
 		}
+		catch (Exception nex) {
+			//	logger.error("LDAP Connection: FAILED");
+				 nex.printStackTrace();
+			}
 		return ctx;
 	}
 
@@ -91,7 +95,7 @@ public class ActiveDirectoryServiceImpl implements	ActiveDirectoryService {
 		String searchBase,searchFilter;
 		try {
 			String domain=getDomainBase(XSLTransformer.ldapDomain);
-			String searchUser="(cn="+username+")";
+			String searchUser="(sAMAccountName="+username+")";
 			if(!XSLTransformer.ldapSearchFilter.isEmpty()){
 				searchBase =XSLTransformer.ldapSearchFilter;
 			}
@@ -107,7 +111,7 @@ public class ActiveDirectoryServiceImpl implements	ActiveDirectoryService {
 
 		}
 		catch(Exception e){
-
+				e.printStackTrace();
 
 		}
 		return msg;
