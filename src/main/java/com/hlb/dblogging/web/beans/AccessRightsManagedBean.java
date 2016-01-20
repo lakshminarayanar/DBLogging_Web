@@ -59,6 +59,7 @@ private static final long serialVersionUID = 1L;
 		if(accessRightsList == null || insertDelete == true){
 			
 			accessRightsList = accessRightsService.findAll();
+			insertDelete=Boolean.FALSE;
 		}		
 		return accessRightsList;
 	}

@@ -37,7 +37,7 @@
           <p:messages autoUpdate="true"/>
                <p:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">
            			 <h:outputText value="Group :"></h:outputText>
-                     <h:inputText value="#{roleManagedBean.selectedRole.role}" required="true" requiredMessage="Please Enter Group!" label="Group "><f:validateLength minimum="4" maximum="30"/></h:inputText>
+                     <h:inputText value="#{roleManagedBean.selectedRole.role}" readonly="true"></h:inputText>
            			 <h:outputText value="Description"></h:outputText>
             		 <h:inputText value="#{roleManagedBean.selectedRole.description}" required="true" requiredMessage="please Enter Description" label="Description"><f:validateLength minimum="4" maximum="30"/></h:inputText>
                      <h:outputText value="Assign AccessRights :"></h:outputText>
@@ -49,7 +49,7 @@
           			</p:pickList>
                      <f:facet name="footer">
                             <p:commandButton value="Update" update=":roleTableForm:roleTable"  oncomplete="if(!args.validationFailed)  PF('roleDialog').hide()" validateClient="true" actionListener="#{roleManagedBean.doUpdateRole}"/>
-                            <p:commandButton value="Delete" onclick="PF('cd').show()" oncomplete="PF('roleDialog').hide()"/>                        
+                            &#160;&#160;&#160; <p:commandButton value="Delete" onclick="PF('cd').show()" oncomplete="PF('roleDialog').hide()"/>                        
                     </f:facet>
               </p:panelGrid>
           </h:form>
@@ -71,7 +71,7 @@
                     
                     <f:facet name="footer">
                             <p:commandButton value="Submit" update=":roleTableForm:roleTable"  oncomplete="if(!args.validationFailed)  PF('newRoleDialog').hide()" validateClient="true" actionListener="#{roleManagedBean.doCreateRole}"/>
-                            <p:commandButton type="reset" value="Reset"></p:commandButton>
+                            &#160;&#160;&#160; <p:commandButton type="reset" value="Clear"></p:commandButton>
                     </f:facet>
               </p:panelGrid>
          </h:form>

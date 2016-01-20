@@ -94,6 +94,11 @@ public class ActiveDirectoryServiceImpl implements	ActiveDirectoryService {
 		SearchControls  searchControls=getSearchControls();
 		String searchBase,searchFilter;
 		try {
+			
+			System.out.println("********************* Username : "+XSLTransformer.ldapUsername);
+			System.out.println("********************* Password : "+XSLTransformer.ldapPassword);
+			System.out.println("********************* URL : "+XSLTransformer.ldapUrl);
+			
 			String domain=getDomainBase(XSLTransformer.ldapDomain);
 			String searchUser="(sAMAccountName="+username+")";
 			if(!XSLTransformer.ldapSearchFilter.isEmpty()){

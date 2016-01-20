@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.faces.application.FacesMessage;
@@ -13,17 +14,21 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.naming.ldap.LdapContext;
 
+import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.io.IOUtils;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.DualListModel;
 import org.primefaces.model.UploadedFile;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.stereotype.Component;
 
 import com.hlb.dblogging.app.activedirectory.service.ActiveDirectoryService;
 import com.hlb.dblogging.app.context.FacesUtil;
 import com.hlb.dblogging.exception.utility.BSLException;
+import com.hlb.dblogging.jpa.model.AccessRights;
 import com.hlb.dblogging.jpa.model.ConfigurationProperties;
 import com.hlb.dblogging.jpa.model.Role;
 import com.hlb.dblogging.jpa.model.Users;
@@ -40,6 +45,7 @@ import com.hlb.dblogging.xml.utility.XSLTransformer;
 
 @Component
 @ViewScoped
+@Scope("session")
 public class UsersManagedBean implements Serializable {
 
 	/**
@@ -195,6 +201,7 @@ public class UsersManagedBean implements Serializable {
 		if(usersDataModel==null || dmlOperationPerformed){
 			ApplLogger.getLogger().info("Entering to get the datamodel..");
 			usersDataModel = new UsersDataModel(getUsersListFromDatabase());
+			dmlOperationPerformed = Boolean.FALSE;
 		}
 		return usersDataModel;
 	}
@@ -301,10 +308,14 @@ public class UsersManagedBean implements Serializable {
 
 	           // nex.printStackTrace();
 	        }
-			boolean valid=activeDirectoryService.checkUserinAD(newUsername,context);
+			boolean valid=false;
+			if(context!=null)
+			 valid=activeDirectoryService.checkUserinAD(newUsername,context);
+			else
+				throw new RuntimeException("Connnection to the LDAP Failed, Super user parameters are incorrect.. ");
 			
 			if(!valid){
-				String msg="User doesn't exist in active directory";
+				String msg="User doesn't exist in Active Directory or User is not assigned to Active Directory domain using by the application";
 				System.out.println(msg);
 				ApplLogger.getLogger().error(msg);
 				 FacesMessage msg1 = new  FacesMessage("ERROR : "+msg);
@@ -361,6 +372,23 @@ public void doUpdateUser(){
 			List<Role> selectedRoleList = dualRoleList.getTarget();
 			HashSet<Role> selectedRoleSet = new HashSet<Role>();
 			selectedRoleSet.addAll(selectedRoleList);
+			Map<String,String> accessRightsMap = new HashedMap();
+			
+			// Check whether the access rights are duplicated by groups
+			for (Role role : selectedRoleSet) {
+		     Set<AccessRights>		currentRoleAccessrights =    role.getAccessRights();
+		     for (AccessRights accessRights : currentRoleAccessrights) {
+		    	 if(!accessRightsMap.containsKey(accessRights.getAccessRights()))
+		    		 accessRightsMap.put(accessRights.getAccessRights(), accessRights.getDescription());
+		    	 else{
+		    		 FacesMessage msg = new FacesMessage("ERROR : Same accecss right in multiple groups, please remove the duplicate group or access right");
+				     msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+				     FacesContext.getCurrentInstance().addMessage(null, msg);
+				     return;
+		    	 }
+			}
+			}
+			
 			selectedUser.setUserRoles(selectedRoleSet);
 			selectedUser.setLastModifiedBy(loggedInUser.getUsername());
 			getUsersService().update(selectedUser);
@@ -370,8 +398,10 @@ public void doUpdateUser(){
 			
 		}catch(Exception e){
 			
-			FacesMessage msg = new FacesMessage("ERROR : Not able to update user in the System");
-			 FacesContext.getCurrentInstance().addMessage(null, msg);  
+				FacesMessage msg = new FacesMessage("ERROR : Not able to update user details in the System");
+				msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+				FacesContext.getCurrentInstance().addMessage(null, msg);  
+				e.printStackTrace();
 		}
 	}
 	

@@ -42,12 +42,12 @@
            <p:messages autoUpdate="true"/>
            <p:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">
             <h:outputText value="Name :"></h:outputText>
-            <h:inputText value="#{accessRightsManagedBean.selectedAccessRights.accessRights}" required="true" requiredMessage="Please Enter Name!" label="Name "><f:validateLength minimum="4"/></h:inputText>
+            <h:inputText value="#{accessRightsManagedBean.selectedAccessRights.accessRights}" readonly="true"><f:validateLength minimum="4"/></h:inputText>
             <h:outputText value="Description"></h:outputText>
             <h:inputText value="#{accessRightsManagedBean.selectedAccessRights.description}" required="true" requiredMessage="please Enter Description" label="Description "><f:validateLength minimum="4"/></h:inputText>
                     <f:facet name="footer">
                             <p:commandButton value="Update" update=":accessRightsTableForm:accessRightsTable"  oncomplete="if(!args.validationFailed)  PF('accessRightsDialog').hide()" validateClient="true" actionListener="#{accessRightsManagedBean.doUpdateAccessRights}"/>
-                            <p:commandButton value="Delete" onclick="PF('cd').show()" oncomplete="PF('accessRightsDialog').hide()"/>                        
+                           &#160;&#160;&#160; <p:commandButton value="Delete" onclick="PF('cd').show()" oncomplete="PF('accessRightsDialog').hide()"/>                        
                             
                     </f:facet>
           </p:panelGrid>
@@ -63,7 +63,7 @@
 			<p:inputText value="#{accessRightsManagedBean.newAccessRights.description}" required="true" requiredMessage="please Enter Description" label="Description "><f:validateLength minimum="4"/></p:inputText>
             <f:facet name="footer">
                             <p:commandButton value="Submit" update=":accessRightsTableForm:accessRightsTable"  oncomplete="if(!args.validationFailed) PF('newAccessRightsDialog').hide()" validateClient="true" actionListener="#{accessRightsManagedBean.doCreateAccessRights}"/>
-                            <p:commandButton type="reset" value="Reset"></p:commandButton>
+                           &#160;&#160;&#160; <p:commandButton type="reset" value="Reset"></p:commandButton>
                     </f:facet>
          </p:panelGrid>
        </h:form>
@@ -71,7 +71,7 @@
       <p:confirmDialog message="Are you sure?" header="Deleting Access Right" severity="alert" widgetVar="cd">	
 		<h:form>
 		  <p:commandButton value="Yes" actionListener="#{accessRightsManagedBean.doDeleteAccessRights}" update=":accessRightsTableForm:accessRightsTable" oncomplete="PF('cd').hide();"/>
-		  <p:commandButton value="No" onclick="PF('cd').hide();PF('accessRightsDialog').show();" type="button" />
+		 &#160;&#160;&#160; <p:commandButton value="No" onclick="PF('cd').hide();PF('accessRightsDialog').show();" type="button" />
 		</h:form>
 		</p:confirmDialog>
   </ui:define>

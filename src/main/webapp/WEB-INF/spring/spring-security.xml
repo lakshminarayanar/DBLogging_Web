@@ -15,9 +15,9 @@
    
 	<beans:bean id="ldapAuthProvider"
 		class="org.springframework.security.ldap.authentication.ad.ActiveDirectoryLdapAuthenticationProvider">
-		<beans:constructor-arg value="${ldap.domain}" />
-		<beans:constructor-arg value="${ldap.url}" />
-		<beans:constructor-arg value ="${ldap.searchfilter}"/> 
+		<beans:constructor-arg value="${ldap.domain}" name="domain"/>
+		<beans:constructor-arg value="${ldap.url}" name="url"/>
+		<!-- <beans:constructor-arg value ="${ldap.searchfilter}" name="rootDn"/>  -->
 		<beans:property name="convertSubErrorCodesToExceptions"  value="true"/>
 		<beans:property name="userDetailsContextMapper" ref="tdrUserDetailsContextMapper"/>
     	<beans:property name="useAuthenticationRequestCredentials" value="true"/>
@@ -32,7 +32,7 @@
 	 <http auto-config='true' entry-point-ref="LoginUrlAuthenticationEntryPoint"> 
 	 	<custom-filter ref="mySecurityFilter" position="FIRST" />
 	 	<intercept-url pattern="/pages/user/*" access="ROLE_USER"/>
-	 	<form-login always-use-default-target="true" login-page="/login.jsf" authentication-failure-url="/failure.jsf" default-target-url="/pages/user/homePage.jsf?login=success"/>
+	 	<form-login always-use-default-target="false"  login-page="/login.jsf" authentication-failure-url="/login.jsf" default-target-url="/pages/user/homePage.jsf?login=success"/>
 	 	<logout invalidate-session="true" delete-cookies="true" logout-success-url="/login.jsf"/>
 		<anonymous  enabled="false"/>
 	 </http>

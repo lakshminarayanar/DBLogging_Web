@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
@@ -78,6 +77,7 @@ private static final long serialVersionUID = 1L;
 		
 		if(roleList == null || insertDelete == true) {			
 			roleList = roleService.findAll();
+			insertDelete = Boolean.FALSE;
 		}
 		return roleList;
 	}
@@ -127,7 +127,7 @@ private static final long serialVersionUID = 1L;
 		setInsertDelete(true);	
 		
 		auditTrail.log(SystemAuditTrailActivity.CREATED,SystemAuditTrailLevel.INFO, getLoggedInUser().getId(),getLoggedInUser().getUsername(), getLoggedInUser().getUsername() + " has created new Group " + newRole.getRole());
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("SUCCESS : Role  " + newRole.getRole()+ " created successfully"));		
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("SUCCESS : Group  " + newRole.getRole()+ " created successfully"));		
 		newRole = new Role();
 	 }catch(BSLException e){
 		//FacesMessage msg = new FacesMessage("Error",getExcptnMesProperty(e.getMessage()));  
@@ -177,7 +177,7 @@ private static final long serialVersionUID = 1L;
 			getRoleService().update(selectedRole);			
 			setInsertDelete(true);
 			auditTrail.log(SystemAuditTrailActivity.UPDATED,SystemAuditTrailLevel.INFO, getLoggedInUser().getId(),getLoggedInUser().getUsername(), getLoggedInUser().getUsername() + " has update Group " + selectedRole.getRole());
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("SUCCESS : Role  " + selectedRole.getRole()+ " updated successfully"));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("SUCCESS : Group  " + selectedRole.getRole()+ " updated successfully"));
 		} catch (BSLException e){
 		//	FacesMessage msg = new FacesMessage("Error",getExcptnMesProperty(e.getMessage()));  
 		//	msg.setSeverity(FacesMessage.SEVERITY_ERROR);  
@@ -207,7 +207,7 @@ private static final long serialVersionUID = 1L;
 			getRoleService().delete(selectedRole.getId());			
 			setInsertDelete(true);
 			auditTrail.log(SystemAuditTrailActivity.UPDATED,SystemAuditTrailLevel.INFO, getLoggedInUser().getId(),getLoggedInUser().getUsername(), getLoggedInUser().getUsername() + " has deleted Group " + selectedRole.getRole());
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("SUCCESS : Role  " + selectedRole.getRole()+ " deleted successfully"));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("SUCCESS : Group  " + selectedRole.getRole()+ " deleted successfully"));
 		//	new Refresh().refreshPage();
 		} catch (BSLException e) {
 		//	FacesMessage msg = new FacesMessage("Error",getExcptnMesProperty(e.getMessage()));  

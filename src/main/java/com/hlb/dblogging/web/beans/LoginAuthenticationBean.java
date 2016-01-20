@@ -15,6 +15,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -31,6 +32,7 @@ import com.hlb.dblogging.user.audit.logging.SystemAuditTrailLevel;
 
 @Component(value="loginAuthenticationBean")
 @SessionScoped
+@Scope("session")
 public class LoginAuthenticationBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;

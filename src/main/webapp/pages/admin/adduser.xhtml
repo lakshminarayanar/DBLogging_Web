@@ -18,7 +18,7 @@
  	 </h:form>
  	 <br/><br/>
 	<h:form id="userTableForm">
-	<p:messages autoUpdate="true" showDetail="true" />
+	<p:messages autoUpdate="true" />
         <p:dataTable id="userTable" widgetVar="usersTable" var="user" value="#{usersManagedBean.usersDataModel}" rowKey="#{user.id}"
                  selection="#{usersManagedBean.selectedUser}" selectionMode="single" 
                  rows="10" paginator="true" paginatorPosition="bottom" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}  {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15" >
@@ -33,14 +33,14 @@
       </p:dataTable>
     </h:form>
     <br/>
-    <p:growl id="growl" showDetail="true" life="1000"/> 
+    <p:growl id="growl" life="1000"/> 
  	 		
- 	    <p:dialog header="User Details" styleClass="dlgCSS" widgetVar="userDialog" resizable="false" id="userDlg" modal ="true">
+ 	    <p:dialog header="User Details" styleClass="dlgCSS" widgetVar="userDialog" resizable="false" id="userDlg" modal ="true" closeOnEscape="true">
                <h:form id="userDetailForm">
                <p:messages autoUpdate="true"/>
                 <p:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">
             		<h:outputText value="Username :"></h:outputText>
-                        <p:inputText value="#{usersManagedBean.selectedUser.username}" required="true" requiredMessage="Please Enter Username!" label="Username "> <f:validateLength minimum="4" maximum="30"/></p:inputText>
+                        <p:inputText value="#{usersManagedBean.selectedUser.username}" readonly="true"> <f:validateLength minimum="4" maximum="30"/></p:inputText>
             			<h:outputText value="Domain :"></h:outputText>
                         <p:inputText value="#{usersManagedBean.selectedUser.domain}" required="true" requiredMessage="Please Enter Domain!" label="Domain ">  <f:validateLength minimum="4" maximum="30"/></p:inputText>
                     	
@@ -53,20 +53,20 @@
                       
     					<p:pickList id="accessRightsPickList" value="#{usersManagedBean.dualRoleList}"
 	          				var="role0" converter="rolePickListConverter" itemValue="#{role0}" itemLabel="#{role0.description}" >
-	          	 			<f:facet name="sourceCaption">Unassigned  Roles</f:facet>  
-	        				<f:facet name="targetCaption">Assigned Roles</f:facet>  
+	          	 			<f:facet name="sourceCaption">Unassigned  Groups</f:facet>  
+	        				<f:facet name="targetCaption">Assigned Groups</f:facet>  
           				</p:pickList>
                     <f:facet name="footer">
                             <p:commandButton value="Update" update=":userTableForm:userTable"  oncomplete="if(!args.validationFailed) PF('userDialog').hide()" actionListener="#{usersManagedBean.doUpdateUser}" validateClient="true"/>
-                            <p:commandButton value="Delete" onclick="PF('cd').show()" oncomplete="PF('userDialog').hide()"/>
+                            &#160;&#160;&#160;<p:commandButton value="Delete" onclick="PF('cd').show()" oncomplete="PF('userDialog').hide()"/>
                     </f:facet>
                 </p:panelGrid>
              </h:form>
       </p:dialog>
           
-      <p:dialog header="Create New User" styleClass="dlgCSS" widgetVar="newUserDialog" resizable="false" id="newUserDlg"  modal ="true">
+      <p:dialog header="Create New User" styleClass="dlgCSS" widgetVar="newUserDialog" resizable="false" id="newUserDlg"  modal ="true" closeOnEscape="true">
               <h:form id="newUserForm">
-              <p:messages autoUpdate="true" showDetail="true" />
+              <p:messages autoUpdate="true"  />
                 <p:panelGrid id="displayNewUser" columns="2" cellpadding="4" style="margin:0 auto;">
             			<h:outputText value="Username :"></h:outputText>
                         <p:inputText value="#{usersManagedBean.newUser.username}" required="true" requiredMessage="Please Enter Username!" label="Username "> <f:validateLength minimum="4" maximum="30"/></p:inputText>
@@ -88,7 +88,7 @@
           				</p:pickList>
                     	<f:facet name="footer">
                             <p:commandButton value="Submit" update=":userTableForm:userTable"  oncomplete="if(!args.validationFailed) PF('newUserDialog').hide()" validateClient="true" actionListener="#{usersManagedBean.doCreateUser}"/>
-                            &#160;&#160;&#160;<p:commandButton type="reset" value="Reset"></p:commandButton>
+                            &#160;&#160;&#160;<p:commandButton type="reset" value="Clear"></p:commandButton>
                     	</f:facet>
                 </p:panelGrid>
               </h:form>

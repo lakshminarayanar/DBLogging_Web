@@ -16,6 +16,7 @@ import org.primefaces.event.SelectEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.hlb.dblogging.jpa.model.AuditMaster;
@@ -27,6 +28,7 @@ import com.hlb.dblogging.model.AuditMasterDataModel;
 
 @Component
 @ViewScoped
+@Scope("session")
 public class AuditMasterManagedBean implements Serializable{
 	
 	/**
