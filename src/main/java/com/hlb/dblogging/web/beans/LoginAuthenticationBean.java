@@ -48,6 +48,8 @@ public class LoginAuthenticationBean implements Serializable {
 	private String oldPassword;
 	private String newPassword;
 	
+	private Boolean normalUser=Boolean.FALSE;
+	
 	@Autowired
 	private AuditTrail auditTrail;
 	
@@ -75,8 +77,12 @@ public class LoginAuthenticationBean implements Serializable {
 		this.password = password;
 	}
 	
-	
-	
+	public Boolean getNormalUser() {
+		return normalUser;
+	}
+	public void setNormalUser(Boolean normalUser) {
+		this.normalUser = normalUser;
+	}
 	public Boolean getWrongPassword() {
 		return wrongPassword;
 	}
@@ -118,7 +124,7 @@ public class LoginAuthenticationBean implements Serializable {
 	public String doLogin() throws ServletException, IOException{
 		
 		ApplLogger.getLogger().info("Authenticate here...!!!");
-		ApplLogger.getLogger().info("Given username : "+username+" and password : "+password);
+		//ApplLogger.getLogger().info("Given username : "+username+" and password : "+password);
 		// TODO: Write the code to check user in database and then get list of Authorities.
 		if(!checkUserExistInDatabase()){
 			ApplLogger.getLogger().info("username not found in the application database : "+username);
@@ -139,6 +145,10 @@ public class LoginAuthenticationBean implements Serializable {
 		if(auth!=null){
 			ApplLogger.getLogger().info("Authentication is successful..");
 			initUsers();
+			
+			if(accessRightsSet.contains("USER_HOME"))	
+				normalUser = Boolean.TRUE;
+			
 		}else{
 			ApplLogger.getLogger().info("Authentication is failed for user :"+username);
 			wrongPassword=true;

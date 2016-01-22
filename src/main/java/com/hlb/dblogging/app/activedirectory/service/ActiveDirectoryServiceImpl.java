@@ -1,11 +1,8 @@
 package com.hlb.dblogging.app.activedirectory.service;
 
 
-import java.util.Date;
 import java.util.Hashtable;
-import java.util.List;
 
-import javax.annotation.Resource;
 import javax.naming.Context;
 import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
@@ -15,7 +12,6 @@ import javax.naming.ldap.InitialLdapContext;
 import javax.naming.ldap.LdapContext;
 
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hlb.dblogging.log.utility.ApplLogger;

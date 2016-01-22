@@ -7,8 +7,24 @@
 	xmlns:pe="http://primefaces.org/ui/extensions">
 
 <ui:composition template="/templates/userlayout.xhtml">
-<ui:define name="title">DBLogging Web Message Viewer</ui:define>
-<ui:define name="content">
+
+
+<ui:define name="title">
+
+<c:choose>
+<c:when test="${loginAuthenticationBean.normalUser}">
+	DBLogging Web Message Viewer
+</c:when>
+</c:choose>
+<c:otherwise>
+	Admin Homepage
+</c:otherwise>
+</ui:define>
+<ui:define name="content" >
+
+<c:choose>
+<c:when test="${loginAuthenticationBean.normalUser}">
+
 
 	<p:panel id="toggleable" header="Advanced Search" toggleable="true" closable="true" toggleSpeed="500" closeSpeed="500" widgetVar="panel" style="margin-bottom:20px">
  		<h:form  id="searchForm" class="form-inline no-margin">
@@ -58,6 +74,16 @@
 		  </h:form>
 	  </p:panel>
 	  <br/>
+	  
+	  </c:when>
+</c:choose>
+<c:otherwise>
+	<p:panel id="adminHomePage" header="Admin Homepage"  toggleSpeed="500" closeSpeed="500" widgetVar="panel" style="margin-bottom:20px">
+			<div >
+				Welcome Back, <h:outputText value="#{loginAuthenticationBean.username}" style="text-transform: capitalize;" /> !
+			</div><br/><br/><br/>
+			</p:panel>
+</c:otherwise>
 </ui:define>
 <ui:define name="dialog">
 			<p:dialog header="Message Listing" style="font-family: Raleway,sans-serif !important;"  widgetVar="messageDialog" resizable="true" closeOnEscape="true"  id="messageDlg" modal="true"  height="550px" width="1050px">
