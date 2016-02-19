@@ -32,7 +32,7 @@
 	 <http auto-config='true' entry-point-ref="LoginUrlAuthenticationEntryPoint"> 
 	 	<custom-filter ref="mySecurityFilter" position="FIRST" />
 	 	<intercept-url pattern="/pages/user/*" access="ROLE_USER"/>
-	 	<form-login always-use-default-target="false"  login-page="/login.jsf" authentication-failure-url="/login.jsf" default-target-url="/pages/user/homePage.jsf?login=success"/>
+	 	<form-login always-use-default-target="false"  login-page="/login.jsf"  default-target-url="/pages/user/homePage.jsf?login=success"/>
 	 	<logout invalidate-session="true" delete-cookies="true" logout-success-url="/login.jsf"/>
 		<anonymous  enabled="false"/>
 	 </http>

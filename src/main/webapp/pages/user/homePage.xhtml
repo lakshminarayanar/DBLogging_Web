@@ -21,7 +21,6 @@
 </c:otherwise>
 </ui:define>
 <ui:define name="content" >
-
 <c:choose>
 <c:when test="${loginAuthenticationBean.normalUser}">
 
@@ -45,9 +44,9 @@
 						<h:outputText value="Segment"></h:outputText>
 						<p:inputText id="segmentId" type="text" value="#{auditMasterManagedBean.searchBean.segment}"  />
 						<h:outputText value="Transaction Start Date"></h:outputText>
-						<p:calendar pattern="MM/dd/yyyy HH:mm:ss" mode="popup" navigator="true" id="TransactionStartDateTimeId" value="#{auditMasterManagedBean.transactionStartDateTime}"  ></p:calendar>
+						<p:calendar pattern="dd/MM/yyyy HH:mm:ss" mode="popup" navigator="true" id="TransactionStartDateTimeId" value="#{auditMasterManagedBean.transactionStartDateTime}"  ></p:calendar>
 						<h:outputText value="Transaction End Date"></h:outputText>
-						<p:calendar pattern="MM/dd/yyyy HH:mm:ss" mode="popup" navigator="true" id="TransactionEndDateTimeId" value="#{auditMasterManagedBean.transactionEndDateTime}"  ></p:calendar>
+						<p:calendar pattern="dd/MM/yyyy HH:mm:ss" mode="popup" navigator="true" id="TransactionEndDateTimeId" value="#{auditMasterManagedBean.transactionEndDateTime}"  ></p:calendar>
 			</p:panelGrid>
 			<br/><br/>
 			<div align="center">	
@@ -63,27 +62,27 @@
 			 		selection="#{auditMasterManagedBean.selectedMessage}"  selectionMode="single"  emptyMessage="No records found !!!"
 			 		rows="10" paginator="true" paginatorPosition="bottom" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}  {RowsPerPageDropdown}" rowsPerPageTemplate="10,20,30" >
 					<p:ajax  event="rowSelect" listener="#{auditMasterManagedBean.onRowSelect}" update=":searchResultListForm,:messageDialogForm" oncomplete="PF('messageDialog').show();" />
-		          <p:column id="uniqueProcessIdHeader" sortBy="#{auditMasterVar.uniqueProcessId}"><f:facet name="header">Unique PID</f:facet><h:outputText value="#{auditMasterVar.uniqueProcessID}"  title="#{auditMasterVar.uniqueProcessID}"/></p:column>
+		          <p:column id="uniqueProcessIdHeader" sortBy="#{auditMasterVar.uniqueProcessID}"><f:facet name="header">Unique PID</f:facet><h:outputText value="#{auditMasterVar.uniqueProcessID}"  title="#{auditMasterVar.uniqueProcessID}"/></p:column>
 		          <p:column id="appTransIdHeader" sortBy="#{auditMasterVar.applicationTransactionId}"><f:facet name="header">App TransID </f:facet><h:outputText value="#{auditMasterVar.applicationTransactionId}" /> </p:column>
 		          <p:column id="applicationNameHeader" sortBy="#{auditMasterVar.applName}"><f:facet name="header"> App Name </f:facet><h:outputText value="#{auditMasterVar.applName}" /> </p:column>
 		          <p:column id="statusCodeHeader" sortBy="#{auditMasterVar.messageFormat}"><f:facet name="header">Msg Format</f:facet><h:outputText value="#{auditMasterVar.messageFormat}" /> </p:column>
 		          <p:column id="transTypeHeader" sortBy="#{auditMasterVar.transType}"><f:facet name="header">Trans Type</f:facet><h:outputText value="#{auditMasterVar.transType}" /></p:column>
 		          <p:column id="segmentHeader" sortBy="#{auditMasterVar.segment}"><f:facet name="header">Segment</f:facet><h:outputText value="#{auditMasterVar.segment}" /></p:column>
-		          <p:column id="transTimeHeader" sortBy="#{auditMasterVar.transDateTime}"><f:facet name="header">Trans Date</f:facet><h:outputText value="#{auditMasterVar.transDateTime}" ><f:convertDateTime pattern="YYYY-MM-dd" /></h:outputText></p:column>
+		          <p:column id="transTimeHeader" sortBy="#{auditMasterVar.requestDateTime}"><f:facet name="header">Trans Date</f:facet><h:outputText value="#{auditMasterVar.requestDateTime}" style="white-space: pre;"></h:outputText></p:column>
 		    </p:dataTable>
 		  </h:form>
 	  </p:panel>
 	  <br/>
 	  
 	  </c:when>
-</c:choose>
 <c:otherwise>
-	<p:panel id="adminHomePage" header="Admin Homepage"  toggleSpeed="500" closeSpeed="500" widgetVar="panel" style="margin-bottom:20px">
+	<p:panel id="adminHomePage" header="Admin Homepage" toggleSpeed="500" closeSpeed="500" widgetVar="panel" style="margin-bottom:20px">
 			<div >
 				Welcome Back, <h:outputText value="#{loginAuthenticationBean.username}" style="text-transform: capitalize;" /> !
 			</div><br/><br/><br/>
 			</p:panel>
 </c:otherwise>
+</c:choose>
 </ui:define>
 <ui:define name="dialog">
 			<p:dialog header="Message Listing" style="font-family: Raleway,sans-serif !important;"  widgetVar="messageDialog" resizable="true" closeOnEscape="true"  id="messageDlg" modal="true"  height="550px" width="1050px">
@@ -93,12 +92,12 @@
 		 <p:dataTable id="auditMasterListTable" widgetVar="auditMasterList" var="auditMasterMessageVar" value="#{auditMasterManagedBean.searchResultDataModel}" rowKey="#{auditMasterMessageVar.id}" 
 		 		selection="#{auditMasterManagedBean.selectedMessage}"  emptyMessage="No records found !!!"
 		 		rows="5" paginator="true" paginatorPosition="bottom" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"  >
-	          <p:column id="uniqueProcessIdHeader" sortBy="#{auditMasterMessageVar.uniqueProcessId}"><f:facet name="header">Unique PID</f:facet><h:outputText value="#{auditMasterMessageVar.uniqueProcessID}" /></p:column>
+	          <p:column id="uniqueProcessIDHeader" sortBy="#{auditMasterMessageVar.uniqueProcessID}"><f:facet name="header">Unique PID</f:facet><h:outputText value="#{auditMasterMessageVar.uniqueProcessID}" /></p:column>
 	          <p:column id="applicationNameHeader" sortBy="#{auditMasterMessageVar.applName}"><f:facet name="header"> App Name </f:facet><h:outputText value="#{auditMasterMessageVar.applName}" /> </p:column>
 	          <p:column id="statusCodeHeader" sortBy="#{auditMasterMessageVar.messageFormat}"><f:facet name="header">Msg Format</f:facet><h:outputText value="#{auditMasterMessageVar.messageFormat}" /> </p:column>
 	          <p:column id="transTypeHeader" sortBy="#{auditMasterMessageVar.transType}"><f:facet name="header">Trans Type</f:facet><h:outputText value="#{auditMasterMessageVar.transType}" /></p:column>
 	          <!-- <p:column id="segmentHeader" sortBy="#{auditMasterMessageVar.segment}"><f:facet name="header">Segment</f:facet><h:outputText value="#{auditMasterMessageVar.segment}" /></p:column> -->
-	          <p:column id="transTimeHeader" sortBy="#{auditMasterMessageVar.transDateTime}"><f:facet name="header">Trans Date</f:facet><h:outputText value="#{auditMasterMessageVar.transDateTime}" style="white-space: pre;"/></p:column>
+	          <p:column id="transTimeHeader" sortBy="#{auditMasterMessageVar.requestDateTime}"><f:facet name="header">Trans Date</f:facet><h:outputText value="#{auditMasterMessageVar.requestDateTime}" style="white-space: pre;"/></p:column>
 	          <p:column id="buttonHeader" style="width: 91px;"><f:facet name="header">Message</f:facet> <p:commandButton ajax="true" actionListener="#{auditMasterManagedBean.onMessageRowSelect(auditMasterMessageVar.id)}" update=":messageDialogForm"  icon="ui-icon-search" value="View"></p:commandButton> </p:column>
 	    </p:dataTable>
 	  </h:form>

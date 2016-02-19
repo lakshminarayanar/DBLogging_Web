@@ -43,6 +43,7 @@ public class LoginAuthenticationBean implements Serializable {
 	private String username;
 	private String password;
 	private Boolean wrongPassword;
+	private Boolean userNotExisted;
 	
 	private Users actorUsers;
 	private String oldPassword;
@@ -64,6 +65,13 @@ public class LoginAuthenticationBean implements Serializable {
 		ApplLogger.getLogger().info("@@@@@@@@@@@ LoginAuthenticationBean object created... @@@@@@@@@");
 	}
 	
+	
+	public Boolean getUserNotExisted() {
+		return userNotExisted;
+	}
+	public void setUserNotExisted(Boolean userNotExisted) {
+		this.userNotExisted = userNotExisted;
+	}
 	public String getUsername() {
 		return username;
 	}
@@ -128,10 +136,8 @@ public class LoginAuthenticationBean implements Serializable {
 		// TODO: Write the code to check user in database and then get list of Authorities.
 		if(!checkUserExistInDatabase()){
 			ApplLogger.getLogger().info("username not found in the application database : "+username);
-			FacesMessage msg = new FacesMessage("User is not registered, Contact Admin to give accesss permissions","username not found in database"); 
-			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
-			FacesContext.getCurrentInstance().addMessage("login.jsf", msg); 
-			FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
+			userNotExisted = Boolean.TRUE;
+			wrongPassword=Boolean.FALSE;
 			return "/login.jsf?faces-redirect=true";
 		}
 		populateAccessRightsSet();
@@ -144,6 +150,7 @@ public class LoginAuthenticationBean implements Serializable {
 		Authentication auth=SecurityContextHolder.getContext().getAuthentication();
 		if(auth!=null){
 			ApplLogger.getLogger().info("Authentication is successful..");
+			wrongPassword=Boolean.FALSE;
 			initUsers();
 			
 			if(accessRightsSet.contains("USER_HOME"))	
@@ -151,26 +158,24 @@ public class LoginAuthenticationBean implements Serializable {
 			
 		}else{
 			ApplLogger.getLogger().info("Authentication is failed for user :"+username);
-			wrongPassword=true;
-			FacesMessage msg = new FacesMessage("username and password does not match!!!","username and password does not match!!!"); 
-			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
-			FacesContext.getCurrentInstance().addMessage("login.jsf", msg); 
-			FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
-			return "/login.jsf?faces-redirect=true";
+			wrongPassword=Boolean.TRUE;
+			userNotExisted = Boolean.FALSE;
+			return null;
 		}
 		}else{
+			
 			// TODO: Write code for checking password and if wrong, return to login page else get list of Authorities.
 			initUsers();
 			System.out.println("Password from the database user is : "+actorUsers.getPassword());
 			
 			PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-			if(passwordEncoder.matches(password,actorUsers.getPassword()))
+			if(passwordEncoder.matches(password,actorUsers.getPassword())){
+				userNotExisted = Boolean.FALSE;
 				System.out.println("Admin user is authenticated successfully... ");
+			}
 			else{
-				FacesMessage msg = new FacesMessage("Admin password is wrong"); 
-				msg.setSeverity(FacesMessage.SEVERITY_ERROR);
-				FacesContext.getCurrentInstance().addMessage("login.jsf", msg); 
-				FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
+				wrongPassword=Boolean.TRUE;
+				userNotExisted = Boolean.FALSE;
 				return "/login.jsf?faces-redirect=true";
 			}
 			ApplLogger.getLogger().info("Logged in user is Admin...");
@@ -198,6 +203,7 @@ public class LoginAuthenticationBean implements Serializable {
 		ApplLogger.getLogger().info("Logged out successsfuly...!");
 		username=null;
 		password=null;
+		wrongPassword=false;
 		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/login.jsf");
 	 }
 	

@@ -38,7 +38,7 @@
   	 
   	 <h2>ESB Monitoring Console</h2>
         <h:form id="loginForm" prependId="false">
-            <p:growl id="growl" sticky="true" display="text" />
+            <p:growl id="growl" sticky="true" display="text" autoUpdate="true" />
 	            <p:panelGrid id="panel" columns="2" styleClass="loginHeaderGrid" style="margin-left: auto; margin-right: auto;"> 
 	                <f:facet name="header">
 	                     Enter Valid Details
@@ -51,6 +51,20 @@
 	                   <p:commandButton id="loginButton" styleClass="btn btn-success block" ajax="false"  tabindex="-1" style="width: 100%;" value="Login" action="#{loginAuthenticationBean.doLogin}"  />
 	                </f:facet>              
 	            </p:panelGrid>
+	            <c:if test="#{loginAuthenticationBean.wrongPassword}" >
+	           <br/><br/>
+	            <p:panel>
+	               <br/> <h3 style="color: red;"> Authentication failed,  <h:outputText value="#{loginAuthenticationBean.username}"/> credential doesn't match..!</h3> <br/>
+	            </p:panel>
+	            </c:if>
+	              <c:if test="#{loginAuthenticationBean.userNotExisted}" >
+	           <br/><br/>
+	            <p:panel>
+	               <br/> <h3 style="color: red;"> User  <h:outputText value="#{loginAuthenticationBean.username}"/> is not registered, Contact Admin to give accesss permissions..!</h3> <br/>
+	            </p:panel>
+	            </c:if>
+	            
+	            
         </h:form> 
         <br/><br/><br/><br/>  
             <ui:include src="/templates/footer.xhtml" />             
