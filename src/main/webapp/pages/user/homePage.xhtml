@@ -50,8 +50,8 @@
 			</p:panelGrid>
 			<br/><br/>
 			<div align="center">	
+  				<p:commandButton value="Search"  actionListener="#{auditMasterManagedBean.doSearch}" update=":searchResultForm:auditMasterTable" styleClass="btn btn-success block" tabindex="-1" style="width: 200px;margin-right: 10px;"></p:commandButton>
 				<p:commandButton value="Clear"   update="searchForm,:searchResultForm" immediate="true" process="@this" actionListener="#{auditMasterManagedBean.reset}"  styleClass="btn btn-success block" tabindex="-1" style="width: 200px;margin-right: 10px;" />
-  				<p:commandButton value="Search"  actionListener="#{auditMasterManagedBean.doSearch}" update=":searchResultForm:auditMasterTable" styleClass="btn btn-success block" tabindex="-1" style="width: 200px;"></p:commandButton>
   			</div>
 		</h:form>
     </p:panel>

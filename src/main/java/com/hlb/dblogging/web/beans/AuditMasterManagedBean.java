@@ -203,11 +203,12 @@ public class AuditMasterManagedBean implements Serializable{
 		}
     } 
 	
-	public void onMessageRowSelect(String auditMasterId) {  
+	public void onMessageRowSelect(Long auditMasterId) {  
 		try{
-        selectedRecord = searchResultDataModel.getRowData(auditMasterId);
+		ApplLogger.getLogger().info("Record selected with auditmaster id : "+auditMasterId + " for the uniqueprocess id : "+selectedRecord.getUniqueProcessID());
+        selectedRecord = searchResultDataModel.getRowData(auditMasterId.toString());
         ApplLogger.getLogger().info("Message selected with unique ID is : "+selectedRecord.getUniqueProcessID());
-        messageContent = auditDetailService.getMessageContentFormatted(selectedRecord.getMessageFormat(), auditMasterId,selectedRecord.getTransType());
+        messageContent = auditDetailService.getMessageContentFormatted(selectedRecord.getMessageFormat(), auditMasterId.toString(),selectedRecord.getTransType());
         ApplLogger.getLogger().info("Formatted Message Is : "+messageContent);
 		}catch(Exception e){
 			ApplLogger.getLogger().error("Error while finding the content of given message : "+selectedRecord.getUniqueProcessID(),e);
