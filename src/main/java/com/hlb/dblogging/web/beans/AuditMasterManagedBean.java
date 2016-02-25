@@ -246,7 +246,7 @@ public class AuditMasterManagedBean implements Serializable{
 	
 		
 	public StreamedContent getFile() {
-		InputStream stream = new ByteArrayInputStream(messageContent.getBytes());		// Check the message format, if it is xml, directly download the content else, download as text file
+		InputStream stream = new ByteArrayInputStream((messageContent!=null)?messageContent.getBytes():"No content found".getBytes());		// Check the message format, if it is xml, directly download the content else, download as text file
 		if("XML".equalsIgnoreCase(selectedRecord.getMessageFormat()))
 			file = new DefaultStreamedContent(stream, "text/xml", selectedRecord.getUniqueProcessID()+".xml");
 		else
