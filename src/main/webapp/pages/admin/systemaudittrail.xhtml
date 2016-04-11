@@ -1,0 +1,43 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:pe="http://primefaces.org/ui/extensions" >
+    
+	<ui:composition template="/templates/userlayout.xhtml">
+ 	<ui:define name="title">Audit Logs</ui:define>
+ 	<ui:define name="content">
+ 	<table width="100%">
+	        <tr>
+	          	<td align="right">
+	 	 			<span style="color: grey;" >SY0404</span>
+	 			</td>
+	        </tr>
+	        
+	        <tr>      
+		      	 <td>
+					<h1>Audit Logs</h1>
+				 </td>
+	 		</tr>
+	 	</table>
+ 	
+		<h:form id="systemAuditTrailTableForm">	
+		<p:messages autoUpdate="true"  globalOnly="true"/>
+        <p:dataTable id="systemAuditTrailTable"  var="systemAuditTrail0" value="#{systemAuditTrailManagedBean.systemAuditTrailDataModel}" widgetVar="systemAuditTrailSearch" rowKey="#{systemAuditTrail0.id}"
+                 							 scrollable="true"  selectionMode="single" emptyMessage="No data found with given criteria" 
+                 						 paginator="true" rows="20" 	paginatorPosition="bottom" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}  {RowsPerPageDropdown}" rowsPerPageTemplate="20,50,100" >
+          
+          	<p:column  	width="10%" sortBy="#{systemAuditTrail0.id}" ><f:facet name="header"> ID</f:facet><h:outputText value="#{systemAuditTrail0.id}" /></p:column>
+          	<p:column  	width="12%"	sortBy="#{systemAuditTrail0.actorUsername}" ><f:facet name="header"> Username</f:facet><h:outputText value="#{systemAuditTrail0.actorUsername}" /></p:column>  
+          	<p:column   width="12%" sortBy="#{systemAuditTrail0.activity}" > <f:facet name="header"> Activity</f:facet><h:outputText value="#{systemAuditTrail0.activity}" /> </p:column>
+          	<p:column   width="30%" sortBy="#{systemAuditTrail0.description}" ><f:facet name="header"> Description</f:facet><h:outputText value="#{systemAuditTrail0.description}" /></p:column>
+	        <p:column   width="20%" styleClass="align:left;" sortBy="#{systemAuditTrail0.date}" ><f:facet  name="header"> Action Date</f:facet><h:outputText value="#{systemAuditTrail0.date}" styleClass="align:right;">  <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" /> </h:outputText> </p:column>
+       </p:dataTable>
+       </h:form>
+	      
+       <p:growl id="growl" showDetail="true" life="1000"/> 
+  </ui:define>
+  </ui:composition>
+</ui:composition>
