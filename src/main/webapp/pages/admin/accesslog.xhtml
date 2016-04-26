@@ -26,11 +26,11 @@
 	<h:form id="accessLogsTableForm">
 		<p:messages autoUpdate="true"  severity="info"/>
 			
-        <p:dataTable id="accessLogsTable" var="accessLog0" value="#{accessLogManagedBean.accessLogDataModel}" widgetVar="accessLogSearch" rowIndexVar="rowIndex" rowKey="#{accessLog0.accessLogId}"
+        <p:dataTable id="accessLogsTable" var="accessLog0" value="#{accessLogManagedBean.accessLogDataModel}" widgetVar="accessLogSearch"  rowKey="#{accessLog0.accessLogId}"
                  							 scrollable="true"  selectionMode="single" emptyMessage="No data found with given criteria" 
                  						 paginator="true" rows="20" sortMode="multiple"	paginatorPosition="bottom" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}  {RowsPerPageDropdown}" rowsPerPageTemplate="20,50,100" >
            
-            <p:column width="8%" headerText="SNo" resizable="true" style="text-align:center" ><h:outputText value="#{rowIndex+1}" /> </p:column>  
+            <!-- <p:column width="8%" headerText="SNo" resizable="true" style="text-align:center" ><h:outputText value="#{rowIndex+1}" /> </p:column>  rowIndexVar="rowIndex"-->  
           	<p:column width="10%" id="idHeader"  resizable="true"  style="text-align:center" sortBy="#{accessLog0.accessLogId}" ><f:facet name="header"> ID</f:facet><h:outputText value="#{accessLog0.accessLogId}" /></p:column>
           	<p:column width="15%" id="actorNameHeader" resizable="true"  style="text-align:center" sortBy="#{accessLog0.actorUsername}" ><f:facet name="header"> Username</f:facet><h:outputText value="#{accessLog0.actorUsername}" /></p:column>  
           	<p:column width="15%" id="activityHeader" resizable="true"  style="text-align:center" sortBy="#{accessLog0.activity}" > <f:facet name="header"> Activity</f:facet><h:outputText value="#{accessLog0.activity}" /> </p:column>

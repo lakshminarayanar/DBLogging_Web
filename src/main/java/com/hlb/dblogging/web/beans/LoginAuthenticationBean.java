@@ -173,6 +173,7 @@ public class LoginAuthenticationBean implements Serializable {
 			ApplLogger.getLogger().info("Authentication is failed for user :"+username);
 			wrongPassword=Boolean.TRUE;
 			userNotExisted = Boolean.FALSE;
+			accessLogService.log(AccessLogActivity.FAILED, AccessLogLevel.INFO, actorUsers.getId(), getUsername(), getUsername() + " has Authentication is failed .");
 			return null;
 		}
 		}else{
@@ -190,6 +191,7 @@ public class LoginAuthenticationBean implements Serializable {
 			else{
 				wrongPassword=Boolean.TRUE;
 				userNotExisted = Boolean.FALSE;
+				accessLogService.log(AccessLogActivity.FAILED, AccessLogLevel.INFO, actorUsers.getId(), getUsername(), getUsername() + " has Authentication is failed.");
 				return "/login.jsf?faces-redirect=true";
 				
 			}
