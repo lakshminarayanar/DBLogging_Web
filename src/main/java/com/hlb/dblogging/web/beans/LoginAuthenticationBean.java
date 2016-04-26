@@ -26,6 +26,9 @@ import com.hlb.dblogging.app.context.FacesUtil;
 import com.hlb.dblogging.jpa.model.Users;
 import com.hlb.dblogging.log.utility.ApplLogger;
 import com.hlb.dblogging.security.users.service.UsersService;
+import com.hlb.dblogging.user.accesslog.logging.AccessLogActivity;
+import com.hlb.dblogging.user.accesslog.logging.AccessLogLevel;
+import com.hlb.dblogging.user.accesslog.logging.AccessLogService;
 import com.hlb.dblogging.user.audit.logging.AuditTrail;
 import com.hlb.dblogging.user.audit.logging.SystemAuditTrailActivity;
 import com.hlb.dblogging.user.audit.logging.SystemAuditTrailLevel;
@@ -50,6 +53,9 @@ public class LoginAuthenticationBean implements Serializable {
 	private String newPassword;
 	
 	private Boolean normalUser=Boolean.FALSE;
+	
+	@Autowired
+	private AccessLogService accessLogService;
 	
 	@Autowired
 	private AuditTrail auditTrail;
@@ -125,8 +131,14 @@ public class LoginAuthenticationBean implements Serializable {
 		this.oldPassword = oldPassword;
 	}
 	
+	// Configured for  Access Logs
 	
-	
+	public AccessLogService getAccessLogService() {
+		return accessLogService;
+	}
+	public void setAccessLogService(AccessLogService accessLogService) {
+		this.accessLogService = accessLogService;
+	}
 	
 	
 	public String doLogin() throws ServletException, IOException{
@@ -152,6 +164,7 @@ public class LoginAuthenticationBean implements Serializable {
 			ApplLogger.getLogger().info("Authentication is successful..");
 			wrongPassword=Boolean.FALSE;
 			initUsers();
+			accessLogService.log(AccessLogActivity.LOGIN, AccessLogLevel.INFO, actorUsers.getId(), getUsername(), getUsername() + " has successfully logged in to the system.");
 			
 			if(accessRightsSet.contains("USER_HOME"))	
 				normalUser = Boolean.TRUE;
@@ -172,11 +185,13 @@ public class LoginAuthenticationBean implements Serializable {
 			if(passwordEncoder.matches(password,actorUsers.getPassword())){
 				userNotExisted = Boolean.FALSE;
 				System.out.println("Admin user is authenticated successfully... ");
+				accessLogService.log(AccessLogActivity.LOGIN, AccessLogLevel.INFO, actorUsers.getId(), getUsername(), getUsername() + " has successfully logged in to the system.");
 			}
 			else{
 				wrongPassword=Boolean.TRUE;
 				userNotExisted = Boolean.FALSE;
 				return "/login.jsf?faces-redirect=true";
+				
 			}
 			ApplLogger.getLogger().info("Logged in user is Admin...");
 			return "/pages/admin/adminhomepage.jsf?faces-redirect=true";
@@ -188,6 +203,27 @@ public class LoginAuthenticationBean implements Serializable {
 		
 	}
 	
+	
+	// Configured for  Access Logs
+	public void loadUserIntoSession()
+	{
+		ApplLogger.getLogger().info("Authenticate loadUserIntoSession  here...!!!");
+		Authentication auth=SecurityContextHolder.getContext().getAuthentication();
+		 Users loggedInUser = (Users) FacesUtil.getSessionMapValue("LOGGEDIN_USER");
+		if(loggedInUser == null) {
+			//setUsername(auth.getName());
+			setUsername(username);
+			initUsers();
+			populateAccessRightsSet();
+			
+		/*	accessLogService.log(AccessLogActivity.LOGIN, AccessLogLevel.INFO, actorUsers.getId(), getUsername(), getUsername() + " has successfully logged in to the system.");
+		//	auditTrail.log(SystemAuditTrailActivity.LOGIN, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getUsername(), getUsername() + " has successfully logged in to the system.");
+			*/
+		
+		} 
+	}
+	
+	
 	private boolean checkUserExistInDatabase() {
 		try{
 		return usersService.findUserExistInApplication(username);
@@ -198,6 +234,11 @@ public class LoginAuthenticationBean implements Serializable {
 	}
 	public void doLogout() throws IOException{
 		//TODO Write logic to log out 
+		
+		// Configured for  Access Logs
+		
+		accessLogService.log(AccessLogActivity.LOGOUT, AccessLogLevel.INFO, actorUsers.getId(), getUsername(), getUsername() + " has successfully logged out of the system.");
+		
 		SecurityContextHolder.clearContext();
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 		ApplLogger.getLogger().info("Logged out successsfuly...!");

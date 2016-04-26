@@ -5,6 +5,8 @@
     xmlns:p="http://primefaces.org/ui"
     xmlns:c="http://java.sun.com/jsp/jstl/core">
  
+
+ 
 <div>
 	<h:form>
 		<p:growl id="messages" />
@@ -23,6 +25,7 @@
 			<p:menuitem value="Users" url="/pages/admin/adduser.jsf" rendered="#{loginAuthenticationBean.hasAccess('USER_MANAGEMENT')}"/>
 			</p:submenu>
 			<p:menuitem value="Audit Logs" url="/pages/admin/systemaudittrail.jsf" rendered="#{loginAuthenticationBean.username eq 'admin'}"/>
+			<p:menuitem value="Access Logs" url="/pages/admin/accesslog.jsf" rendered="#{loginAuthenticationBean.username eq 'admin'}"/>
 			<p:menuitem value="Change Password" url="/pages/admin/adminchangepassword.jsf" rendered="#{loginAuthenticationBean.username eq 'admin'}"/>
 			<f:facet name="options" >
 				<span style="margin-bottom: 10px;margin-top: 7px;display:inline-block;">
