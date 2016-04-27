@@ -23,9 +23,9 @@
 			<p:menuitem value="Access Rights" url="/pages/admin/accessrights.jsf" rendered="#{loginAuthenticationBean.hasAccess('ACCESS_RIGHTS')}" />
 			<p:menuitem value="Groups" url="/pages/admin/groups.jsf" rendered="#{loginAuthenticationBean.hasAccess('GROUPS_MANAGEMENT')}" />
 			<p:menuitem value="Users" url="/pages/admin/adduser.jsf" rendered="#{loginAuthenticationBean.hasAccess('USER_MANAGEMENT')}"/>
+			<p:menuitem value="Access Logs" url="/pages/admin/accesslog.jsf" rendered="#{loginAuthenticationBean.username eq 'admin'}"/>
 			</p:submenu>
 			<p:menuitem value="Audit Logs" url="/pages/admin/systemaudittrail.jsf" rendered="#{loginAuthenticationBean.username eq 'admin'}"/>
-			<p:menuitem value="Access Logs" url="/pages/admin/accesslog.jsf" rendered="#{loginAuthenticationBean.username eq 'admin'}"/>
 			<p:menuitem value="Change Password" url="/pages/admin/adminchangepassword.jsf" rendered="#{loginAuthenticationBean.username eq 'admin'}"/>
 			<f:facet name="options" >
 				<span style="margin-bottom: 10px;margin-top: 7px;display:inline-block;">
