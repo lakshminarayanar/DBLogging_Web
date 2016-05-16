@@ -13,6 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -59,6 +60,20 @@ public class LoginAuthenticationBean implements Serializable {
 	
 	@Autowired
 	private AuditTrail auditTrail;
+	
+	
+	private String sessionTimeout;
+
+
+	public String getSessionTimeout() {
+	   return sessionTimeout;
+	}
+	public void setSessionTimeout(String sessionTimeout) {
+	   this.sessionTimeout = sessionTimeout;
+	}
+
+	
+	
 	
 	public Users getActorUsers() {
 		return actorUsers;
@@ -173,7 +188,7 @@ public class LoginAuthenticationBean implements Serializable {
 			ApplLogger.getLogger().info("Authentication is failed for user :"+username);
 			wrongPassword=Boolean.TRUE;
 			userNotExisted = Boolean.FALSE;
-			accessLogService.log(AccessLogActivity.FAILED, AccessLogLevel.INFO, actorUsers.getId(), getUsername(), getUsername() + " has Authentication is failed .");
+			accessLogService.log(AccessLogActivity.FAILED, AccessLogLevel.INFO, actorUsers.getId(), getUsername(), getUsername() + " Authentication has been failed .");
 			return null;
 		}
 		}else{
@@ -191,11 +206,22 @@ public class LoginAuthenticationBean implements Serializable {
 			else{
 				wrongPassword=Boolean.TRUE;
 				userNotExisted = Boolean.FALSE;
-				accessLogService.log(AccessLogActivity.FAILED, AccessLogLevel.INFO, actorUsers.getId(), getUsername(), getUsername() + " has Authentication is failed.");
+				accessLogService.log(AccessLogActivity.FAILED, AccessLogLevel.INFO, actorUsers.getId(), getUsername(), getUsername() + " Authentication has been failed.");
 				return "/login.jsf?faces-redirect=true";
 				
 			}
 			ApplLogger.getLogger().info("Logged in user is Admin...");
+		
+			HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+		      
+		       int sessiontimeout = session.getMaxInactiveInterval();
+		       
+		       ApplLogger.getLogger().info("sessiontimeout  time checking . :"+sessiontimeout); 
+		       
+		       setSessionTimeout("120000");
+		       
+		       ApplLogger.getLogger().info("sessiontimeout for Admin User..."+sessiontimeout);
+   
 			return "/pages/admin/adminhomepage.jsf?faces-redirect=true";
 		}
 		
@@ -206,7 +232,7 @@ public class LoginAuthenticationBean implements Serializable {
 	}
 	
 	
-	// Configured for  Access Logs
+	
 	public void loadUserIntoSession()
 	{
 		ApplLogger.getLogger().info("Authenticate loadUserIntoSession  here...!!!");
@@ -243,6 +269,7 @@ public class LoginAuthenticationBean implements Serializable {
 		
 		SecurityContextHolder.clearContext();
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+		    
 		ApplLogger.getLogger().info("Logged out successsfuly...!");
 		username=null;
 		password=null;

@@ -6,7 +6,7 @@
 <ui:composition>
    <h:form prependId="false">
       <p:idleMonitor
-         timeout="900000"
+         timeout="#{loginAuthenticationBean.sessionTimeout}"
          onidle="startIdleMonitor()"
          onactive="timeoutDialog.hide()" />
  
